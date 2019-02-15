@@ -19,6 +19,7 @@
     "currentBoard": {
         "boardId": "1",
         "boardName": "nisi deserunt",
+        "boardDesc": "board discription",
         "createTime": "",
         "members": [
             {
@@ -52,45 +53,14 @@
                     {
                         "cellId": "0",
                         "headerId": "0",
-                        "cellTxtLabel": "Completed",
-                        "color": "green",
+                        "cellLabelTxt": "Completed",
+                        "color": "red",
                         "createOrUpdateTime": "",
-                        "cellLabels": [
-                            {
+                        "labels": [
+                            {   
                                 "labelId": "1",
-                                "labelColor": "Completed",
-                                "color": "red",
-                                "cellLabels": [
-                                    {
-                                        "labelId": "1",
-                                        "labelColor": "Completed",
-                                        "color": "red"
-                                    }
-                                ]
-                            },
-                            {
-                                "labelId": "2",
-                                "labelColor": "In-Progress",
-                                "color": "Yellow",
-                                "cellLabels": [
-                                    {
-                                        "labelId": "1",
-                                        "labelColor": "Completed",
-                                        "color": "red"
-                                    }
-                                ]
-                            },
-                            {
-                                "labelId": "3",
-                                "labelColor": "In-Progress",
-                                "color": "Yellow",
-                                "cellLabels": [
-                                    {
-                                        "labelId": "1",
-                                        "labelColor": "Completed",
-                                        "color": "red"
-                                    }
-                                ]
+                                "labelTxt": "Completed",
+                                "color": "red"   
                             }
                         ]
                     }

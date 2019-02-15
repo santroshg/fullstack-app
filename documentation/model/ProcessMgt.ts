@@ -1,39 +1,41 @@
 const mongoose = require('mongoose');
 
+const userSchema = mongoose.Schema({
+  userId: { type: String },
+  userDisplayName: { type: String },
+  userEmail: { type: String },
+});
+
 const progressHeader = new mongoose.Schema({
-  row: { type: String },
-  col: { type: String },
   headerTxt: { type: String },
-  createOrUpdatetime: { type: Date, default: Date.now },
+  headerCreateTime: { type: String },
 });
 
-const firstColItemName = new mongoose.Schema({
-  row: { type: String },
-  col: { type: String },
-  itemName: { type: String },
-  createOrUpdatetime: { type: Date, default: Date.now },
-});
-
-const progressCell = new mongoose.Schema({
-  row: { type: String },
-  col: { type: String },
-  cellLabel: { type: String },
+const labels = new mongoose.Schema({
+  labelTxt: { type: String },
   color: { type: String },
-  createOrUpdatetime: { type: Date, default: Date.now },
+});
+
+const cells = new mongoose.Schema({
+  headerId: { type: String },
+  cellLabelTxt: { type: String },
+  color: { type: String },
+  createOrUpdateTime: { type: Date, default: Date.now },
+  labels: [labels],
+});
+
+const pulse = new mongoose.Schema({
+  pulseCreateTime: { type: String },
+  cells: [cells],
 });
 
 const boardSchema = mongoose.Schema({
   boardName: { type: String, required: true },
   boardDesc: { type: String },
+  members: [userSchema],
   progressHeader: [progressHeader],
-  firstColItemName: [firstColItemName],
-  progressCell: [progressCell],
-  createOrUpdatetime: { type: Date, default: Date.now },
-  members: [],
-});
-
-const userSchema = mongoose.Schema({
-  userid: { type: String, required: true },
+  pulse: [pulse],
+  createTime: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('User', userSchema);
