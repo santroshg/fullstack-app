@@ -1,0 +1,157 @@
+{
+    "boardlist": [
+        {
+            "boardId": "1",
+            "boardName": "Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board",
+            "boardDesc": "description"
+        }
+    ],
+    "currentBoard": {
+        "boardId": "1",
+        "boardName": "nisi deserunt",
+        "members": [
+            {
+                "userId": "",
+                "userDisplayName": "",
+                "userEmail": ""
+            }
+        ],
+        "progressHeader": [
+            {
+                "row": "0",
+                "col": "0",
+                "headerTxt": "Item"
+            },
+            {
+                "row": "0",
+                "col": "1",
+                "headerTxt": "Second col Header"
+            },
+            {
+                "row": "0",
+                "col": "3",
+                "headerTxt": "Third col Header"
+            }
+        ],
+        "firstColItemName": [
+            {
+                "row": "1",
+                "col": "0",
+                "itemName": "Item 1"
+            },
+            {
+                "row": "2",
+                "col": "0",
+                "itemName": "Item 2"
+            }
+        ],
+        "progressCell": [
+            {   
+                "cellId": "1",
+                "row": "1",
+                "col": "1",
+                "selectedLabel": "Completed",
+                "color": "green",
+                "cellLabels": [
+                    {
+                        "labelId": "1",
+                        "labelColor": "Completed",
+                        "color": "red"
+                    },
+                    {
+                        "labelId": "2",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    },
+                    {
+                        "labelId": "3",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    }
+                ]
+            },
+            {
+                "cellId": "2",
+                "row": "1",
+                "col": "2",
+                "selectedLabel": "Stuck",
+                "color": "red",
+                "cellLabels": [
+                    {
+                        "labelId": "1",
+                        "labelColor": "Completed",
+                        "color": "red"
+                    },
+                    {
+                        "labelId": "2",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    },
+                    {
+                        "labelId": "3",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    }
+                ]
+            },
+            {
+                "cellId": "3",
+                "row": "2",
+                "col": "1",
+                "selectedLabel": "Completed",
+                "color": "green",
+                "cellLabels": [
+                    {
+                        "labelId": "1",
+                        "labelColor": "Completed",
+                        "color": "red"
+                    },
+                    {
+                        "labelId": "2",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    },
+                    {
+                        "labelId": "3",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    }
+                ]
+            },
+            {
+                "cellId": "3",
+                "row": "2",
+                "col": "2",
+                "selectedLabel": "In-Progress",
+                "color": "yellow",
+                "cellLabels": [
+                    {
+                        "labelId": "1",
+                        "labelColor": "Completed",
+                        "color": "red"
+                    },
+                    {
+                        "labelId": "2",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    },
+                    {
+                        "labelId": "3",
+                        "labelColor": "In-Progress",
+                        "color": "Yellow"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,101 @@
+{
+    "boardlist": [
+        {
+            "boardId": "1",
+            "boardName": "Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board",
+            "boardDesc": "description"
+        }
+    ],
+    "currentBoard": {
+        "boardId": "1",
+        "boardName": "nisi deserunt",
+        "createTime": "",
+        "members": [
+            {
+                "userId": "",
+                "userDisplayName": "",
+                "userEmail": ""
+            }
+        ],
+        "progressHeader": [
+            {
+                "headerId": "0",
+                "headerTxt": "Item",
+                "headerCreateTime": ""
+            },
+            {
+                "headerId": "1",
+                "headerTxt": "Second col Header",
+                "headerCreateTime": ""
+            },
+            {
+                "headerId": "2",
+                "headerTxt": "Third col Header",
+                "headerCreateTime": ""
+            }
+        ],
+        "pulse": [
+            {
+                "pulseId": "0",
+                "pulseCreateTime": "",
+                "cells": [
+                    {
+                        "cellId": "0",
+                        "headerId": "0",
+                        "cellTxtLabel": "Completed",
+                        "color": "green",
+                        "createOrUpdateTime": "",
+                        "cellLabels": [
+                            {
+                                "labelId": "1",
+                                "labelColor": "Completed",
+                                "color": "red",
+                                "cellLabels": [
+                                    {
+                                        "labelId": "1",
+                                        "labelColor": "Completed",
+                                        "color": "red"
+                                    }
+                                ]
+                            },
+                            {
+                                "labelId": "2",
+                                "labelColor": "In-Progress",
+                                "color": "Yellow",
+                                "cellLabels": [
+                                    {
+                                        "labelId": "1",
+                                        "labelColor": "Completed",
+                                        "color": "red"
+                                    }
+                                ]
+                            },
+                            {
+                                "labelId": "3",
+                                "labelColor": "In-Progress",
+                                "color": "Yellow",
+                                "cellLabels": [
+                                    {
+                                        "labelId": "1",
+                                        "labelColor": "Completed",
+                                        "color": "red"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
