@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Process Management
+servers:
+  - url: 'http://localhost:3000'
+    description: Local Host Env
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+paths:
+  /api/boards/:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Get all boards
+      responses:
+        '200':
+          description: Get list of all boards
+          content:
+            application/json:
+              schema:
+                required:
+                  - boardID
+                  - boardName
+                  - boardDescription
+                properties:
+                  boardID:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: 1
+                  boardName:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: Board Name
+                  boardDescription:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: Board Description
+  /api/boards:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Create New Board
+      requestBody:
+        description: Create New Board
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - boardName
+                - boardDescription
+              properties:
+                boardName:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: New Test Board Name
+                boardDescription:
+                  type: string
+                  minimum: 1
+                  maximum: 5000
+                  example: New Test Board Description
+      responses:
+        '201':
+          description: Create New Board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: new board created successfully
+  '/api/boards/{boardID}/':
+    put:
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardID
+          in: path
+          required: true
+          description: Retrive selected board with BoardID
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: Update a board
+      requestBody:
+        description: Update a board with boardID passed
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - boardName
+                - boardDescription
+              properties:
+                boardName:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: board title new name
+                boardDescription:
+                  type: string
+                  minimum: 1
+                  maximum: 5000
+                  example: Updated board description
+      responses:
+        '200':
+          description: Updated a board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: updated successfully
+  '/api/boards/{boardID}':
+    delete:
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardID
+          in: path
+          required: true
+          description: delete a board by boardID
+          schema:
+            type: number
+            example: 1
+      summary: Delete a board
+      responses:
+        '200':
+          description: Deleted a board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: Board deleted sucessfully!
