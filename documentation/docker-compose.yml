@@ -3,9 +3,14 @@ services:
   app:
     container_name: process-management
     restart: always
+    image: process-mgt-app-0.0.1
     build: .
     ports:
-      - '3000:3000'
+      - 3000
+    labels:
+      - "traefik.frontend.rule=Host:localhost"
+    depends_on:
+      - mongo
     links:
       - mongo
   mongo:
@@ -13,3 +18,13 @@ services:
     image: mongo
     ports:
       - '27017:27017'
+  reverse-proxy:
+    image: traefik
+    command: --api --docker
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # docker-compose up -d --scale app=10
