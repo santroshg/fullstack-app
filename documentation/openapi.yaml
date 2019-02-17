@@ -4,7 +4,7 @@ info:
   title: Process Management
 servers:
   - url: 'http://localhost:3000'
-    description: Heroku Prod Env
+    description: Local Host Env
 tags: [{
     "name": "boards",
     "description": "Boards API"
@@ -13,7 +13,7 @@ tags: [{
     "description": "Member in board API"
 }, {
     "name": "pulse",
-    "description": "pulse in a board API"
+    "description": "pulse API"
 }]
 components:
   securitySchemes:
@@ -22,7 +22,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
 paths:
-  /api/boards:
+  /api/boards/:
     get:
       tags: ['boards']
       security:
@@ -92,7 +92,7 @@ paths:
                   message:
                     type: string
                     example: new board created successfully
-  '/api/boards/{boardId}':
+  '/api/boards/{boardId}/':
     put:
       tags: ['boards']
       security:
@@ -243,7 +243,49 @@ paths:
                   message:
                     type: string
                     example: member deleted sucessfuly from Board.
-                    
+  '/api/{boardId}/pulse/':
+    get:
+      tags: ['pulse']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: get pulse details
+      responses:
+        '200':
+          description: get pulse details
+          content:
+            application/json:
+              schema:
+                required:
+                  - pulseId
+                  - pulseCreateTime
+                  - pulseCreatedBy
+                  - cells
+                properties:
+                  pulseId:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: bec5839f3d699bef073df03
+                  pulseCreateTime:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: '2019-02-15T06:44:14Z'
+                  pulseCreatedBy:
+                    type: string
+                    minimum: 1
+                    maximum: 5000
+                    example: bec5839f3d699bef073df03
+                  cells: 
+                    type: array
   '/api/{boardId}/pulse':
     post:
       tags: ['pulse']
@@ -257,7 +299,7 @@ paths:
           schema:
             type: string
             example: bec5839f3d699bef073df03
-      summary: create pulse in a board
+      summary: create pulse
       requestBody:
         description: create pulse in board with boardId passed
         required: true
@@ -294,7 +336,67 @@ paths:
                   message:
                     type: string
                     example: pulse created sucessfully.
-                    
+  '/api/{boardId}/pulse/{pulseId}/':
+    put:
+      tags: ['pulse']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: update pulse
+      requestBody:
+        description: updagte pulse in board with boardId & pulseId passed
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - cellId
+                - headerId
+                - cellLabelTxt
+                - cellColor
+              properties:
+                cellId:
+                  type: string
+                  example: bec5839f3d699bef073df03
+                headerId:
+                  type: string
+                  example: bec5839f3d699bef073df03
+                cellLabelTxt:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: Task
+                cellColor:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: red
+      responses:
+        '200':
+          description: update pulse in board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse updated sucessfully. 
   '/api/{boardId}/pulse/{pulseId}':
     delete:
       tags: ['pulse']
@@ -315,10 +417,10 @@ paths:
           schema:
             type: string
             example: bec5839f3d699bef073df03
-      summary: delete pulse in a board
+      summary: delete pulse
       responses:
         '200':
-          description: delete pulse in a board
+          description: delete pulse
           content:
             application/json:
               schema:
