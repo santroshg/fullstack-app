@@ -4,7 +4,17 @@ info:
   title: Process Management
 servers:
   - url: 'http://localhost:3000'
-    description: Local Host Env
+    description: Heroku Prod Env
+tags: [{
+    "name": "boards",
+    "description": "Boards API"
+}, {
+    "name": "members",
+    "description": "Member in board API"
+}, {
+    "name": "pulse",
+    "description": "pulse in a board API"
+}]
 components:
   securitySchemes:
     bearerAuth:
@@ -12,8 +22,9 @@ components:
       scheme: bearer
       bearerFormat: JWT
 paths:
-  /api/boards/:
+  /api/boards:
     get:
+      tags: ['boards']
       security:
         - bearerAuth: []
       summary: Get all boards
@@ -24,11 +35,11 @@ paths:
             application/json:
               schema:
                 required:
-                  - boardID
+                  - boardId
                   - boardName
                   - boardDescription
                 properties:
-                  boardID:
+                  boardId:
                     type: string
                     minimum: 1
                     maximum: 5000
@@ -45,6 +56,7 @@ paths:
                     example: Board Description
   /api/boards:
     post:
+      tags: ['boards']
       security:
         - bearerAuth: []
       summary: Create New Board
@@ -80,12 +92,13 @@ paths:
                   message:
                     type: string
                     example: new board created successfully
-  '/api/boards/{boardID}/':
+  '/api/boards/{boardId}':
     put:
+      tags: ['boards']
       security:
         - bearerAuth: []
       parameters:
-        - name: boardID
+        - name: boardId
           in: path
           required: true
           description: Retrive selected board with BoardID
@@ -94,7 +107,7 @@ paths:
             example: bec5839f3d699bef073df03
       summary: Update a board
       requestBody:
-        description: Update a board with boardID passed
+        description: Update a board with boardId passed
         required: true
         content:
           application/json:
@@ -125,15 +138,16 @@ paths:
                   message:
                     type: string
                     example: updated successfully
-  '/api/boards/{boardID}':
+  '/api/boards/{boardId}':
     delete:
+      tags: ['boards']
       security:
         - bearerAuth: []
       parameters:
-        - name: boardID
+        - name: boardId
           in: path
           required: true
-          description: delete a board by boardID
+          description: delete a board by boardId
           schema:
             type: number
             example: 1
@@ -150,3 +164,167 @@ paths:
                   message:
                     type: string
                     example: Board deleted sucessfully!
+  '/api/{boardId}/members':
+    put:
+      tags: ['members']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: Update members in a board
+      requestBody:
+        description: Update a board with boardId passed
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - userDisplayName
+                - userEmail
+              properties:
+                userDisplayName:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: santosh
+                userEmail:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: santroshg@gmail.com
+      responses:
+        '200':
+          description: updated members in a board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: member added to board sucessfully.
+  '/api/{boardId}/members/{memberId}':
+    delete:
+      tags: ['members']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: memberId
+          in: path
+          required: true
+          description: memberId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: delete member in a board
+      responses:
+        '200':
+          description: delete member in a board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: member deleted sucessfuly from Board.
+                    
+  '/api/{boardId}/pulse':
+    post:
+      tags: ['pulse']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: create pulse in a board
+      requestBody:
+        description: create pulse in board with boardId passed
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - headerId
+                - cellLabelTxt
+                - cellColor
+              properties:
+                headerId:
+                  type: string
+                  example: bec5839f3d699bef073df03
+                cellLabelTxt:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: Task
+                cellColor:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: red
+      responses:
+        '201':
+          description: create pulse in board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse created sucessfully.
+                    
+  '/api/{boardId}/pulse/{pulseId}':
+    delete:
+      tags: ['pulse']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: delete pulse in a board
+      responses:
+        '200':
+          description: delete pulse in a board
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse deleted sucessfuly from Board.
