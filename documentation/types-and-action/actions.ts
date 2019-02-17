@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label } from './types';
+import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User } from './types';
 
 export const getBoardsListAction = () => action(ProcessMgtActionType.GET_BOARDS_LIST);
 export const setBoardsListAction = (boardList: BoardItem[]) => action(ProcessMgtActionType.SET_BOARDS_LIST, boardList);
@@ -20,3 +20,6 @@ export const editCellAction = (boardId: String, cell: CellItem) => action(Proces
 export const addNewLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.ADD_NEW_LABEL, boardId, cellId, label);
 export const editLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.EDIT_LABEL, boardId, cellId, label);
 export const deleteLabelAction = (boardId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.DELETE_LABEL, boardId, cellId, labelId);
+
+export const addMemberToBoardAction = (boardId: String, user: User) => action(ProcessMgtActionType.ADD_MEMBER_TO_BOARD, boardId, user);
+export const removeMemberToBoardAction = (boardId: String, userId: String) => action(ProcessMgtActionType.ADD_MEMBER_TO_BOARD, boardId, userId);

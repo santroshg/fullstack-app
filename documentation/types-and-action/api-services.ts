@@ -15,3 +15,54 @@ export function addBoardAPI() {
     .then((res: any) => Promise.resolve(res.data));
 }
 
+export function editBoardAPI() {
+
+}
+
+export function deleteBoardAPI() {
+
+}
+
+export function addColumnAPI() {
+
+}
+
+export function deleteColumnAPI() {
+
+}
+
+export function addPulseAPI() {
+
+}
+
+export function editPulseAPI() {
+
+}
+
+export function deletePulseAPI() {
+
+}
+
+export function editCellAPI() {
+
+}
+
+export function addNewLabelAPI() {
+
+}
+
+export function editLabelAPI() {
+
+}
+
+export function deleteLabelAPI() {
+
+}
+
+export function addMemberToBoardAPI() {
+
+}
+
+export function removeMemberToBoardAPI() {
+
+}

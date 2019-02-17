@@ -15,6 +15,8 @@ export enum ProcessMgtActionType {
   ADD_NEW_LABEL = '@@types/ADD_NEW_LABEL',
   EDIT_LABEL = '@@types/EDIT_LABEL',
   DELETE_LABEL = '@@types/DELETE_LABEL',
+  ADD_MEMBER_TO_BOARD = '@@types/ADD_MEMBER_TO_BOARD',
+  REMOVE_MEMBER_FROM_BOARD = '@@types/REMOVE_MEMBER_FROM_BOARD'
 }
 
 export interface User {
