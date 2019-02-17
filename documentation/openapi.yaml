@@ -14,6 +14,9 @@ tags: [{
 }, {
     "name": "pulse",
     "description": "pulse API"
+}, {
+    "name": "labels",
+    "description": "pulse status labels API"
 }]
 components:
   securitySchemes:
@@ -31,6 +34,41 @@ paths:
       responses:
         '200':
           description: Get list of all boards
+          content:
+            application/json:
+              schema:
+                required:
+                  - boards
+                    - boardId
+                    - boardName
+                    - boardDescription
+                properties:
+                  boards:
+                    type: array
+                    properties:
+                      boardId:
+                        type: string
+                      boardName:
+                        type: string
+                      boardDescription:
+                        type: string
+                example:
+                  boards:
+                  - boardId: bec5839f3d699bef073df03
+                    boardName: test board
+                    boardDescription: test board description
+                  - boardId: bec5839f3d699bef073df03
+                    boardName: test board
+                    boardDescription: test board description
+  /api/boards/{boardId}:
+    get:
+      tags: ['boards']
+      security:
+        - bearerAuth: []
+      summary: Get single board
+      responses:
+        '200':
+          description: Get single board
           content:
             application/json:
               schema:
@@ -54,6 +92,7 @@ paths:
                     minimum: 1
                     maximum: 5000
                     example: Board Description
+
   /api/boards:
     post:
       tags: ['boards']
@@ -92,7 +131,7 @@ paths:
                   message:
                     type: string
                     example: new board created successfully
-  '/api/boards/{boardId}/':
+  '/api/boards/{boardId}':
     put:
       tags: ['boards']
       security:
@@ -256,10 +295,10 @@ paths:
           schema:
             type: string
             example: bec5839f3d699bef073df03
-      summary: get pulse details
+      summary: get all pulse
       responses:
         '200':
-          description: get pulse details
+          description: get all pulse
           content:
             application/json:
               schema:
@@ -268,6 +307,17 @@ paths:
                   - pulseCreateTime
                   - pulseCreatedBy
                   - cells
+                    - cellId
+                    - headerId
+                    - cellType
+                    - cellLabelTxt
+                    - cellColor
+                    - cellCreatedOn
+                    - cellUpdatedOn
+                    - lables
+                      - labelId
+                      - labelTxt
+                      - 
                 properties:
                   pulseId:
                     type: string
@@ -286,6 +336,56 @@ paths:
                     example: bec5839f3d699bef073df03
                   cells: 
                     type: array
+                    items:
+                      type: object
+                      properties:
+                        cellId:
+                          type: integer
+                        headerId:
+                          type: integer
+                        cellType:
+                          type: string
+                        cellLabelTxt: 
+                          type: string
+                        cellColor: 
+                          type: string
+                        cellCreatedOn:
+                          type: string
+                        cellUpdatedOn:
+                          type: string
+                        labels:
+                          type: array
+                          items: 
+                              type: object
+                              properties:
+                                labelId:
+                                  type: string
+                                labelTxt: 
+                                  type: string
+                                labelColor: 
+                                 type: string
+                          
+                    example:
+                      - cellId: bec5839f3d699bsdfsdf03
+                        headerId: bec5839f3d6sdfsbef073df03
+                        cellType: text
+                        cellLabelTxt: Task
+                        cellColor: none
+                        cellCreatedOn: "2019-02-15T06:44:14Z"
+                        cellUpdatedOn: "2019-02-15T06:44:14Z"
+                      - cellId: bec5839f3d699bef073df03
+                        headerId: bec5839f3d699bef073df03
+                        cellType: status
+                        cellLabelTxt: completed
+                        cellColor: red
+                        cellCreatedOn: "2019-02-15T06:44:14Z"
+                        cellUpdatedOn: "2019-02-15T06:44:14Z"
+                        labels:
+                            - labelId: bec5839f3d699bef073df03
+                              labelTxt: Comleted
+                              labelColor: red
+                              
+                        
   '/api/{boardId}/pulse':
     post:
       tags: ['pulse']
@@ -430,3 +530,230 @@ paths:
                   message:
                     type: string
                     example: pulse deleted sucessfuly from Board.
+  '/api/{boardId}/{pulseId}/{cellId}/labels/':
+    get:
+      tags: ['labels']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: cellId
+          in: path
+          required: true
+          description: cellId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: get all pulse status label
+      responses:
+        '200':
+          description: get all pulse status label
+          content:
+            application/json:
+              schema:
+                required:
+                  - labels
+                    - labelId
+                    - labelTxt
+                    - labelColor
+                properties:
+                  labels:
+                    type: array
+                    properties:
+                      items:
+                        type: object
+                example:
+                  labels:
+                  - labelId: bec5839f3d699bef073df03
+                    labelTxt: Comleted
+                    labelColor: red
+                  - labelId: bec5839f3d699bef073df03
+                    labelTxt: Comleted
+                    labelColor: red
+  '/api/{boardId}/{pulseId}/{cellId}/labels':
+    post:
+      tags: ['labels']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: cellId
+          in: path
+          required: true
+          description: cellId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: create pulse status label
+      requestBody:
+        description: create pulse status label
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - cellLabelTxt
+                - cellColor
+              properties:
+                cellLabelTxt:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: Task
+                cellColor:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: red
+      responses:
+        '200':
+          description: create pulse status label
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse status label created sucessfully. 
+  '/api/{boardId}/{pulseId}/{cellId}/labels/{labelId}':
+    put:
+      tags: ['labels']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: cellId
+          in: path
+          required: true
+          description: cellId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: labelId
+          in: path
+          required: true
+          description: label Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: update pulse status label
+      requestBody:
+        description: updagte pulse status label
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - cellLabelTxt
+                - cellColor
+              properties:
+                cellLabelTxt:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: Task
+                cellColor:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: red
+      responses:
+        '200':
+          description: update pulse status label
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse status label updated sucessfully. 
+  '/api/{boardId}/{pulseId}/{cellId}/labels/{labelId}/':
+    delete:
+      tags: ['labels']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: pulseId
+          in: path
+          required: true
+          description: pulseId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: cellId
+          in: path
+          required: true
+          description: cellId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: labelId
+          in: path
+          required: true
+          description: label Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: update pulse status label
+      responses:
+        '200':
+          description: delete pulse status label
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+                    example: pulse status label deleted sucessfully.   

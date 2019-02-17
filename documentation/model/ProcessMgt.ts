@@ -25,6 +25,7 @@ const cells = new mongoose.Schema({
 });
 
 const pulse = new mongoose.Schema({
+  pulseTxt: { type: String },
   pulseCreateTime: { type: String },
   cells: [cells],
 });
