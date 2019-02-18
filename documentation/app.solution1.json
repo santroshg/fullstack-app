@@ -25,7 +25,8 @@
             {
                 "userId": "",
                 "userDisplayName": "",
-                "userEmail": ""
+                "userEmail": "",
+                "userActive": true
             }
         ],
         "pulseHeader": [
