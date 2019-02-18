@@ -11,6 +11,8 @@ cache:
 
 install-dependencies:
   stage: build
+  only:
+    - dev
   script: 
     - npm install
   artifacts:
@@ -19,6 +21,8 @@ install-dependencies:
 
 lint-checks:
   stage: test
+  only:
+    - dev
   script: 
     # - npm run lint
     - npm run test
@@ -26,6 +30,8 @@ lint-checks:
 production:
   type: deploy
   stage: production
+  only:
+    - dev
   image: ruby:latest
   script:
     - apt-get update -qy
@@ -33,4 +39,4 @@ production:
     - gem install dpl
     - dpl --provider=heroku --app=frontend-xt-fsd --api-key=9bfefa20-f6c1-4522-8d80-807a50fd2159
   only:
-    - master
+    - dev
