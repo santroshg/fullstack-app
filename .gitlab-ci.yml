@@ -26,6 +26,8 @@ lint-checks:
   only:
     - dev
   script: 
+    - cd process-management
+    - cd frontend
     # - npm run lint
     - npm run test
 
