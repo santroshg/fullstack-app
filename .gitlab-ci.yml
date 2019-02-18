@@ -41,6 +41,6 @@ production:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=frontend-xt-fsd --api-key=9bfefa20-f6c1-4522-8d80-807a50fd2159
+    - dpl --provider=heroku --app=frontend-xt-fsd --api-key=9bfefa20-f6c1-4522-8d80-
   only:
     - dev
