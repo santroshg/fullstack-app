@@ -5,7 +5,7 @@ stages:
   - test_frontend
   - production_frontend
   - build_backtend
-  - test_backend
+  # - test_backend
   - production_backend
 
 cache:
@@ -66,15 +66,15 @@ install-dependencies:
     paths:
       - process-management/backend/node_modules/
 
-lint-checks:
-  stage: test_backend
-  only:
-    - dev
-  script: 
-    - cd process-management
-    - cd backend
-    # - npm run lint
-    - npm run test
+# lint-checks:
+#   stage: test_backend
+#   only:
+#     - dev
+#   script: 
+#     - cd process-management
+#     - cd backend
+#     # - npm run lint
+#     - npm run test
 
 production-backtend:
   type: deploy
