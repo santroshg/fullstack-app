@@ -1,5 +1,6 @@
 {
   "name": "backend",
+<<<<<<< HEAD
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,5 +15,22 @@
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "pug": "^2.0.3"
+=======
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "./node_modules/.bin/eslint *.js",
+    "test": "echo \" No test specified\" && exit 1",
+    "build": "webpack",
+    "serve": "webpack-dev-server --host 0.0.0.0 --watch-poll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+>>>>>>> d51b44f62b6544b934394cf5f9ac20d509088517
   }
 }
