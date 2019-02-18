@@ -79,20 +79,54 @@ paths:
                 properties:
                   boardId:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: 1
                   boardName:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: Board Name
                   boardDescription:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: Board Description
-
+                example:
+                  - boardId: 1
+                    boardName: BOARD NAME
+                    boardDescription: Board description
+                    members:
+                      - userId: 1
+                        userDisplayName: santosh
+                        userEmail: santroshg@gmail.com
+                        userActive: true
+                      - userId: 2
+                        userDisplayName: santosh2
+                        userEmail: santroshg2@gmail.com
+                        userActive: true
+                    pulseHeader:
+                      - headerId: 1
+                        headerTxt: Header-1
+                        headerCreateTime: '2019-02-15T06:44:14Z'
+                      - headerId: 2
+                        headerTxt: Header-2
+                        headerCreateTime: '2019-02-15T06:44:14Z'
+                    pulses:
+                      - pulseId: 0
+                        pulseCreateTime: "2019-02-15T06:44:14Z"
+                        pulseCreatedBy: "bec5839f3d699bef073df03"
+                        pulseTxt: pulse text
+                        cells:
+                          - cellId: bec5839f3d699bsdfsdf03
+                            headerId: bec5839f3d6sdfsbef073df03
+                            cellType: text
+                            cellLabelTxt: Task
+                            cellColor: none
+                            cellCreatedOn: "2019-02-15T06:44:14Z"
+                            cellUpdatedOn: "2019-02-15T06:44:14Z"
+                          - cellId: bec5839f3d699bef073df03
+                            headerId: bec5839f3d699bef073df03
+                            cellType: status
+                            cellLabelTxt: completed
+                            cellColor: red
+                            cellCreatedOn: "2019-02-15T06:44:14Z"
+                            cellUpdatedOn: "2019-02-15T06:44:14Z"
+                            labels:
+                                - labelId: bec5839f3d699bef073df03
+                                  labelTxt: Comleted
+                                  labelColor: red
   /api/boards:
     post:
       tags: ['boards']
@@ -333,7 +367,6 @@ paths:
                     - lables
                       - labelId
                       - labelTxt
-                      - 
                 properties:
                   pulseId:
                     type: string
