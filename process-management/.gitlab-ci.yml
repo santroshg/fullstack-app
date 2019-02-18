@@ -13,7 +13,8 @@ install-dependencies:
   stage: build
   only:
     - dev
-  script: 
+  script:
+    - cd frontend
     - npm install
   artifacts:
     paths:
