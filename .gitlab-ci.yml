@@ -5,7 +5,7 @@ stages:
   - test_frontend
   - production_frontend
   - build_backtend
-  # - test_backend
+  # - test_backend 
   - production_backend
 
 cache:
