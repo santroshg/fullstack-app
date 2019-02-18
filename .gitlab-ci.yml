@@ -4,6 +4,9 @@ stages:
   - build_frontend
   - test_frontend
   - production_frontend
+  - build_backtend
+  - test_backend
+  - production_backend
 
 cache:
   paths:
@@ -46,4 +49,45 @@ production-frontend:
     - dpl --provider=heroku --app=frontend-xt-fsd --api-key=$HEROKU_API_KEY
   only:
     - dev
-    
+
+cache:
+  paths:
+    - process-management/backtend/node_modules/
+
+install-dependencies:
+  stage: build_backtend
+  only:
+    - dev
+  script:
+    - cd process-management
+    - cd backend
+    - npm install
+  artifacts:
+    paths:
+      - process-management/backend/node_modules/
+
+lint-checks:
+  stage: test_backend
+  only:
+    - dev
+  script: 
+    - cd process-management
+    - cd backend
+    # - npm run lint
+    - npm run test
+
+production-backtend:
+  type: deploy
+  stage: production_backend
+  only:
+    - dev
+  image: ruby:latest
+  script:
+    - cd process-management
+    - cd backend
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=backend-xt-fsd --api-key=$HEROKU_API_KEY
+  only:
+    - dev
