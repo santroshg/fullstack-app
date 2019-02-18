@@ -1,15 +1,22 @@
 {
-  "name": "react-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9000",
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!src/**/*.d.ts",
-      "!src/index.tsx",
-      "!src/registerServiceWorker.ts"
-    ]
+  "dependencies": {
+    "@types/jest": "24.0.6",
+    "@types/node": "11.9.4",
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-scripts": "2.1.5",
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -19,30 +26,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "dependencies": {
-    "axios": "^0.18.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "react-scripts": "2.1.3"
-  },
-  "devDependencies": {
-    "@types/app-shared-types": "link:../types",
-    "@types/enzyme": "^3.1.17",
-    "@types/jest": "^24.0.0",
-    "@types/react": "^16.8.2",
-    "@types/react-dom": "^16.8.0",
-    "axios-mock-adapter": "^1.16.0",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.9.1",
-    "jest-localstorage-mock": "^2.4.0",
-    "typescript": "^3.3.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "postinstall": "yarn build",
-    "test": "react-scripts test --coverage",
-    "test:watch": "react-scripts test --coverage --watchAll"
-  }
+  ]
 }
