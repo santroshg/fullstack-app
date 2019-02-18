@@ -1,0 +1,43 @@
+image: node:11.9.0
+
+stages: 
+  - build
+  - test
+  - production
+
+cache:
+  paths:
+    - node_modules/
+
+install-dependencies:
+  stage: build
+  only:
+    - dev
+  script:
+    - cd frontend
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+lint-checks:
+  stage: test
+  only:
+    - dev
+  script: 
+    # - npm run lint
+    - npm run test
+
+production:
+  type: deploy
+  stage: production
+  only:
+    - dev
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=frontend-xt-fsd --api-key=9bfefa20-f6c1-4522-8d80-807a50fd2159
+  only:
+    - dev
