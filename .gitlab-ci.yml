@@ -21,7 +21,7 @@ install-dependencies:
     - cd frontend
     - npm install
   artifacts:
-    paths:
+    paths: 
       - process-management/frontend/node_modules/
 
 lint-checks:
