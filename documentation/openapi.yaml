@@ -131,7 +131,7 @@ paths:
                   message:
                     type: string
                     example: new board created successfully
-  '/api/boards/{boardId}':
+  '/api/boards/{boardId}//':
     put:
       tags: ['boards']
       security:
@@ -176,8 +176,8 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: updated successfully
-  '/api/boards/{boardId}':
+                    example: board updated successfully
+  '/api/boards/{boardId}/':
     delete:
       tags: ['boards']
       security:
@@ -198,11 +198,15 @@ paths:
             application/json:
               schema:
                 required:
+                  - boardId
                   - message
                 properties:
+                  boardId:
+                    type: string
+                    example: bec5839f3d699bef073df03
                   message:
                     type: string
-                    example: Board deleted sucessfully!
+                    example: Board deleted sucessfully.
   '/api/{boardId}/members':
     put:
       tags: ['members']
@@ -244,8 +248,20 @@ paths:
             application/json:
               schema:
                 required:
+                  - userId
+                  - userDisplayName
+                  - userEmai
                   - message
                 properties:
+                  userId:
+                    type: string
+                    example: bec5839f3d699bef073df03
+                  userDisplayName:
+                    type: string
+                    example: santosh
+                  userEmail:
+                    type: string
+                    example: santroshg@gmail.com
                   message:
                     type: string
                     example: member added to board sucessfully.
