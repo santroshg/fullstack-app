@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
-import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI } from './api-services';
-import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction, deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, editPulseAction, addMemberToBoardAction, removeMemberToBoardAction } from './actions';
+import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI } from './api-services';
+import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction, deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, editPulseAction, addMemberToBoardAction, removeMemberToBoardAction, editColumnAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
@@ -10,9 +10,7 @@ export function* getBoardsList(action: AnyAction) {
 }
 
 export function* getBoardDetails(action: AnyAction) {
-  console.log('action-----------------' ,action.payload);
   const currentBoard: Board = yield call(getBoardDetailsAPI, action.payload);
-  console.log('currentBoard---', currentBoard);
   yield put(setBoardDetailsAction(currentBoard));
 }
 
@@ -34,6 +32,11 @@ export function* deleteBoard(action: AnyAction) {
 export function* addColumn(action: AnyAction) {
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
   yield put(addColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader));
+}
+
+export function* editColumn(action: AnyAction) {
+  const boardAftereditColumn = yield call(editColumnAPI, action.payload);
+  yield put(editColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
 }
 
 export function* deleteColumn(action: AnyAction) {
@@ -93,6 +96,7 @@ export default function* sagas() {
   yield takeLatest(ProcessMgtActionType.EDIT_BOARD, editBoard);
   yield takeLatest(ProcessMgtActionType.DELETE_BOARD, deleteBoard);
   yield takeLatest(ProcessMgtActionType.ADD_COLUMN, addColumn);
+  yield takeLatest(ProcessMgtActionType.EDIT_COLUMN, editColumn);
   yield takeLatest(ProcessMgtActionType.DELETE_COLUMN, deleteColumn);
   yield takeLatest(ProcessMgtActionType.ADD_PULSE, addPulse);
   yield takeLatest(ProcessMgtActionType.EDIT_PULSE, editPulse);

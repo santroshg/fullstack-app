@@ -1,22 +1,38 @@
 export enum ProcessMgtActionType {
   ADD_BOARD = '@@types/ADD_BOARD',
+  SET_ADD_BOARD = '@@types/SET_ADD_BOARD',
   GET_BOARDS_LIST = '@@types/GET_BOARDS_LIST',
   SET_BOARDS_LIST = '@@types/SET_BOARDS_LIST',
   EDIT_BOARD = '@@types/EDIT_BOARD',
+  SET_EDIT_BOARD = '@@types/SET_EDIT_BOARD',
   DELETE_BOARD = '@@types/DELETE_BOARD',
+  SET_DELETE_BOARD = '@@types/SET_DELETE_BOARD',
   GET_BOARD_DETAILS = '@@types/GET_BOARD_DETAILS',
   SET_BOARD_DETAILS = '@@types/SET_BOARD_DETAILS',
   ADD_COLUMN = '@@types/ADD_COLUMN',
+  SET_ADD_COLUMN = '@@types/SET_ADD_COLUMN',
+  EDIT_COLUMN = '@@types/EDIT_COLUMN',
+  SET_EDIT_COLUMN = '@@types/SET_EDIT_COLUMN',
   DELETE_COLUMN = '@@types/DELETE_COLUMN',
+  SET_DELETE_COLUMN = '@@types/SET_DELETE_COLUMN',
   ADD_PULSE = '@@types/ADD_PULSE',
+  SET_ADD_PULSE = '@@types/SET_ADD_PULSE',
   EDIT_PULSE = '@@types/EDIT_PULSE',
+  SET_EDIT_PULSE = '@@types/SET_EDIT_PULSE',
   DELETE_PULSE = '@@types/DELETE_PULSE',
+  SET_DELETE_PULSE = '@@types/SET_DELETE_PULSE',
   EDIT_CELL = '@@types/EDIT_CELL',
+  SET_EDIT_CELL = '@@types/SET_EDIT_CELL',
   ADD_NEW_LABEL = '@@types/ADD_NEW_LABEL',
+  SET_ADD_NEW_LABEL = '@@types/SET_ADD_NEW_LABEL',
   EDIT_LABEL = '@@types/EDIT_LABEL',
+  SET_EDIT_LABEL = '@@types/SET_EDIT_LABEL',
   DELETE_LABEL = '@@types/DELETE_LABEL',
+  SET_DELETE_LABEL = '@@types/SET_DELETE_LABEL',
   ADD_MEMBER_TO_BOARD = '@@types/ADD_MEMBER_TO_BOARD',
-  REMOVE_MEMBER_FROM_BOARD = '@@types/REMOVE_MEMBER_FROM_BOARD'
+  SET_ADD_MEMBER_TO_BOARD = '@@types/SET_ADD_MEMBER_TO_BOARD',
+  REMOVE_MEMBER_FROM_BOARD = '@@types/REMOVE_MEMBER_FROM_BOARD',
+  SET_REMOVE_MEMBER_FROM_BOARD = '@@types/SET_REMOVE_MEMBER_FROM_BOARD'
 }
 
 export interface User {
@@ -29,7 +45,7 @@ export interface User {
 export interface ProgressHeader {
   headerId: String,
   headerTxt: String,
-  headerCreateTime: String,
+  headerCreateTime: Date,
 }
 
 export interface Label {
@@ -50,7 +66,7 @@ export interface Cells {
 export interface Pulse {
   pulseId: String,
   pulseTxt: String,
-  pulseCreateTime: String,
+  pulseCreateTime: Date,
   cells: Cells[],
 }
 
@@ -73,7 +89,7 @@ export interface BoardItem {
 export interface PulseItem {
   pulseId: String,
   pulseTxt: String,
-  pulseCreateTime: String,
+  pulseCreateTime: Date,
 }
 
 export interface CellItem {

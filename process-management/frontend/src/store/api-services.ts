@@ -31,6 +31,10 @@ export function addColumnAPI() {
 
 }
 
+export function editColumnAPI() {
+  
+}
+
 export function deleteColumnAPI() {
 
 }
