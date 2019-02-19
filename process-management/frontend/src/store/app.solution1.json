@@ -1,0 +1,74 @@
+{
+    "boardlist": [
+        {
+            "boardId": "1",
+            "boardName": "Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board",
+            "boardDesc": "description"
+        }
+    ],
+    "currentBoard": {
+        "boardId": "1",
+        "boardName": "nisi deserunt",
+        "boardDesc": "board discription",
+        "createTime": "",
+        "members": [
+            {
+                "userId": "",
+                "userDisplayName": "",
+                "userEmail": "",
+                "userActive": true
+            }
+        ],
+        "pulseHeader": [
+            {
+                "headerId": "0",
+                "headerTxt": "Item",
+                "headerCreateTime": ""
+            },
+            {
+                "headerId": "1",
+                "headerTxt": "Second col Header",
+                "headerCreateTime": ""
+            },
+            {
+                "headerId": "2",
+                "headerTxt": "Third col Header",
+                "headerCreateTime": ""
+            }
+        ],
+        "pulse": [
+            {
+                "pulseId": "0",
+                "pulseCreateTime": "2019-02-15T06:44:14Z",
+                "pulseCreatedBy": "bec5839f3d699bef073df03",
+                "pulseTxt": "pulse text",
+                "cells": [
+                    {
+                        "cellId": "0",
+                        "headerId": "0",
+                        "cellLabelTxt": "Completed",
+                        "color": "red",
+                        "createOrUpdateTime": "",
+                        "labels": [
+                            {   
+                                "labelId": "1",
+                                "labelTxt": "Completed",
+                                "color": "red"   
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
