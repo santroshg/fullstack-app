@@ -23,8 +23,10 @@ describe('ServiceManagementStoreSaga', () => {
 
         it('It should call getBoardDetailsAPI()', () => {
             const boardId: String = '1';
+            
             const getBoardDetailsSaga = getBoardDetails(getBoardDetailsAction(boardId));
             getBoardDetailsSaga.next().value.should.deep.equal(call(getBoardDetailsAPI, boardId));
+            getBoardDetailsSaga.next();
         })
     });
 

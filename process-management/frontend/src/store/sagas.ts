@@ -10,7 +10,7 @@ export function* getBoardsList(action: AnyAction) {
 }
 
 export function* getBoardDetails(action: AnyAction) {
-  console.log('action-----------------' ,action);
+  console.log('action-----------------' ,action.payload);
   const currentBoard: Board = yield call(getBoardDetailsAPI, action.payload);
   console.log('currentBoard---', currentBoard);
   yield put(setBoardDetailsAction(currentBoard));
