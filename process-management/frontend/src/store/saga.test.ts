@@ -4,6 +4,7 @@ import { call } from 'redux-saga/effects';
 import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI } from './api-services';
 import { getBoardsList, getBoardDetails } from './sagas';
+import { getBoardDetailsAction } from './actions';
 
 chai.should();
 
@@ -22,8 +23,8 @@ describe('ServiceManagementStoreSaga', () => {
 
         it('It should call getBoardDetailsAPI()', () => {
             const boardId: String = '1';
-            const getBoardDetailsSaga = getBoardDetails(boardId);
-            getBoardDetailsSaga.next().value.should.deep.equal(call(getBoardDetailsAPI));
+            const getBoardDetailsSaga = getBoardDetails(getBoardDetailsAction(boardId));
+            getBoardDetailsSaga.next().value.should.deep.equal(call(getBoardDetailsAPI, boardId));
         })
     });
 
