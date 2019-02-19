@@ -25,7 +25,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
 paths:
-  '/api/boards/':
+  /api/boards/:
     get:
       tags: ['boards']
       security:
@@ -60,7 +60,7 @@ paths:
                   - boardId: bec5839f3d699bef073df03
                     boardName: test board
                     boardDescription: test board description
-  '/api/boards/:boardId':
+  /api/boards/{boardId}:
     get:
       tags: ['boards']
       security:
@@ -127,7 +127,7 @@ paths:
                                 - labelId: bec5839f3d699bef073df03
                                   labelTxt: Comleted
                                   labelColor: red
-  '/api/boards':
+  /api/boards:
     post:
       tags: ['boards']
       security:
