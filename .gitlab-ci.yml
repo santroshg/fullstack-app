@@ -4,13 +4,9 @@ stages:
   - build_frontend
   - test_frontend
   - production_frontend
-  - build_backtend
+  - build_backend
   # - test_backend 
   - production_backend
-
-cache:
-  paths:
-    - process-management/frontend/node_modules/
 
 install-dependencies:
   stage: build_frontend
@@ -23,7 +19,10 @@ install-dependencies:
   artifacts:
     paths: 
       - process-management/frontend/node_modules/
-
+cache:
+  paths:
+    - process-management/frontend/node_modules/
+    
 lint-checks:
   stage: test_frontend
   only:
@@ -31,6 +30,7 @@ lint-checks:
   script: 
     - cd process-management
     - cd frontend
+    - npm install
     # - npm run lint
     - npm run test
 
@@ -52,10 +52,10 @@ production-frontend:
 
 cache:
   paths:
-    - process-management/backtend/node_modules/
+    - process-management/backend/node_modules/
 
 install-dependencies:
-  stage: build_backtend
+  stage: build_backend
   only:
     - dev
   script:
@@ -76,7 +76,7 @@ install-dependencies:
 #     # - npm run lint
 #     - npm run test
 
-production-backtend:
+production-backend:
   type: deploy
   stage: production_backend
   only:
