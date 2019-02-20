@@ -4,9 +4,6 @@ const userSchema = mongoose.Schema({
     userId: {
         type: String
     },
-    googleId: {
-        type: String
-    },
     userDisplayName: {
         type: String
     },

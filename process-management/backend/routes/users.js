@@ -11,11 +11,10 @@ router.get('/login', function(req, res) {
   res.render('login');
 });
 /* Google oauth-2 ling */
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 /* Google oauth-2 ling */
 router.get('/auth/google/success', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res, next) {
-  console.log('res', res)
   res.render('sucess');
 })
 
