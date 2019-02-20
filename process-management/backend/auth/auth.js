@@ -1,7 +1,9 @@
+const mongoose = require('mongoose');
+
 const passport = require('passport');
 // eslint-disable-next-line import/order
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const UserModel = require('../models/userModel');
+const userModel = require('../models/userModel');
 const goolgeAuthCredentials = require('../config/googleAuthCredentials.js');
 
 passport.use(new GoogleStrategy({
@@ -10,18 +12,19 @@ passport.use(new GoogleStrategy({
   callbackURL: goolgeAuthCredentials.web.redirect_uris,
 },
 ((request, accessToken, refreshToken, profile, done) => {
+  const UserModel = mongoose.model('users', userModel);
   UserModel.findOne({
     userId: profile.id,
   }).then((user) => {
     if (user) {
       done(null, user);
     } else if (profile) {
-      const userModel = new UserModel({
+      const userModelData = new UserModel({
         userId: profile.id,
         userDisplayName: profile.displayName,
         userEmail: profile.emails[0].value,
       });
-      userModel.save().then((res) => {
+      userModelData.save().then((res) => {
         done(null, res);
       }).catch((error) => {
         throw (error);
