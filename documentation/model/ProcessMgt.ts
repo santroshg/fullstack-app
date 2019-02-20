@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
   userId: { type: String },
   userDisplayName: { type: String },
   userEmail: { type: String },
+  userActive: { type: Boolean }
 });
 
 const progressHeader = new mongoose.Schema({
