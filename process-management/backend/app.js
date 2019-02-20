@@ -7,6 +7,7 @@ const passport = require('passport');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
 const boardsRouter = require('./routes/boardsRouter');
+const membersRouter = require('./routes/membersRouter');
 require('./auth/auth');
 
 
@@ -32,6 +33,7 @@ app.use('/users', usersRouter);
 
 // API ROUTES
 app.use('/api/boards', boardsRouter);
+app.use('/api/members', membersRouter);
 
 
 // catch 404 and forward to error handler
