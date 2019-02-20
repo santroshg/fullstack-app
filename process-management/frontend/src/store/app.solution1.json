@@ -26,6 +26,7 @@
         "boardId": "1",
         "boardName": "nisi deserunt",
         "boardDesc": "board discription",
+        "boardCreatedBy": "Google id",
         "createTime": "",
         "members": [
             {
@@ -35,21 +36,21 @@
                 "userActive": true
             }
         ],
-        "pulseHeader": [
+        "progressHeader": [
             {
                 "headerId": "0",
                 "headerTxt": "Item",
-                "headerCreateTime": ""
+                "createTime": ""
             },
             {
                 "headerId": "1",
                 "headerTxt": "Second col Header",
-                "headerCreateTime": ""
+                "createTime": ""
             },
             {
                 "headerId": "2",
                 "headerTxt": "Third col Header",
-                "headerCreateTime": ""
+                "createTime": ""
             }
         ],
         "pulse": [
@@ -64,7 +65,7 @@
                         "headerId": "0",
                         "cellLabelTxt": "Completed",
                         "color": "red",
-                        "createOrUpdateTime": "",
+                        "createTime": "",
                         "labels": [
                             {   
                                 "labelId": "1",
