@@ -1,13 +1,17 @@
 import axios from 'axios';
 
 export function getBoardsListAPI() {
-  return axios.get('http://localhost/api/bordlist')
+  return axios.get('http://localhost:3000/boardlist')
     .then((res: any) => Promise.resolve(res.data));
 }
 
 export function getBoardDetailsAPI(boardId: String) {
-  return axios.get(`http://localhost/api/borddetails/${boardId}`)
-    .then((res: any) => Promise.resolve(res.data));
+  console.log('in api-----------------------------boardId-', boardId);
+  return axios.get(`http://localhost:3000/currentBoard?boardId=${boardId}`)
+    .then((res: any) => {
+      console.log('iiiiiiiii--------------------------');
+      Promise.resolve(res.data)
+    });
 }
 
 export function addBoardAPI() {
@@ -25,6 +29,10 @@ export function deleteBoardAPI() {
 
 export function addColumnAPI() {
 
+}
+
+export function editColumnAPI() {
+  
 }
 
 export function deleteColumnAPI() {

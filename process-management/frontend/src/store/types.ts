@@ -45,7 +45,7 @@ export interface User {
 export interface ProgressHeader {
   headerId: String,
   headerTxt: String,
-  headerCreateTime: Date,
+  createTime: Date,
 }
 
 export interface Label {
@@ -59,13 +59,13 @@ export interface Cells {
   headerId: String,
   cellLabelTxt: String,
   color: String,
-  createOrUpdateTime: Date,
+  createTime: Date,
   labels: Label[],
 }
 
 export interface Pulse {
   pulseId: String,
-  pulseCreateTime: Date,
+  createTime: Date,
   pulseCreatedBy: String,
   pulseTxt: String,
   cells: Cells[],
@@ -75,6 +75,7 @@ export interface Board {
   boardId: String,
   boardName: String,
   boardDesc: String,
+  boardCreatedBy: String,
   members: User[],
   progressHeader: ProgressHeader[],
   pulse: Pulse[],
@@ -90,7 +91,7 @@ export interface BoardItem {
 export interface PulseItem {
   pulseId: String,
   pulseTxt: String,
-  pulseCreateTime: Date,
+  createTime: Date,
 }
 
 export interface CellItem {
@@ -98,7 +99,7 @@ export interface CellItem {
   headerId: String,
   cellLabelTxt: String,
   color: String,
-  createOrUpdateTime: Date,
+  createTime: Date,
 }
 
 export interface ProcessManagementState {

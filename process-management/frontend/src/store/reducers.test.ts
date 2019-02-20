@@ -30,7 +30,9 @@ describe('ProcessManagementReducers', () => {
                 boardId: "1",
                 boardName: "nisi deserunt",
                 boardDesc: "board discription",
+                boardCreatedBy: "google id",
                 createTime: new Date(),
+
                 members: [
                     {
                         userId: "google id ghjgsjdhggdfsu",
@@ -39,28 +41,28 @@ describe('ProcessManagementReducers', () => {
                         userActive: true
                     }
                 ],
-                pulseHeader: [
+                progressHeader: [
                     {
                         headerId: "0",
                         headerTxt: "Item",
-                        headerCreateTime: new Date()
+                        createTime: new Date()
                     },
                     {
                         headerId: "1",
                         headerTxt: "Second col Header",
-                        headerCreateTime: new Date()
+                        createTime: new Date()
                     },
                     {
                         headerId: "2",
                         headerTxt: "Third col Header",
-                        headerCreateTime: new Date()
+                        createTime: new Date()
                     }
                 ],
                 pulse: [
                     {
                         pulseId: "0",
                         pulseTxt: "pulse text",
-                        pulseCreateTime: new Date(),
+                        createTime: new Date(),
                         pulseCreatedBy: "bec5839f3d699bef073df03",
                         
                         cells: [
@@ -69,7 +71,7 @@ describe('ProcessManagementReducers', () => {
                                 headerId: "0",
                                 cellLabelTxt: "Completed",
                                 color: "red",
-                                createOrUpdateTime: new Date(),
+                                createTime: new Date(),
                                 labels: [
                                     {   
                                         labelId: "1",
