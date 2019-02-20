@@ -25,6 +25,7 @@
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
+    "lint": "./node_modules/.bin/eslint *.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"

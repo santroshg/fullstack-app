@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BoardItem } from './types';
 
 export function getBoardsListAPI() {
   return axios.get('http://localhost:3000/boardlist')
@@ -14,63 +15,66 @@ export function getBoardDetailsAPI(boardId: String) {
     });
 }
 
-export function addBoardAPI() {
+export function addBoardAPI(boardItem: BoardItem) {
   return axios.post('url')
-    .then((res: any) => Promise.resolve(res.data));
+    .then((res: any) => {
+      console.log('addBoardAPI before response');
+      Promise.resolve(res.data)
+    });
 }
 
-export function editBoardAPI() {
-
-}
-
-export function deleteBoardAPI() {
-
-}
-
-export function addColumnAPI() {
+export function editBoardAPI(dummy: String) {
 
 }
 
-export function editColumnAPI() {
+export function deleteBoardAPI(dummy: String) {
+
+}
+
+export function addColumnAPI(dummy: String) {
+
+}
+
+export function editColumnAPI(dummy: String) {
   
 }
 
-export function deleteColumnAPI() {
+export function deleteColumnAPI(dummy: String) {
 
 }
 
-export function addPulseAPI() {
+export function addPulseAPI(dummy: String) {
 
 }
 
-export function editPulseAPI() {
+export function editPulseAPI(dummy: String) {
 
 }
 
-export function deletePulseAPI() {
+export function deletePulseAPI(dummy: String) {
 
 }
 
-export function editCellAPI() {
+export function editCellAPI(dummy: String) {
 
 }
 
-export function addNewLabelAPI() {
+export function addNewLabelAPI(dummy: String) {
 
 }
 
-export function editLabelAPI() {
+export function editLabelAPI(dummy: String) {
 
 }
 
-export function deleteLabelAPI() {
+export function deleteLabelAPI(dummy: String) {
 
 }
 
-export function addMemberToBoardAPI() {
+export function addMemberToBoardAPI(dummy: String) {
 
 }
 
-export function removeMemberToBoardAPI() {
+export function removeMemberToBoardAPI(dummy: String) {
 
 }
