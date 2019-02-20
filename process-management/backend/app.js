@@ -10,6 +10,8 @@ const boardsRouter = require('./routes/boardsRouter');
 const membersRouter = require('./routes/membersRouter');
 const pulseRouter = require('./routes/pulseRouter');
 const progressHeaderRouter = require('./routes/progressHeaderRouter');
+const labelsRouter = require('./routes/labelsRouter');
+
 require('./auth/auth');
 
 
@@ -38,6 +40,7 @@ app.use('/api/boards', boardsRouter);
 app.use('/api/members', membersRouter);
 app.use('/api/pulse', pulseRouter);
 app.use('/api/headers', progressHeaderRouter);
+app.use('/api/labels', labelsRouter);
 
 
 // catch 404 and forward to error handler
