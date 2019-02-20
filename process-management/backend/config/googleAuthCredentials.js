@@ -7,7 +7,7 @@ module.exports =
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_secret": "FM0A9dc6FH5YFLJOVBoK97fS",
-        "redirect_uris": "/users/auth/google/success",
+        "redirect_uris": "http://localhost:3000/users/auth/google/success",
         "javascript_origins": ["http://localhost:3000"]
     }
 }
