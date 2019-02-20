@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
 
 const progressHeader = new mongoose.Schema({
   headerTxt: { type: String },
-  headerCreateTime: { type: String },
+  createTime: { type: String },
 });
 
 const labels = new mongoose.Schema({
@@ -20,19 +20,21 @@ const cells = new mongoose.Schema({
   headerId: { type: String },
   cellLabelTxt: { type: String },
   color: { type: String },
-  createOrUpdateTime: { type: Date, default: Date.now },
+  createTime: { type: Date, default: Date.now },
   labels: [labels],
 });
 
 const pulse = new mongoose.Schema({
+  createTime: { type: String },
+  pulseCreatedBy: { type: String },
   pulseTxt: { type: String },
-  pulseCreateTime: { type: String },
   cells: [cells],
 });
 
 const boardSchema = mongoose.Schema({
   boardName: { type: String, required: true },
   boardDesc: { type: String },
+  boardCreatedBy: { type: String },
   members: [userSchema],
   progressHeader: [progressHeader],
   pulse: [pulse],

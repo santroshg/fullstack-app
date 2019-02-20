@@ -1,16 +1,9 @@
-import { createStore, combineReducers, Reducer } from 'redux';
-// import TrelloApplicationReducer from './trello/reducer';
-// import SlackApplicationReducer from './slack/reducer';
-// import { TrelloApplicationState } from './trello/types';
-// import { SlackApplicationState } from './slack/types';
+import { createStore, Reducer } from 'redux';
+import ProcessManagementReducer from './reducers';
+import { ProcessManagementState } from './types';
 
-// const reducers = combineReducers({
-//     trelloReducer: (TrelloApplicationReducer as Reducer<TrelloApplicationState>),
-//     slackReducer: (SlackApplicationReducer as Reducer<SlackApplicationState>)
-// });
-// const store = createStore(reducers);
+const initialState: ProcessManagementState = require('./app.solution1.json');
 
-// // const store = createStore((TrelloApplicationReducer as Reducer<TrelloApplicationState>));
-// // const store = createStore((SlackApplicationReducer as Reducer<SlackApplicationState>));
+const store = createStore((ProcessManagementReducer as Reducer<ProcessManagementState>), initialState);
 
-// export default store;
+export default store;

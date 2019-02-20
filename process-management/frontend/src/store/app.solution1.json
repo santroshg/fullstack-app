@@ -1,5 +1,11 @@
 {
-    "boardlist": [
+    "loggedinUser": {
+        "userId": "google id ghjgsjdhggdfsu",
+        "userDisplayName": "User 1",
+        "userEmail": "user1@example.com",
+        "userActive": true
+    },
+    "boardList": [
         {
             "boardId": "1",
             "boardName": "Test board",
@@ -23,9 +29,9 @@
         "createTime": "",
         "members": [
             {
-                "userId": "",
-                "userDisplayName": "",
-                "userEmail": "",
+                "userId": "google id ghjgsjdhggdfsu",
+                "userDisplayName": "User 1",
+                "userEmail": "user1@example.com",
                 "userActive": true
             }
         ],

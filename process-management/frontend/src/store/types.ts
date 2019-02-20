@@ -65,8 +65,9 @@ export interface Cells {
 
 export interface Pulse {
   pulseId: String,
-  pulseTxt: String,
   pulseCreateTime: Date,
+  pulseCreatedBy: String,
+  pulseTxt: String,
   cells: Cells[],
 }
 
@@ -98,4 +99,10 @@ export interface CellItem {
   cellLabelTxt: String,
   color: String,
   createOrUpdateTime: Date,
+}
+
+export interface ProcessManagementState {
+  loggedinUser?: User,
+  boardList?: BoardItem[],
+  currentBoard?: Board,
 }
