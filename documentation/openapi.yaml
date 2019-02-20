@@ -11,7 +11,11 @@ tags: [{
 }, {
     "name": "members",
     "description": "Member in board API"
-}, {
+}, 
+{
+    "name": "progressHeader",
+    "description": "pulse progressHeader API"
+},{
     "name": "pulse",
     "description": "pulse API"
 }, {
@@ -165,7 +169,7 @@ paths:
                   message:
                     type: string
                     example: new board created successfully
-  '/api/boards/{boardId}//':
+  '/api/boards/{boardId}':
     put:
       tags: ['boards']
       security:
@@ -241,7 +245,7 @@ paths:
                   message:
                     type: string
                     example: Board deleted sucessfully.
-  '/api/{boardId}/members':
+  '/api/members/{boardId}':
     put:
       tags: ['members']
       security:
@@ -299,7 +303,7 @@ paths:
                   message:
                     type: string
                     example: member added to board sucessfully.
-  '/api/{boardId}/members/{memberId}':
+  '/api/members/{boardId}/{memberId}':
     delete:
       tags: ['members']
       security:
@@ -332,9 +336,9 @@ paths:
                   message:
                     type: string
                     example: member deleted sucessfuly from Board.
-  '/api/{boardId}/pulse/':
-    get:
-      tags: ['pulse']
+  '/api/headers/{boardId}':
+    post:
+      tags: ['progressHeader']
       security:
         - bearerAuth: []
       parameters:
@@ -345,97 +349,122 @@ paths:
           schema:
             type: string
             example: bec5839f3d699bef073df03
-      summary: get all pulse
+      summary: create pulse
+      requestBody:
+        description: create header in board with boardId passed
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - headerId
+                - headerTxt
+                - createTime
+              properties:
+                headerId:
+                  type: string
+                  example: bec5839f3d699bef073df03
+                headerTxt:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: Header 1
+                createTime:
+                  type: string
+                  minimum: 1
+                  maximum: 100
+                  example: '2019-02-15T06:44:14Z'
       responses:
-        '200':
-          description: get all pulse
+        '201':
+          description: create header in board
           content:
             application/json:
               schema:
                 required:
-                  - pulseId
-                  - pulseCreateTime
-                  - pulseCreatedBy
-                  - cells
-                    - cellId
-                    - headerId
-                    - cellType
-                    - cellLabelTxt
-                    - cellColor
-                    - cellCreatedOn
-                    - cellUpdatedOn
-                    - lables
-                      - labelId
-                      - labelTxt
+                  - message
                 properties:
-                  pulseId:
+                  message:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: bec5839f3d699bef073df03
-                  pulseCreateTime:
+                    example: pulse hedaer created sucessfully.
+  '/api/headers/{boardId}/{headerId}':
+    put:
+      tags: ['progressHeader']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: headerId
+          in: path
+          required: true
+          description: headerId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: update pulse
+      requestBody:
+        description: update pulse hedaer
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - headerTxt
+              properties:
+                headerTxt:
+                  type: string
+                  example: bec5839f3d699bef073df03
+      responses:
+        '200':
+          description: update pulse header
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: '2019-02-15T06:44:14Z'
-                  pulseCreatedBy:
+                    example: pulse header updated sucessfully. 
+  '/api/headers/{boardId}/{headerId}/':
+    delete:
+      tags: ['progressHeader']
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: boardId
+          in: path
+          required: true
+          description: Board Id
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+        - name: headerId
+          in: path
+          required: true
+          description: headerId
+          schema:
+            type: string
+            example: bec5839f3d699bef073df03
+      summary: delete pulse header
+      responses:
+        '200':
+          description: delete pulse header
+          content:
+            application/json:
+              schema:
+                required:
+                  - message
+                properties:
+                  message:
                     type: string
-                    minimum: 1
-                    maximum: 5000
-                    example: bec5839f3d699bef073df03
-                  cells: 
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        cellId:
-                          type: integer
-                        headerId:
-                          type: integer
-                        cellType:
-                          type: string
-                        cellLabelTxt: 
-                          type: string
-                        cellColor: 
-                          type: string
-                        cellCreatedOn:
-                          type: string
-                        cellUpdatedOn:
-                          type: string
-                        labels:
-                          type: array
-                          items: 
-                              type: object
-                              properties:
-                                labelId:
-                                  type: string
-                                labelTxt: 
-                                  type: string
-                                labelColor: 
-                                 type: string
-                          
-                    example:
-                      - cellId: bec5839f3d699bsdfsdf03
-                        headerId: bec5839f3d6sdfsbef073df03
-                        cellType: text
-                        cellLabelTxt: Task
-                        cellColor: none
-                        cellCreatedOn: "2019-02-15T06:44:14Z"
-                        cellUpdatedOn: "2019-02-15T06:44:14Z"
-                      - cellId: bec5839f3d699bef073df03
-                        headerId: bec5839f3d699bef073df03
-                        cellType: status
-                        cellLabelTxt: completed
-                        cellColor: red
-                        cellCreatedOn: "2019-02-15T06:44:14Z"
-                        cellUpdatedOn: "2019-02-15T06:44:14Z"
-                        labels:
-                            - labelId: bec5839f3d699bef073df03
-                              labelTxt: Comleted
-                              labelColor: red
-                              
-                        
-  '/api/{boardId}/pulse':
+                    example: pulse header sucessfuly
+  '/api/pulse/{boardId}':
     post:
       tags: ['pulse']
       security:
@@ -485,7 +514,7 @@ paths:
                   message:
                     type: string
                     example: pulse created sucessfully.
-  '/api/{boardId}/pulse/{pulseId}/':
+  '/api/pulse/{boardId}/{pulseId}':
     put:
       tags: ['pulse']
       security:
@@ -546,7 +575,7 @@ paths:
                   message:
                     type: string
                     example: pulse updated sucessfully. 
-  '/api/{boardId}/pulse/{pulseId}':
+  '/api/pulse/{boardId}/{pulseId}/':
     delete:
       tags: ['pulse']
       security:
@@ -579,7 +608,7 @@ paths:
                   message:
                     type: string
                     example: pulse deleted sucessfuly from Board.
-  '/api/{boardId}/{pulseId}/{cellId}/labels/':
+  '/api/labels/{boardId}/{pulseId}/{cellId}':
     get:
       tags: ['labels']
       security:
@@ -632,7 +661,7 @@ paths:
                   - labelId: bec5839f3d699bef073df03
                     labelTxt: Comleted
                     labelColor: red
-  '/api/{boardId}/{pulseId}/{cellId}/labels':
+  '/api/labels/{boardId}/{pulseId}/:cellId':
     post:
       tags: ['labels']
       security:
@@ -692,7 +721,7 @@ paths:
                   message:
                     type: string
                     example: pulse status label created sucessfully. 
-  '/api/{boardId}/{pulseId}/{cellId}/labels/{labelId}':
+  '/api/labels/{boardId}/{pulseId}/{cellId}/{labelId}':
     put:
       tags: ['labels']
       security:
@@ -759,7 +788,7 @@ paths:
                   message:
                     type: string
                     example: pulse status label updated sucessfully. 
-  '/api/{boardId}/{pulseId}/{cellId}/labels/{labelId}/':
+  '/api/labels/{boardId}/{pulseId}/{cellId}/{labelId}/':
     delete:
       tags: ['labels']
       security:
