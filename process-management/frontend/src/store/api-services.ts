@@ -2,13 +2,14 @@ import axios from 'axios';
 import { BoardItem } from './types';
 
 export function getBoardsListAPI() {
-  return axios.get('http://localhost:3000/boardlist')
+  console.log('api call getBoardsListAPI----------------');
+  return axios.get('http://localhost:3000/boards')
     .then((res: any) => Promise.resolve(res.data));
 }
 
 export function getBoardDetailsAPI(boardId: String) {
   console.log('in api-----------------------------boardId-', boardId);
-  return axios.get(`http://localhost:3000/currentBoard?boardId=${boardId}`)
+  return axios.get(`http://localhost:3000/boards/${boardId}`)
     .then((res: any) => {
       console.log('iiiiiiiii--------------------------');
       Promise.resolve(res.data)

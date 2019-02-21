@@ -1,9 +1,13 @@
-import { createStore, Reducer } from 'redux';
+import { createStore, Reducer, applyMiddleware } from 'redux';
 import ProcessManagementReducer from './reducers';
 import { ProcessManagementState } from './types';
+import createSagaMiddleware from '@redux-saga/core';
+import sagas from './sagas';
 
 const initialState: ProcessManagementState = require('./app.solution1.json');
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore((ProcessManagementReducer as Reducer<ProcessManagementState>), initialState, applyMiddleware(sagaMiddleware));
 
-const store = createStore((ProcessManagementReducer as Reducer<ProcessManagementState>), initialState);
+sagaMiddleware.run(sagas);
 
 export default store;

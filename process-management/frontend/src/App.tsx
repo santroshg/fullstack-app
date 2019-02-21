@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import store from './store';
+import { Board, BoardItem } from './store/types';
+import BoardListComponent from './components/BoardListComponent';
+import BoardComponent from './components/BoardComponent';
 
-class App extends Component {
-  constructor(props: any) {
+interface AppProps {}
+interface AppState {
+  boardList?: BoardItem[],
+  currentBoard?: Board,
+}
+
+export default class App extends Component<AppState, AppProps> {
+  constructor(props: AppState) {
     super(props);
   }
 
   state = {
-    apiResponse: ""
+    //currentBoard: ''
   }
 
-  testAPIcall = () => {
-    console.log('API Call started...');
-    return axios.get('https://backend-xt-fsd.herokuapp.com/api/test')
-    // return axios.get('http://localhost:3000/api/test')
-      .then((res) => {
-        console.log('after api call backend-', res.data);
-        this.setState({
-          apiResponse: res.data.message
-        });
-      });
-  }
+ componentDidMount() {
+   store.subscribe(() => {
+     this.setState({currentBoard: store.getState().currentBoard})
+   });
+ }
 
   render() {
     return (
-      <div className="App">
-        <h1>Welcome...</h1>
-        <button onClick={this.testAPIcall.bind(this)}>Test app</button>
-        <div>API responce: {this.state.apiResponse}</div>
-      </div>
+      <Router>
+        <Provider store={store}>
+          <Route path="/boards" component={BoardListComponent} />
+          <Route path="/boards/:boardId" component={BoardComponent} />
+          <div className="App">
+            Welcome....
+        
+          </div>
+
+        </Provider>
+      </Router>
     );
   }
 }
-
-export default App;
