@@ -61,22 +61,22 @@ export function* deletePulse(action: AnyAction) {
 
 export function* editCell(action: AnyAction) {
   const boardAfterEditCell = yield call(editCellAPI, action.payload);
-  yield put(editCellAction(boardAfterEditCell.boardId, boardAfterEditCell.cell));
+  yield put(editCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulseId, boardAfterEditCell.cell));
 }
 
 export function* addNewLabel(action: AnyAction) {
   const boardAfterAddNewLabel = yield call(addNewLabelAPI, action.payload);
-  yield put(addNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.cellId, boardAfterAddNewLabel.label));
+  yield put(addNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulseId, boardAfterAddNewLabel.cellId, boardAfterAddNewLabel.label));
 }
 
 export function* editLabel(action: AnyAction) {
   const boardAfterEditLabel = yield call(editLabelAPI, action.payload);
-  yield put(editLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
+  yield put(editLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
 }
 
 export function* deleteLabel(action: AnyAction) {
   const boardAfterDeleteLabel = yield call(deleteLabelAPI, action.payload);
-  yield put(deleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
+  yield put(deleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
 }
 
 export function* addMemberToBoard(action: AnyAction) {

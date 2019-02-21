@@ -9,14 +9,15 @@ import { getBoardsList, getBoardDetails, addBoard, editBoard, deleteBoard,
 import { getBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, 
     addColumnAction, editColumnAction, deleteColumnAction, addPulseAction, editPulseAction, deletePulseAction,
     editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, addMemberToBoardAction,
-    removeMemberToBoardAction } from './actions';
+    removeMemberToBoardAction, 
+    getBoardsListAction} from './actions';
 
 chai.should();
 
 describe('ServiceManagementStoreSaga', () => {
     describe('getBoardsList', () => {
         it('It should call getBoardsList()', () => {
-            const getBoardsListSaga = getBoardsList();
+            const getBoardsListSaga = getBoardsList(getBoardsListAction());
             getBoardsListSaga.next().value.should.deep.equal(call(getBoardsListAPI));
         });
 
@@ -57,7 +58,7 @@ describe('ServiceManagementStoreSaga', () => {
             const progressHeader: ProgressHeader = {
                 headerId: '1',
                 headerTxt: 'Header Teaxt',
-                headerCreateTime: new Date(),
+                createTime: new Date(),
             }
             const addColumnSaga = addColumn(addColumnAction(boardId, progressHeader));
             addColumnSaga.next().value.should.deep.equal(call(addColumnAPI, {boardId, progressHeader}));
@@ -83,7 +84,7 @@ describe('ServiceManagementStoreSaga', () => {
             const pulse: PulseItem = {
                 pulseId: 't78uh78iokbvgyuioytf',
                 pulseTxt: 'New pulse',
-                pulseCreateTime: new Date(),
+                createTime: new Date(),
             }
             const addPulseSaga = addPulse(addPulseAction(boardId, pulse));
             addPulseSaga.next().value.should.deep.equal(call(addPulseAPI, {boardId, pulse}));
@@ -106,47 +107,51 @@ describe('ServiceManagementStoreSaga', () => {
         
         it('It should call editCell()', () => {
             const boardId: String = '1';
+            const pulseId: String = '0';
             const cell: CellItem = {
                 cellId: '1',
                 headerId: '1',
                 cellLabelTxt: 'updated cell label txt',
                 color: 'red',
-                createOrUpdateTime: new Date(),
+                createTime: new Date(),
             }
-            const editCellSaga = editCell(editCellAction(boardId, cell));
-            editCellSaga.next().value.should.deep.equal(call(editCellAPI, {boardId, cell}));
+            const editCellSaga = editCell(editCellAction(boardId, pulseId, cell));
+            editCellSaga.next().value.should.deep.equal(call(editCellAPI, {boardId, pulseId, cell}));
         });
 
         it('It should call addNewLabel()', () => {
             const boardId: String = '1';
+            const pulseId: String = '0';
             const cellId: String = '1';
             const label: Label = {
                 labelId: 'dfyui9087ytfdcghio',
                 labelTxt: 'Label txt',
                 color: 'blue',
             }
-            const addNewLabelSaga = addNewLabel(addNewLabelAction(boardId, cellId, label));
-            addNewLabelSaga.next().value.should.deep.equal(call(addNewLabelAPI, {boardId, cellId, label}));
+            const addNewLabelSaga = addNewLabel(addNewLabelAction(boardId, pulseId, cellId, label));
+            addNewLabelSaga.next().value.should.deep.equal(call(addNewLabelAPI, {boardId, pulseId, cellId, label}));
         });
 
         it('It should call editLabel()', () => {
             const boardId: String = '1';
+            const pulseId: String = '0';
             const cellId: String = '1';
             const label: Label = {
                 labelId: 'dfyui9087ytfdcghio',
                 labelTxt: 'Label txt',
                 color: 'blue',
             }
-            const editLabelSaga = editLabel(editLabelAction(boardId, cellId, label));
-            editLabelSaga.next().value.should.deep.equal(call(editLabelAPI, {boardId, cellId, label}));
+            const editLabelSaga = editLabel(editLabelAction(boardId, pulseId, cellId, label));
+            editLabelSaga.next().value.should.deep.equal(call(editLabelAPI, {boardId, pulseId, cellId, label}));
         });
 
         it('It should call deleteLabel()', () => {
             const boardId: String = '1';
+            const pulseId: String = '0';
             const cellId: String = '1';
             const labelId: String = '1';
-            const deleteLabelSaga = deleteLabel(deleteLabelAction(boardId, cellId, labelId));
-            deleteLabelSaga.next().value.should.deep.equal(call(deleteLabelAPI, {boardId, cellId, labelId}));
+            const deleteLabelSaga = deleteLabel(deleteLabelAction(boardId, pulseId, cellId, labelId));
+            deleteLabelSaga.next().value.should.deep.equal(call(deleteLabelAPI, {boardId, pulseId, cellId, labelId}));
         });
 
         it('It should call addMemberToBoard()', () => {

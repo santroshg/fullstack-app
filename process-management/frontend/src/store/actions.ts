@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User } from './types';
+import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User, Pulse } from './types';
 
 export const getBoardsListAction = () => action(ProcessMgtActionType.GET_BOARDS_LIST);
 export const setBoardsListAction = (boardList: BoardItem[]) => action(ProcessMgtActionType.SET_BOARDS_LIST, boardList);
@@ -26,15 +26,15 @@ export const editPulseAction = (boardId: String, pulseId: String, pulseTxt: Stri
 export const setEditPulseAction = (boardId: String, pulseId: String, pulseTxt: String) => action(ProcessMgtActionType.SET_EDIT_PULSE, {boardId, pulseId, pulseTxt});
 export const deletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.DELETE_PULSE, {boardId, pulseId});
 export const setDeletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.SET_DELETE_PULSE, {boardId, pulseId});
-export const editCellAction = (boardId: String, cell: CellItem) => action(ProcessMgtActionType.EDIT_CELL, {boardId, cell});
-export const setEditCellAction = (boardId: String, cell: CellItem) => action(ProcessMgtActionType.SET_EDIT_CELL, {boardId, cell});
-// create new label in selected cell lebel list
-export const addNewLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.ADD_NEW_LABEL, {boardId, cellId, label});
-export const setAddNewLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, cellId, label});
-export const editLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.EDIT_LABEL, {boardId, cellId, label});
-export const setEditLabelAction = (boardId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_EDIT_LABEL, {boardId, cellId, label});
-export const deleteLabelAction = (boardId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.DELETE_LABEL, {boardId, cellId, labelId});
-export const setDeleteLabelAction = (boardId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.SET_DELETE_LABEL, {boardId, cellId, labelId});
+export const editCellAction = (boardId: String, pulseId: String, cell: CellItem) => action(ProcessMgtActionType.EDIT_CELL, {boardId, pulseId, cell});
+export const setEditCellAction = (boardId: String, pulseId: String, cell: CellItem) => action(ProcessMgtActionType.SET_EDIT_CELL, {boardId, pulseId, cell});
+// create new label in selected cell lebel list 
+export const addNewLabelAction = (boardId: String, pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.ADD_NEW_LABEL, {boardId, pulseId, cellId, label});
+export const setAddNewLabelAction = (boardId: String, pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, pulseId, cellId, label});
+export const editLabelAction = (boardId: String, pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.EDIT_LABEL, {boardId, pulseId, cellId, label});
+export const setEditLabelAction = (boardId: String, pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_EDIT_LABEL, {boardId, pulseId, cellId, label});
+export const deleteLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.DELETE_LABEL, {boardId, pulseId, cellId, labelId});
+export const setDeleteLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.SET_DELETE_LABEL, {boardId, pulseId, cellId, labelId});
 
 export const addMemberToBoardAction = (boardId: String, user: User) => action(ProcessMgtActionType.ADD_MEMBER_TO_BOARD, {boardId, user});
 export const setAddMemberToBoardAction = (boardId: String, user: User) => action(ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD, {boardId, user});

@@ -91,6 +91,7 @@ export interface BoardItem {
 export interface PulseItem {
   pulseId: String,
   pulseTxt: String,
+  pulseCreatedBy: String,
   createTime: Date,
 }
 
