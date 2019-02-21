@@ -7,6 +7,12 @@ const progressHeaderSchema = mongoose.Schema({
   createTime: {
     type: String,
   },
+  headerId: {
+    type: String,
+  },
+  headerType: {
+    type: String,
+  },
 });
 
 

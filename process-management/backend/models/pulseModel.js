@@ -11,6 +11,9 @@ const pulseSchema = mongoose.Schema({
   pulseTxt: {
     type: String,
   },
+  headerId: {
+    type: String,
+  },
   cells: [cellModel],
 });
 

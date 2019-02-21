@@ -39,21 +39,33 @@
         "progressHeader": [
             {
                 "headerId": "0",
-                "headerTxt": "Item",
-                "createTime": ""
-            },
-            {
-                "headerId": "1",
-                "headerTxt": "Second col Header",
-                "createTime": ""
-            },
-            {
-                "headerId": "2",
-                "headerTxt": "Third col Header",
+                "headerTxt": "",
                 "createTime": ""
             }
         ],
         "pulse": [
+            {
+                "pulseId": "0",
+                "pulseCreateTime": "2019-02-15T06:44:14Z",
+                "pulseCreatedBy": "bec5839f3d699bef073df03",
+                "pulseTxt": "pulse text",
+                "cells": [
+                    {
+                        "cellId": "0",
+                        "headerId": "0",
+                        "cellLabelTxt": "Completed",
+                        "color": "red",
+                        "createTime": "",
+                        "labels": [
+                            {   
+                                "labelId": "1",
+                                "labelTxt": "Completed",
+                                "color": "red"   
+                            }
+                        ]
+                    }
+                ]
+            },
             {
                 "pulseId": "0",
                 "pulseCreateTime": "2019-02-15T06:44:14Z",

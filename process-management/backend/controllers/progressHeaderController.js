@@ -5,16 +5,37 @@ const progressHeaderController = {
   addProgressHeader: (req, res, next) => {
     try {
       const { boardId } = req.params;
-      const progressHeaderData = req.body;
       if (boardId) {
-        BoardModel.updateOne({ _id: boardId }, { $push: { progressHeader: progressHeaderData } }, (err, newProgressHeader) => {
+        const progressHeaderData = req.body;
+        const newHeaderId = Math.random() * 1234;
+        const cellData = {
+          headerId: newHeaderId,
+          cellLabelTxt: '',
+          color: '',
+          createTime: new Date(),
+        };
+
+        progressHeaderData.headerId = newHeaderId;
+        progressHeaderData.headerTxt = 'Edit header';
+        progressHeaderData.createTime = new Date();
+        BoardModel.updateOne({ _id: boardId }, { $push: { progressHeader: progressHeaderData, 'pulse.$[].cells': cellData } }, (err, newProgressHeader) => {
           if (err) {
-            throw err;
+            res.set('Content-Type', 'application/json');
+            res.status(200).send({ message: 'borad not exist' });
           } else {
             res.set('Content-Type', 'application/json');
             res.status(200).send(newProgressHeader);
           }
         });
+        // BoardModel.updateOne({ _id: boardId }, { $push: { 'pulse.$[].cells': cellData } }, (err, cellResponse) => {
+        //   if (err) {
+        //     res.set('Content-Type', 'application/json');
+        //     res.status(200).send({ message: 'borad not exist' });
+        //   } else {
+        //     res.set('Content-Type', 'application/json');
+        //     res.status(200).send(cellResponse);
+        //   }
+        // });
       }
     } catch (error) {
       next(error);
