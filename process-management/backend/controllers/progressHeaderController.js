@@ -27,15 +27,6 @@ const progressHeaderController = {
             res.status(200).send(newProgressHeader);
           }
         });
-        // BoardModel.updateOne({ _id: boardId }, { $push: { 'pulse.$[].cells': cellData } }, (err, cellResponse) => {
-        //   if (err) {
-        //     res.set('Content-Type', 'application/json');
-        //     res.status(200).send({ message: 'borad not exist' });
-        //   } else {
-        //     res.set('Content-Type', 'application/json');
-        //     res.status(200).send(cellResponse);
-        //   }
-        // });
       }
     } catch (error) {
       next(error);
