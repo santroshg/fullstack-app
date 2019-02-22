@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import store from './store';
 import { Board, BoardItem } from './store/types';
-import BoardListComponent from './components/BoardListComponent';
-import BoardComponent from './components/BoardComponent';
+import BoardListComponent from './components/BoardListComponent/BoardListComponent';
+import BoardComponent from './components/BoardComponent/BoardComponent';
 import AppHeader from './components/AppHeader/AppHeader';
 
 interface AppProps {}

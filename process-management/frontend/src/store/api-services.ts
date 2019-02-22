@@ -2,29 +2,35 @@ import axios from 'axios';
 import { BoardItem } from './types';
 
 export function getBoardsListAPI() {
-  console.log('api call getBoardsListAPI----------------');
+  // console.log('api call getBoardsListAPI----------------');
   return axios.get('http://localhost:3000/boardList')
     .then((res: any) => {
-      console.log('res------------------', res.data);
+      // console.log('res------------------', res.data);
       return Promise.resolve(res.data)
       // return res.data;
     });
 }
 
 export function getBoardDetailsAPI(boardId: String) {
-  console.log('in api-----------------------------boardId-', boardId);
+  // console.log('in api-----------------------------boardId-', boardId);
   return axios.get(`http://localhost:3000/boards/${boardId}`)
     .then((res: any) => {
-      console.log('iiiiiiiii--------------------------');
-      Promise.resolve(res.data)
+      // console.log('iiiiiiiii--------------------------');
+      Promise.resolve(res.data);
     });
 }
 
 export function addBoardAPI(boardItem: BoardItem) {
-  return axios.post('url')
+  const notNeededBoardObject: BoardItem = {
+    boardId: Math.random() * 23456 + '',
+    boardName: boardItem.boardName,
+    boardDesc: boardItem.boardDesc
+  }
+  console.log('boardItem---starting saving-----', notNeededBoardObject);
+  return axios.post('http://localhost:3000/boardList', notNeededBoardObject)
     .then((res: any) => {
       console.log('addBoardAPI before response');
-      Promise.resolve(res.data)
+      Promise.resolve(res.data);
     });
 }
 

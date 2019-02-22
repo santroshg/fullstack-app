@@ -2,11 +2,11 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI } from './api-services';
-import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction, deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, editPulseAction, addMemberToBoardAction, removeMemberToBoardAction, editColumnAction } from './actions';
+import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction, deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, editPulseAction, addMemberToBoardAction, removeMemberToBoardAction, editColumnAction, setAddBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
-  console.log('boardList---------', typeof boardList);
+  // console.log('boardList---------', typeof boardList);
   yield put(setBoardsListAction(boardList));
 }
 
@@ -16,8 +16,9 @@ export function* getBoardDetails(action: AnyAction) {
 }
 
 export function* addBoard(action: AnyAction) {
+  console.log('addBoardFromSaga-----');
   const addedBoard: BoardItem = yield call(addBoardAPI, action.payload);
-  yield put(addBoardAction(addedBoard));
+  yield put(setAddBoardAction(addedBoard));
 }
 
 export function* editBoard(action: AnyAction) {
