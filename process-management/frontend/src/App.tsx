@@ -6,6 +6,7 @@ import { Board, BoardItem } from './store/types';
 import BoardListComponent from './components/BoardListComponent/BoardListComponent';
 import BoardComponent from './components/BoardComponent/BoardComponent';
 import AppHeader from './components/AppHeader/AppHeader';
+import GoogleAuthComponent from './components/AuthComponent/GoogleAuthComponent';
 
 interface AppProps {}
 interface AppState {
@@ -33,10 +34,9 @@ export default class App extends Component<AppState, AppProps> {
       <Router>
         <Provider store={store}>
           <AppHeader />
-          
+          <Route path="/auth/google" component={GoogleAuthComponent} />
           <Route path="/home" component={BoardListComponent} />
           <Route path="/boards/:boardId" component={BoardComponent} />
-
         </Provider>
       </Router>
     );
