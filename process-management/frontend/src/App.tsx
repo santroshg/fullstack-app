@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './App.css';
 import store from './store';
 import { Board, BoardItem } from './store/types';
 import BoardListComponent from './components/BoardListComponent/BoardListComponent';
