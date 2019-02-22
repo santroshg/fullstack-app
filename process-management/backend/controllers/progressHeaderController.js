@@ -14,7 +14,6 @@ const progressHeaderController = {
           color: '',
           createTime: new Date(),
         };
-
         progressHeaderData.headerId = newHeaderId;
         progressHeaderData.headerTxt = 'Edit header';
         progressHeaderData.createTime = new Date();
@@ -33,7 +32,6 @@ const progressHeaderController = {
     }
   },
 
-  // TODO fix mongo query
   // editProgressHeader
   editProgressHeader: (req, res, next) => {
     try {
@@ -41,7 +39,7 @@ const progressHeaderController = {
       const { boardId } = req.params;
       const { headerId } = req.params;
       if (boardId) {
-        BoardModel.update({ _id: boardId, 'progressHeader._id': headerId }, updateProgressHeaderData, (err, updatedProgressHeader) => {
+        BoardModel.update({ _id: boardId, 'progressHeader._id': headerId }, { $set: { progressHeader: updateProgressHeaderData } }, (err, updatedProgressHeader) => {
           if (err) {
             throw err;
           } else {
@@ -58,14 +56,16 @@ const progressHeaderController = {
   // deleteProgressHeader
   deleteProgressHeader: (req, res, next) => {
     try {
-      const { headerId } = req.params;
       const { boardId } = req.params;
+      const { headerId } = req.params;
       if (boardId && headerId) {
-        BoardModel.updateOne({ _id: boardId }, { $pull: { progressHeader: { _id: headerId } } }, (err) => {
+        BoardModel.update({ _id: boardId }, { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerId } } }, (err, newProgressHeader) => {
           if (err) {
-            res.status(404).send(`${headerId} not exist in database.`);
+            res.set('Content-Type', 'application/json');
+            res.status(200).send({ message: 'borad not exist' });
           } else {
-            res.status(200).send({ message: 'progressHeader deleted sucessfully.' });
+            res.set('Content-Type', 'application/json');
+            res.status(200).send(newProgressHeader);
           }
         });
       }

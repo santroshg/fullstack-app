@@ -68,7 +68,6 @@ const pulseController = {
     }
   },
 
-  // TODO fix mongo query
   // editPulse
   editPulse: (req, res, next) => {
     try {
@@ -76,7 +75,7 @@ const pulseController = {
       const { boardId } = req.params;
       const { pulseId } = req.params;
       if (boardId) {
-        BoardModel.update({ _id: boardId, 'pulse._id': pulseId }, updatePulseData, (err, updatedPulse) => {
+        BoardModel.update({ _id: boardId, 'pulse._id': pulseId }, { $set: { pulse: updatePulseData } }, (err, updatedPulse) => {
           if (err) {
             throw err;
           } else {
