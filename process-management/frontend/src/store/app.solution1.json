@@ -8,7 +8,12 @@
     "boardList": [
         {
             "boardId": "1",
-            "boardName": "Test board",
+            "boardName": "Test board s",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "11",
+            "boardName": "Test board s",
             "boardDesc": "description"
         },
         {

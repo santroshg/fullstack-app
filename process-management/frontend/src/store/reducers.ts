@@ -10,7 +10,15 @@ const initialState: ProcessManagementState = {
 const ProcessManagementReducer = (currentState: ProcessManagementState = initialState, action: AnyAction) => {
   switch(action.type) {
     case ProcessMgtActionType.SET_BOARDS_LIST:
+    console.log('------------inside reducers-', action.payload);
+    // console.log('currentState.boardList----', currentState.boardList);
+    // console.log('currentState----', {...currentState, boardList: [...currentState.boardList, ...action.payload]});
+    if(currentState.boardList !== undefined) {
       return {...currentState, boardList: [...currentState.boardList, ...action.payload]};
+    } else {
+      console.log('{...currentState, boardList: [...action.payload]}-', {...currentState, boardList: [...action.payload]});
+      return {...currentState, boardList: [...action.payload]};
+    }
 
     case ProcessMgtActionType.SET_BOARD_DETAILS:
       return {...currentState, currentBoard: action.payload};

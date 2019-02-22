@@ -6,6 +6,7 @@ import store from './store';
 import { Board, BoardItem } from './store/types';
 import BoardListComponent from './components/BoardListComponent';
 import BoardComponent from './components/BoardComponent';
+import AppHeader from './components/AppHeader/AppHeader';
 
 interface AppProps {}
 interface AppState {
@@ -32,12 +33,10 @@ export default class App extends Component<AppState, AppProps> {
     return (
       <Router>
         <Provider store={store}>
-          <Route path="/boards" component={BoardListComponent} />
+          <AppHeader />
+          
+          <Route path="/home" component={BoardListComponent} />
           <Route path="/boards/:boardId" component={BoardComponent} />
-          <div className="App">
-            Welcome....
-        
-          </div>
 
         </Provider>
       </Router>

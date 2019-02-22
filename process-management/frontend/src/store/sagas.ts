@@ -6,6 +6,7 @@ import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAc
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
+  console.log('boardList---------', typeof boardList);
   yield put(setBoardsListAction(boardList));
 }
 

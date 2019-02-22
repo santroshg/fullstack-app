@@ -3,8 +3,12 @@ import { BoardItem } from './types';
 
 export function getBoardsListAPI() {
   console.log('api call getBoardsListAPI----------------');
-  return axios.get('http://localhost:3000/boards')
-    .then((res: any) => Promise.resolve(res.data));
+  return axios.get('http://localhost:3000/boardList')
+    .then((res: any) => {
+      console.log('res------------------', res.data);
+      return Promise.resolve(res.data)
+      // return res.data;
+    });
 }
 
 export function getBoardDetailsAPI(boardId: String) {

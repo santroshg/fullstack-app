@@ -1,0 +1,156 @@
+{
+    "loggedinUser": {
+        "userId": "google id ghjgsjdhggdfsu",
+        "userDisplayName": "User 1",
+        "userEmail": "user1@example.com",
+        "userActive": true
+    },
+    "boardList": [
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "1",
+            "boardName": "server board",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "2",
+            "boardName": "Another Test board server",
+            "boardDesc": "description"
+        },
+        {
+            "boardId": "3",
+            "boardName": "XT Test board server",
+            "boardDesc": "description"
+        }
+    ],
+    "currentBoard": {
+        "boardId": "1",
+        "boardName": "server board",
+        "boardDesc": "discription",
+        "boardCreatedBy": "Google id",
+        "createTime": "",
+        "members": [
+            {
+                "userId": "google id ghjgsjdhggdfsu",
+                "userDisplayName": "User 1",
+                "userEmail": "user1@example.com",
+                "userActive": true
+            }
+        ],
+        "progressHeader": [
+            {
+                "headerId": "0",
+                "headerTxt": "Item",
+                "createTime": ""
+            },
+            {
+                "headerId": "1",
+                "headerTxt": "Second col Header",
+                "createTime": ""
+            },
+            {
+                "headerId": "2",
+                "headerTxt": "Third col Header",
+                "createTime": ""
+            }
+        ],
+        "pulse": [
+            {
+                "pulseId": "0",
+                "createTime": "2019-02-15T06:44:14Z",
+                "pulseCreatedBy": "bec5839f3d699bef073df03",
+                "pulseTxt": "pulse text",
+                "cells": [
+                    {
+                        "cellId": "0",
+                        "headerId": "0",
+                        "cellLabelTxt": "Completed",
+                        "color": "red",
+                        "createTime": "",
+                        "labels": [
+                            {   
+                                "labelId": "1",
+                                "labelTxt": "Completed",
+                                "color": "red"   
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
