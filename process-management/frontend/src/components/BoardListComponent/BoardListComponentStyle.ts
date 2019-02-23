@@ -2,6 +2,7 @@ export const styles = {
     WrapSidebarAndBoady: {
         display: 'flex',
         flexDirection: 'row',
+        // justifyContent: 'space-between',
     } as React.CSSProperties,
 
     sideBar: {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import { Board } from '../../store/types';
 import { styles } from './BoardComponentStyle';
 
@@ -14,8 +15,12 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
             this.props.currentBoard ? (
                 <div style={styles.boardEmptyMsg}>
                     <Typography variant="h5" gutterBottom>
-                    {this.props.currentBoard.boardName}
+                        {this.props.currentBoard.boardName}
                     </Typography>
+                    <Divider />
+
+                    
+
                 </div>
             ) : (<div >Please select any boaed or create...</div>)
             

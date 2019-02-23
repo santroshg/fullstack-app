@@ -1,7 +1,10 @@
 export const styles = {
     boardEmptyMsg: {
-        marginLeft: 20,
-        backgroundColor: '#6a1b9a',
-        width: '100%',
+        // position: 'relative',
+        // left: 0,
+        // width: '78%',
+        // textAlign: 'right',
+        backgroundColor: '#9fa8da',
+        // marginLeft: 100,
     } as React.CSSProperties,
 }
