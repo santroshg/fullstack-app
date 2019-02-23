@@ -16,7 +16,6 @@ export function* getBoardDetails(action: AnyAction) {
 }
 
 export function* addBoard(action: AnyAction) {
-  console.log('addBoardFromSaga-----');
   const addedBoard: BoardItem = yield call(addBoardAPI, action.payload);
   yield put(setAddBoardAction(addedBoard));
 }

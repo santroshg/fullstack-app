@@ -12,11 +12,9 @@ export function getBoardsListAPI() {
 }
 
 export function getBoardDetailsAPI(boardId: String) {
-  // console.log('in api-----------------------------boardId-', boardId);
-  return axios.get(`http://localhost:3000/boards/${boardId}`)
+  return axios.get('http://localhost:3000/currentBoard')
     .then((res: any) => {
-      // console.log('iiiiiiiii--------------------------');
-      Promise.resolve(res.data);
+      return Promise.resolve(res.data);
     });
 }
 
@@ -30,7 +28,7 @@ export function addBoardAPI(boardItem: BoardItem) {
   return axios.post('http://localhost:3000/boardList', notNeededBoardObject)
     .then((res: any) => {
       console.log('addBoardAPI before response');
-      Promise.resolve(res.data);
+      return Promise.resolve(res.data);
     });
 }
 

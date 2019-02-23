@@ -1,4 +1,9 @@
 export const styles = {
+    WrapSidebarAndBoady: {
+        display: 'flex',
+        flexDirection: 'row',
+    } as React.CSSProperties,
+
     sideBar: {
         width: '22%',
         height: '100vh',
