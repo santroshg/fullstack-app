@@ -39,8 +39,6 @@ export default class AddBoardDialog extends React.Component<AddBoardDialogProps>
 
   handleAddBoard = () => {
       if (this.state.newBoardName !== '') {
-        console.log('newBoardName-----', this.state.newBoardName);
-        console.log('newBoardDesc-----', this.state.newBoardDesc);
           this.props.addBoardFromSaga(
                   {
                     boardName: this.state.newBoardName, 

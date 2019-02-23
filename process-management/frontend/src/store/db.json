@@ -128,18 +128,13 @@
     ],
     "progressHeader": [
       {
-        "headerId": "0",
-        "headerTxt": "Item",
-        "createTime": ""
-      },
-      {
         "headerId": "1",
-        "headerTxt": "Second col Header",
+        "headerTxt": "Second col Header fghasfd fhgasfdh fhjasf dhjfhjsaf dhjfasjhdf hj",
         "createTime": ""
       },
       {
-        "headerId": "2",
-        "headerTxt": "Third col Header",
+        "headerId": "4",
+        "headerTxt": "Third col Header fghasfd fhgasfdh fhjasf dhjfhjsaf dhjfasjhdf hj",
         "createTime": ""
       }
     ],
@@ -154,6 +149,20 @@
             "cellId": "0",
             "headerId": "0",
             "cellLabelTxt": "Completed",
+            "color": "red",
+            "createTime": "",
+            "labels": [
+              {
+                "labelId": "1",
+                "labelTxt": "Completed",
+                "color": "red"
+              }
+            ]
+          },
+          {
+            "cellId": "2",
+            "headerId": "0",
+            "cellLabelTxt": "In Progress",
             "color": "red",
             "createTime": "",
             "labels": [
