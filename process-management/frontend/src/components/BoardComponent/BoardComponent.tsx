@@ -25,6 +25,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             <Typography variant="h5" gutterBottom style={styles.boardEmptyMsg}>
                                 {this.props.currentBoard.boardName}
                             </Typography>
+                            
                         </Paper>
                     </Grid>
                     
