@@ -124,6 +124,12 @@
         "userDisplayName": "User 1",
         "userEmail": "user1@example.com",
         "userActive": true
+      },
+      {
+        "userId": "google id 6786t7b68",
+        "userDisplayName": "User 2",
+        "userEmail": "user1@example.com",
+        "userActive": true
       }
     ],
     "progressHeader": [

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+
 import { Board } from '../../store/types';
 import { styles } from './BoardComponentStyle';
 import ProgressHeaderComponent from '../ProgressHeader/ProgressHeaderComponent';
 import PulseComponent from '../PulseComponent/PulseComponent';
+import MembersDialog from './Members/MembersDialog';
 
 export interface BoardProps {
     currentBoard?: Board,
@@ -21,15 +21,17 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
             this.props.currentBoard ? (
                 <div>
                     <Grid style={styles.boardHeader}>
-                        <Paper>
+                        <Paper style={styles.boardHeaderFlex}>
                             <Typography variant="h5" gutterBottom style={styles.boardEmptyMsg}>
                                 {this.props.currentBoard.boardName}
                             </Typography>
                             
+                            
+                            <MembersDialog currentBoard={this.props.currentBoard} />
+                            
                         </Paper>
                     </Grid>
-                    
-                    {/* <Divider /> */}
+
                     <div style={styles.progressHeaderLine}>
                         <ul style={styles.progressHraderTxtUL}>
                             <li style={styles.FirstCol}>

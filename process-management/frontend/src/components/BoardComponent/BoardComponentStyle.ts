@@ -17,6 +17,13 @@ export const styles = {
         flexDirection: 'column',
     } as React.CSSProperties,
 
+    boardHeaderFlex: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+    } as React.CSSProperties,
+
     progressHraderTxtUL: {
         display: 'flex',
         listStyle: 'none',
