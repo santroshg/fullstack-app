@@ -5,117 +5,48 @@
     "userEmail": "user1@example.com",
     "userActive": true
   },
+  "members": {
+    "userId": "asad",
+    "userDisplayName": "String",
+    "userEmail": "String",
+    "userActive": false
+  },
   "boardList": [
     {
       "boardId": "1",
-      "boardName": "server board",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "2",
-      "boardName": "Another Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "3",
-      "boardName": "XT Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "4",
-      "boardName": "server board",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "5",
-      "boardName": "Another Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "6",
-      "boardName": "XT Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "7",
-      "boardName": "server board",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "8",
-      "boardName": "Another Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "9",
-      "boardName": "XT Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "10",
-      "boardName": "server board",
+      "boardName": "Test board s",
       "boardDesc": "description"
     },
     {
       "boardId": "11",
-      "boardName": "Another Test board server",
+      "boardName": "Test board s",
       "boardDesc": "description"
     },
     {
-      "boardId": "12",
-      "boardName": "XT Test board server",
+      "boardId": "2",
+      "boardName": "Another Test board",
       "boardDesc": "description"
     },
     {
-      "boardId": "13",
-      "boardName": "server board",
+      "boardId": "3",
+      "boardName": "XT Test board",
       "boardDesc": "description"
     },
     {
-      "boardId": "14",
-      "boardName": "Another Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "15",
-      "boardName": "XT Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "16",
-      "boardName": "server board",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "17",
-      "boardName": "Another Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "18",
-      "boardName": "XT Test board server",
-      "boardDesc": "description"
-    },
-    {
-      "boardId": "16342.32514016706",
+      "boardId": "17416.53352400296",
       "boardName": "anokha",
-      "boardDesc": "ghjasgjgjdsa"
+      "boardDesc": "jkjkjkj"
     },
     {
-      "boardId": "6808.690530895263",
-      "boardName": "ghjgjgjhg",
-      "boardDesc": "ghjgjhgjhghjgjh"
-    },
-    {
-      "boardId": "3743.2410051393654",
-      "boardName": "fghfghfh",
-      "boardDesc": "fghfhfgh"
+      "boardId": "1876.7779152313017",
+      "boardName": "hjhjhjhj",
+      "boardDesc": "hjhjhjhj"
     }
   ],
   "currentBoard": {
     "boardId": "1",
-    "boardName": "server board",
-    "boardDesc": "discription",
+    "boardName": "nisi deserunt",
+    "boardDesc": "board discription",
     "boardCreatedBy": "Google id",
     "createTime": "",
     "members": [
@@ -124,23 +55,22 @@
         "userDisplayName": "User 1",
         "userEmail": "user1@example.com",
         "userActive": true
-      },
-      {
-        "userId": "google id 6786t7b68",
-        "userDisplayName": "User 2",
-        "userEmail": "user1@example.com",
-        "userActive": true
       }
     ],
     "progressHeader": [
       {
-        "headerId": "1",
-        "headerTxt": "Second col Header fghasfd fhgasfdh fhjasf dhjfhjsaf dhjfasjhdf hj",
+        "headerId": "0",
+        "headerTxt": "Item",
         "createTime": ""
       },
       {
-        "headerId": "4",
-        "headerTxt": "Third col Header fghasfd fhgasfdh fhjasf dhjfhjsaf dhjfasjhdf hj",
+        "headerId": "1",
+        "headerTxt": "Second col Header",
+        "createTime": ""
+      },
+      {
+        "headerId": "2",
+        "headerTxt": "Third col Header",
         "createTime": ""
       }
     ],
@@ -155,20 +85,6 @@
             "cellId": "0",
             "headerId": "0",
             "cellLabelTxt": "Completed",
-            "color": "red",
-            "createTime": "",
-            "labels": [
-              {
-                "labelId": "1",
-                "labelTxt": "Completed",
-                "color": "red"
-              }
-            ]
-          },
-          {
-            "cellId": "2",
-            "headerId": "0",
-            "cellLabelTxt": "In Progress",
             "color": "red",
             "createTime": "",
             "labels": [

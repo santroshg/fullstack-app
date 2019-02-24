@@ -39,7 +39,7 @@ export interface User {
   userId: String,
   userDisplayName: String,
   userEmail: String,
-  userActive: boolean,
+  userActive: Boolean,
 }
 
 export interface ProgressHeader {

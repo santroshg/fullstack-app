@@ -11,13 +11,17 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
-import { Board, User } from '../../../store/types';
+import { Board } from '../../../store/types';
+import { styles } from './MembersDialogStyle';
+import { sendMail } from '../../../service/mail-service.js';
 
 interface MembersDialogProps {
   currentBoard?: Board,
+  addMemberToBoardSaga?: any,
+  removeMemberToBoardSaga?: any,
 }
 
-export default class MembersDialog extends React.Component<MembersDialogProps> {
+export default class MembersDialog extends React.PureComponent<MembersDialogProps> {
     constructor(props: MembersDialogProps) {
       super(props);
     }
@@ -43,13 +47,16 @@ export default class MembersDialog extends React.Component<MembersDialogProps> {
 
   handleAddUser = (boardId: String, e: any) => {
       if (this.state.newUser !== '' && e.key === 'Enter') {
-        console.log('hi--------------------');
-          // this.props.addBoardFromSaga(
-          //         {
-          //           boardName: this.state.newBoardName, 
-          //           boardDesc: this.state.newBoardDesc,
-          //         });
-          this.setState({ openModal: false });
+        this.props.addMemberToBoardSaga(
+          boardId, {
+            userId: 'NA',
+            userDisplayName: 'NA',
+            userEmail: this.state.newUser,
+            userActive: false,
+          }
+        );
+        sendMail(this.state.newUser, boardId);
+        this.setState({ openModal: false });
       }
       this.setState({ newUser: '' });
   };
@@ -59,7 +66,7 @@ export default class MembersDialog extends React.Component<MembersDialogProps> {
   };
 
   handleDeleteUser = (userId: String, boardId: String) => {
-    console.log('tyutuystyutyus--------', userId, boardId);
+    this.props.removeMemberToBoardSaga(boardId, userId);
   }
 
   render() {
@@ -76,13 +83,14 @@ export default class MembersDialog extends React.Component<MembersDialogProps> {
           <DialogTitle id="draggable-dialog-title">Add/Remove members from board</DialogTitle>
           <DialogContent>
             {this.props.currentBoard.members.map(m => (
-              <List key={m.userId as string}>
-                <ListItem>
+              <List key={m.userId as string} >
+                <ListItem style={m.userActive ? {} : styles.disabledUser}>
                     <ListItemText
-                        primary={m.userDisplayName}
+                      primary={m.userDisplayName}
                     />
                     <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete" onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
+                    <IconButton aria-label="Delete"
+                      onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
                         <DeleteIcon />
                     </IconButton>
                     </ListItemSecondaryAction>
@@ -96,6 +104,7 @@ export default class MembersDialog extends React.Component<MembersDialogProps> {
                   required
                   fullWidth
                   autoFocus
+                  type="email"
                   id="standard-required"
                   label="User E-mail Id"
                   margin="normal"

@@ -1,0 +1,1 @@
+export const frontendHost = 'http://localhost:3001';

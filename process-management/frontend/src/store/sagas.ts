@@ -2,7 +2,12 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI } from './api-services';
-import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction, deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction, deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, deleteLabelAction, editPulseAction, addMemberToBoardAction, removeMemberToBoardAction, editColumnAction, setAddBoardAction } from './actions';
+import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction,
+    deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction,
+    deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, 
+    deleteLabelAction, editPulseAction, addMemberToBoardAction, 
+    removeMemberToBoardAction, editColumnAction, setAddBoardAction, 
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
@@ -81,13 +86,16 @@ export function* deleteLabel(action: AnyAction) {
 }
 
 export function* addMemberToBoard(action: AnyAction) {
+  console.log('hiting saga----------------', action.payload);
   const boardAfterAddMember = yield call(addMemberToBoardAPI, action.payload);
-  yield put(addMemberToBoardAction(boardAfterAddMember.boardId, boardAfterAddMember.user));
+  console.log('boardAfterAddMember----', boardAfterAddMember);
+  yield put(setAddMemberToBoardAction(boardAfterAddMember.boardId, boardAfterAddMember.user));
 }
 
 export function* removeMemberToBoard(action: AnyAction) {
+  console.log('calling remove----saga --------------------', action.payload);
   const boardAfterRemoveMember = yield call(removeMemberToBoardAPI, action.payload);
-  yield put(removeMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.userId));
+  yield put(setRemoveMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.userId));
 }
 
 export default function* sagas() {

@@ -13,6 +13,8 @@ import MembersDialog from './Members/MembersDialog';
 
 export interface BoardProps {
     currentBoard?: Board,
+    addMemberToBoardSaga?: any,
+    removeMemberToBoardSaga?: any,
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
@@ -25,9 +27,10 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             <Typography variant="h5" gutterBottom style={styles.boardEmptyMsg}>
                                 {this.props.currentBoard.boardName}
                             </Typography>
-                            
-                            
-                            <MembersDialog currentBoard={this.props.currentBoard} />
+
+                            <MembersDialog currentBoard={this.props.currentBoard}
+                              addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                              removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
                             
                         </Paper>
                     </Grid>

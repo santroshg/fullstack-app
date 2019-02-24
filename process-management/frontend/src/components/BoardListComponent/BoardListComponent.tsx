@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board } from '../../store/types';
+import { BoardItem, ProcessManagementState, Board, User } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +20,8 @@ export interface BoardListProps {
     getBoardsListFromSaga: any,
     addBoardFromSaga: any,
     getBoardDetailsSaga: any,
+    addMemberToBoardSaga: any,
+    removeMemberToBoardSaga: any,
 }
 
 export class BoardListComponent extends React.Component<BoardListProps, any> {
@@ -77,7 +79,9 @@ export class BoardListComponent extends React.Component<BoardListProps, any> {
             <Divider />
         </div>
         <div>
-            <BoardComponent currentBoard={this.props.currentBoard} />
+            <BoardComponent currentBoard={this.props.currentBoard}
+                addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
         </div>
         </div>
         );
@@ -93,6 +97,8 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     getBoardsListFromSaga: () => dispatch(getBoardsListAction()),
     addBoardFromSaga: (newBoard: BoardItem) => dispatch(addBoardAction(newBoard)),
     getBoardDetailsSaga: (boardId: String) => dispatch(getBoardDetailsAction(boardId)),
-})
+    addMemberToBoardSaga: (boardId: String, user: User) => dispatch(addMemberToBoardAction(boardId, user)),
+    removeMemberToBoardSaga: (boardId: String, userId: String) => dispatch(removeMemberToBoardAction(boardId, userId)),
+});
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BoardItem } from './types';
+import { BoardItem, User } from './types';
 
 export function getBoardsListAPI() {
   // console.log('api call getBoardsListAPI----------------');
@@ -80,10 +80,27 @@ export function deleteLabelAPI(dummy: String) {
 
 }
 
-export function addMemberToBoardAPI(dummy: String) {
+export function addMemberToBoardAPI(action: any) {
+  console.log('------------boardId---', action.user);
+  const newUser: User = {
+    userId: 'asad',
+    userDisplayName: 'String',
+    userEmail: 'String',
+    userActive: false,
+  }
 
+  return axios.post('http://localhost:3000/members', newUser)
+    .then((res: any) => {
+      console.log('addBoardAPI before response--------', res.data);
+      return Promise.resolve(res.data);
+    });
 }
 
-export function removeMemberToBoardAPI(dummy: String) {
-
+export function removeMemberToBoardAPI(payload: any) {
+  console.log('removeMemberToBoardAPI---', payload);
+  return axios.delete('http://localhost:3000/members', payload)
+    .then((res: any) => {
+      console.log('removeMemberToBoardAPI before response--------', res.data);
+      return Promise.resolve(res.data);
+    });
 }
