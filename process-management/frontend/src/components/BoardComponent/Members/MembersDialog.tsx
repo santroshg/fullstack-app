@@ -49,7 +49,7 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
       if (this.state.newUser !== '' && e.key === 'Enter') {
         this.props.addMemberToBoardSaga(
           boardId, {
-            userId: 'NA',
+            userId: Math.random() * 34567 + '',
             userDisplayName: 'NA',
             userEmail: this.state.newUser,
             userActive: false,

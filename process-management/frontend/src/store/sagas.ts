@@ -11,11 +11,13 @@ import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAc
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
-  // console.log('boardList---------', typeof boardList);
+  // console.log('boardList---------',  boardList);
   yield put(setBoardsListAction(boardList));
 }
 
 export function* getBoardDetails(action: AnyAction) {
+  // console.log('getBoardDetails in saga---------', action.payload);
+
   const currentBoard: Board = yield call(getBoardDetailsAPI, action.payload);
   yield put(setBoardDetailsAction(currentBoard));
 }
