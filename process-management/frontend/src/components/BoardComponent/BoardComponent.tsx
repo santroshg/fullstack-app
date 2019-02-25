@@ -12,18 +12,26 @@ import ProgressHeaderComponent from '../ProgressHeader/ProgressHeaderComponent';
 import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
 import { Button } from '@material-ui/core';
+import { timingSafeEqual } from 'crypto';
 
 export interface BoardProps {
     currentBoard?: Board,
     addMemberToBoardSaga?: any,
     removeMemberToBoardSaga?: any,
+    addPulseSaga?: any
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
-    state = {
-        needPulseCreateTxtBox: false,
-        newPulseTxt: '',
+    constructor(props: BoardProps) {
+        super(props);
+        this.state = {
+            needPulseCreateTxtBox: false,
+            newPulseTxt: '',
+        }
+        console.log('currentBoard', this.props.currentBoard);
+        console.log('this.props.currentBoard.pulse', this.props.currentBoard);
     }
+   
 
     handlePulseAddTextBox = () => {
         this.setState({
@@ -38,8 +46,12 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
     };
 
     handleAddNewPulse = (e: any) => {
-        if(e.key === 'Enter' && this.state.newPulseTxt !== '') {
-
+        if (e.key === 'Enter' && this.state.newPulseTxt !== '') {
+            const addPulseData = {
+                "pulseCreatedBy": "",
+                "pulseTxt": this.state.newPulseTxt,
+            }
+            this.props.addPulseSaga(this.props.currentBoard.boardId,addPulseData)
             this.setState({
                 newPulseTxt: '',
                 needPulseCreateTxtBox: false,
@@ -48,7 +60,9 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
     }
 
     public render() {
+        {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
+            
             this.props.currentBoard ? (
                 <div>
                     <Grid style={styles.boardHeader}>
@@ -58,40 +72,72 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             </Typography>
 
                             <MembersDialog currentBoard={this.props.currentBoard}
-                              addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                              removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
-                            
+                                addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
+
                         </Paper>
                     </Grid>
 
-                    <div style={styles.progressHeaderLine}>
+                    <div className="board-component">
+                        <div className='progress-header-component'>
+                            <div className='progress-header-wrapper'>
+                                {this.props.currentBoard.progressHeader.map((header, i) =>
+                                    <ProgressHeaderComponent key={i} progressHeader={header} />
+                                )}
+                            </div>
+                        </div>
+                        <div className='pulse-component'>
+                            {this.props.currentBoard.pulse.map((pulse, i) => (
+                                <PulseComponent key={i} pulse={pulse} />
+                            ))}
+                            <div className='add-pulse-wrapper'>
+                                {this.state.needPulseCreateTxtBox ? (
+                                    <TextField
+                                        required
+                                        autoFocus
+                                        id="standard-required"
+                                        label="Required"
+                                        placeholder="New Item/Pulse name"
+                                        margin="normal"
+                                        value={this.state.newPulseTxt}
+                                        onChange={this.handlePulseTxtEntered.bind(this)}
+                                        onKeyPress={this.handleAddNewPulse.bind(this)}
+                                    />
+                                ) : (
+                                        <Button onClick={this.handlePulseAddTextBox.bind(this)}>Add New Pulse</Button>
+                                    )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* <div style={styles.progressHeaderLine}>
                         <ul style={styles.progressHraderTxtUL}>
                             <li style={styles.FirstCol}>
-                            
-                            <Typography variant="title" noWrap>
-                                Items
+
+                                <Typography variant="title" noWrap>
+                                    Items
                             </Typography>
                             </li>
                             {this.props.currentBoard.progressHeader
-                                .map(ph => 
+                                .map(ph =>
                                     <li style={styles.progressHraderTxtLI} key={ph.headerId as string}>
-                                        <ProgressHeaderComponent progressHeader={ph}/>
+                                        <ProgressHeaderComponent progressHeader={ph} />
                                     </li>
-                            )}
+                                )}
                         </ul>
                         <Fab variant="extended" size="small" color="secondary" aria-label="Add">
                             <AddIcon />
                         </Fab>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                         <ul style={styles.pulseUL}>
                             {this.props.currentBoard.pulse.map(pl => (
                                 <li key={pl.pulseId as string} style={styles.pulseLI}>
-                                    <PulseComponent currentBoardPulse={pl}/>
+                                    <PulseComponent currentBoardPulse={pl} />
                                 </li>
                             ))}
                         </ul>
-                        
+
                         {this.state.needPulseCreateTxtBox ? (
                             <TextField
                                 required
@@ -105,16 +151,15 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                                 onKeyPress={this.handleAddNewPulse.bind(this)}
                             />
                         ) : (
-                            <Button onClick={this.handlePulseAddTextBox.bind(this)}>Add New Pulse</Button>
-                        )}
+                                <Button onClick={this.handlePulseAddTextBox.bind(this)}>Add New Pulse</Button>
+                            )}
 
 
 
-
-                    </div>
+                    </div> */}
                 </div>
-            ) : (<div><br /></div>)
-            
+            ) : (null)
+
         );
     }
 }

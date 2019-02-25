@@ -20,12 +20,13 @@ const pulseController = {
                 headerId: newHeaderId,
                 headerType: 'default',
               };
-              BoardModel.updateOne({ _id: boardId }, { $push: { pulse: pulseData, progressHeader: headerData } }, (err, newPulse) => {
+              BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData, progressHeader: headerData } }, { new: true }, (err, newPulse) => {
                 if (err) {
                   throw err;
                 } else {
                   res.set('Content-Type', 'application/json');
                   res.status(200).send(newPulse);
+                  console.log('newPulse---', newPulse);
                 }
               });
             } else {
@@ -46,12 +47,13 @@ const pulseController = {
                     }
                   });
                   pulseData.cells = cells;
-                  BoardModel.updateOne({ _id: boardId }, { $push: { pulse: pulseData } }, (err, newPulse) => {
+                  BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData } }, { new: true }, (err, newPulse) => {
                     if (err) {
                       throw err;
                     } else {
                       res.set('Content-Type', 'application/json');
                       res.status(200).send(newPulse);
+                      console.log('newPulse', newPulse);
                     }
                   });
                 }

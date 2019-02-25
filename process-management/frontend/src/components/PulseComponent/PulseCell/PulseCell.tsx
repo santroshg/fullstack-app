@@ -10,9 +10,12 @@ interface PulseCellProps {
 export default class PulseCell extends React.Component<PulseCellProps> {
     render() {
         return (
-            <Typography variant="body2" gutterBottom style={styles.cell}>
+            <div className='cell-wrapper'>
                 {this.props.cellData.cellLabelTxt}
-            </Typography>
+            </div>
+            // <Typography variant="body2" gutterBottom style={styles.cell}>
+            //     {this.props.cellData.cellLabelTxt}
+            // </Typography>
         );
     }
 }

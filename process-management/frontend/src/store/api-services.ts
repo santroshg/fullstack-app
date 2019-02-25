@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BoardItem, User } from './types';
+import { BoardItem, User, PulseItem } from './types';
 
 export function getBoardsListAPI() {
   // console.log('api call getBoardsListAPI----------------');
@@ -60,8 +60,14 @@ export function deleteColumnAPI(dummy: String) {
 
 }
 
-export function addPulseAPI(dummy: String) {
-
+export function addPulseAPI(action: any) {
+  console.log('addPulseAPI(action', action)
+  return axios.post(`http://localhost:3000/api/pulse/${action.boardId}`, action.pulse)
+    .then((res: any) => {
+      console.log('response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function editPulseAPI(dummy: String) {

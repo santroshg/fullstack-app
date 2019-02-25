@@ -7,7 +7,7 @@ import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAc
     deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, 
     deleteLabelAction, editPulseAction, addMemberToBoardAction, 
     removeMemberToBoardAction, editColumnAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
@@ -54,7 +54,7 @@ export function* deleteColumn(action: AnyAction) {
 
 export function* addPulse(action: AnyAction) {
   const boardAfterAddPulse = yield call(addPulseAPI, action.payload);
-  yield put(addPulseAction(boardAfterAddPulse.boardId, boardAfterAddPulse.pulse));
+  yield put(setAddPulseAction(boardAfterAddPulse.boardId, boardAfterAddPulse.pulse));
 }
 
 export function* editPulse(action: AnyAction) {

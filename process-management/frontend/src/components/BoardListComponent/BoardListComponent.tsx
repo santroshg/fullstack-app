@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board, User } from '../../store/types';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -22,6 +22,7 @@ export interface BoardListProps {
     getBoardDetailsSaga: any,
     addMemberToBoardSaga: any,
     removeMemberToBoardSaga: any,
+    addPulseSaga: any
 }
 
 export class BoardListComponent extends React.Component<BoardListProps, any> {
@@ -81,7 +82,8 @@ export class BoardListComponent extends React.Component<BoardListProps, any> {
         <div>
             <BoardComponent currentBoard={this.props.currentBoard}
                 addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
+                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
+                addPulseSaga={this.props.addPulseSaga} />
         </div>
         </div>
         );
@@ -99,6 +101,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     getBoardDetailsSaga: (boardId: String) => dispatch(getBoardDetailsAction(boardId)),
     addMemberToBoardSaga: (boardId: String, user: User) => dispatch(addMemberToBoardAction(boardId, user)),
     removeMemberToBoardSaga: (boardId: String, userId: String) => dispatch(removeMemberToBoardAction(boardId, userId)),
+    addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse))
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

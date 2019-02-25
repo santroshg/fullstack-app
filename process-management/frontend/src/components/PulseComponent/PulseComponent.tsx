@@ -7,18 +7,25 @@ import PulseCell from './PulseCell/PulseCell';
 import Typography from '@material-ui/core/Typography';
 
 interface PulseComponentProps {
-    currentBoardPulse?: Pulse,
+    pulse?: Pulse,
 
 }
 export default class PulseComponent extends React.Component<PulseComponentProps> {
+    constructor(props: PulseComponentProps) {
+        super(props);
+        console.log('PulseComponentProps', this.props.pulse);
+    }
     render() {
         return (
-            <div style={styles.mainPulse}>
-                <Typography variant="caption" gutterBottom align="center" style={styles.pulseTxt}>
-                    {this.props.currentBoardPulse.pulseTxt}
-                </Typography>
-                {this.props.currentBoardPulse.cells.map(c => (
-                   <PulseCell key={c.cellId as string} cellData={c} />
+            <div className='pulse-wrapper'>
+                <div className='pulse-cell'>{this.props.pulse.pulseTxt}</div>
+
+                {/* <Typography variant="caption" gutterBottom align="center" style={styles.pulseTxt}>
+                    {this.props.pulse.pulseTxt}
+                </Typography> */}
+
+                {this.props.pulse.cells.map(cell => (
+                   <PulseCell key={cell.cellId as string} cellData={cell} />
                 ))}
             </div>
         );

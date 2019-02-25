@@ -52,7 +52,10 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // issue may occure in below reducers due to pulse structure 
       //=> right now PulseItem, it should Pulse
       case ProcessMgtActionType.SET_ADD_PULSE:
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: [...currentState.currentBoard.pulse, action.payload.pulse]}}}}
+      console.log('currentState---- old',currentState);
+      console.log('action.payload.pulse', action.payload.pulse);
+      console.log('currentState---- new', {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: [...currentState.currentBoard.pulse, action.payload.pulse]}}}});
+        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: action.payload.pulse }}}}
 
 
     
