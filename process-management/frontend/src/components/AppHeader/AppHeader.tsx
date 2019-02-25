@@ -28,7 +28,7 @@ export default class AppHeader extends Component<AppHeaderProps, AppHeaderState>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit" className='app-header__title'>
-           <a href="/home">Process Management</a> 
+           <a href="/home" className='app-header__title--link'>Process Management</a> 
           </Typography>
           <GoogleAuthComponent authenticatedUser={this.props.authenticatedUser} />
         </Toolbar>
