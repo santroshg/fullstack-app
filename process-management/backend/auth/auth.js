@@ -17,14 +17,17 @@ passport.use(new GoogleStrategy({
     userId: profile.id,
   }).then((user) => {
     if (user) {
+      user.token = refreshToken.access_token;
       done(null, user);
     } else if (profile) {
       const userModelData = new UserModel({
         userId: profile.id,
         userDisplayName: profile.displayName,
         userEmail: profile.emails[0].value,
+        userActive: true,
       });
       userModelData.save().then((res) => {
+        user.token = refreshToken.access_token;
         done(null, res);
       }).catch((error) => {
         throw (error);

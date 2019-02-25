@@ -10,6 +10,9 @@ const userSchema = mongoose.Schema({
   userEmail: {
     type: String,
   },
+  userActive: {
+    type: String,
+  },
 });
 
 
