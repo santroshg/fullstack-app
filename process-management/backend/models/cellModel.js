@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 const labelModel = require('./labelModel');
 
 const cellSchema = mongoose.Schema({
-  headerId: {
+  cellId: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    required: true,
+    auto: true,
+  },
+  headerColumnId: {
     type: String,
   },
   cellLabelTxt: {
@@ -16,6 +22,6 @@ const cellSchema = mongoose.Schema({
     default: Date.now,
   },
   labels: [labelModel],
-});
+}, { _id: false });
 
 module.exports = cellSchema;

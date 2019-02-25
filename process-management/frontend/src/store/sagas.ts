@@ -38,7 +38,9 @@ export function* deleteBoard(action: AnyAction) {
 }
 
 export function* addColumn(action: AnyAction) {
+  console.log('addColumn saga action',action);
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
+  console.log('boardAfterAddedColumn', boardAfterAddedColumn);
   yield put(addColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader));
 }
 

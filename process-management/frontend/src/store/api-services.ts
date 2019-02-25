@@ -48,8 +48,13 @@ export function deleteBoardAPI(dummy: String) {
 
 }
 
-export function addColumnAPI(dummy: String) {
-
+export function addColumnAPI(action: any) {
+  return axios.post(`http://localhost:3000/api/headers/${action.boardId}`, action.progressHeader)
+  .then((res: any) => {
+    console.log('response---', res.data);
+    res.data.boardId = res.data._id;
+    return Promise.resolve(res.data);
+  });
 }
 
 export function editColumnAPI(dummy: String) {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Pulse } from '../../store/types';
@@ -31,26 +31,23 @@ export default class PulseComponent extends React.Component<PulseComponentProps>
     }
     render() {
         return (
-            <div className='pulse-wrapper'>
-                <div className='pulse-cell'>{this.props.pulse.pulseTxt}</div>
-
-                {/* <Typography variant="caption" gutterBottom align="center" style={styles.pulseTxt}>
-                    {this.props.pulse.pulseTxt}
-                </Typography> */}
-
-                {this.props.pulse.cells.map(cell => (
-                    <PulseCell key={cell.cellId as string} cellData={cell} />
-                ))}
-
-                <div className='pulse-delete'>
-                    <Tooltip title="Delete pulse">
-                        <IconButton aria-label="Delete">
-                            <DeleteIcon fontSize="small" onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)} />
-                        </IconButton>
-                    </Tooltip>
-
+            <Fragment>
+                <div className='pulse-wrapper'>
+                    <div className='pulse-cell-wrapper'>
+                        <div className='pulse-cell'>{this.props.pulse.pulseTxt}</div>
+                        {this.props.pulse.cells.map(cell => (
+                            <PulseCell key={cell.cellId as string} cellData={cell} />
+                        ))}
+                    </div>
+                    <div className='pulse-delete'>
+                        <Tooltip title="Delete pulse">
+                            <IconButton aria-label="Delete">
+                                <DeleteIcon fontSize="small" onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)} />
+                            </IconButton>
+                        </Tooltip>
+                    </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
