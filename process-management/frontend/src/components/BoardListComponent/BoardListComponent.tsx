@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board, User, PulseItem } from '../../store/types';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +13,7 @@ import SettingsInputAntenna from '@material-ui/icons/SettingsInputAntenna';
 import AddBoardDialog from '../BoardDialog/AddBoardDialog';
 import { styles } from './BoardListComponentStyle';
 import BoardComponent from '../BoardComponent/BoardComponent';
+import { addColumn } from '../../store/sagas';
 
 export interface BoardListProps {
     boardList: BoardItem[],
@@ -23,7 +24,8 @@ export interface BoardListProps {
     addMemberToBoardSaga: any,
     removeMemberToBoardSaga: any,
     addPulseSaga: any,
-    deletePulseSaga: any
+    deletePulseSaga: any,
+    addColumnSaga: any
 }
 
 export class BoardListComponent extends React.Component<BoardListProps, any> {
@@ -86,6 +88,7 @@ export class BoardListComponent extends React.Component<BoardListProps, any> {
                 removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
                 addPulseSaga={this.props.addPulseSaga} 
                 deletePulseSaga={this.props.deletePulseSaga}
+                addColumnSaga={this.props.addColumnSaga}
             />
         </div>
         </div>
@@ -106,6 +109,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     removeMemberToBoardSaga: (boardId: String, userId: String) => dispatch(removeMemberToBoardAction(boardId, userId)),
     addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse)),
     deletePulseSaga: (boardId: String, pulseId: String) => dispatch(deletePulseAction(boardId, pulseId)),
+    addColumnSaga: (boardId: String, progressHeader: ProgressHeader) => dispatch(addColumnAction(boardId, progressHeader)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

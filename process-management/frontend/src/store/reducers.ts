@@ -8,33 +8,33 @@ const initialState: ProcessManagementState = {
 };
 
 const ProcessManagementReducer = (currentState: ProcessManagementState = initialState, action: AnyAction) => {
-  switch(action.type) {
+  switch (action.type) {
     case ProcessMgtActionType.SET_BOARDS_LIST:
-    // console.log('------------inside reducers-', action.payload);
-    // console.log('currentState.boardList----', currentState.boardList);
-    // console.log('currentState----', {...currentState, boardList: [...currentState.boardList, ...action.payload]});
-    if(currentState.boardList !== undefined) {
-      return {...currentState, boardList: [...currentState.boardList, ...action.payload]};
-    } else {
-      // console.log('{...currentState, boardList: [...action.payload]}-', {...currentState, boardList: [...action.payload]});
-      return {...currentState, boardList: [...action.payload]};
-    }
+      // console.log('------------inside reducers-', action.payload);
+      // console.log('currentState.boardList----', currentState.boardList);
+      // console.log('currentState----', {...currentState, boardList: [...currentState.boardList, ...action.payload]});
+      if (currentState.boardList !== undefined) {
+        return { ...currentState, boardList: [...currentState.boardList, ...action.payload] };
+      } else {
+        // console.log('{...currentState, boardList: [...action.payload]}-', {...currentState, boardList: [...action.payload]});
+        return { ...currentState, boardList: [...action.payload] };
+      }
 
     case ProcessMgtActionType.SET_BOARD_DETAILS:
-      return {...currentState, currentBoard: action.payload};
+      return { ...currentState, currentBoard: action.payload };
 
     case ProcessMgtActionType.SET_ADD_BOARD:
-      return {...currentState, boardList: [...currentState.boardList, action.payload]};
+      return { ...currentState, boardList: [...currentState.boardList, action.payload] };
 
     case ProcessMgtActionType.SET_EDIT_BOARD:
-      return {...currentState, boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload)};
+      return { ...currentState, boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload) };
 
     case ProcessMgtActionType.SET_DELETE_BOARD:
-    return {...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload)};
+      return { ...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload) };
 
     case ProcessMgtActionType.SET_ADD_COLUMN:
-    // this is incorrect, need handle row and column both
-    return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{progressHeader: [...currentState.currentBoard.progressHeader ,action.payload.progressHeader]}}}};
+      // this is incorrect, need handle row and column both
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
 
     case ProcessMgtActionType.SET_EDIT_COLUMN:
       const updatedColumnHeader = currentState.currentBoard.progressHeader
@@ -42,33 +42,33 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
           headerId: action.payload.headerId,
           headerTxt: action.payload.headerTxt,
           createTime: ph.createTime
-        } : ph);        
-      return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{progressHeader: updatedColumnHeader}}}};
-    
+        } : ph);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: updatedColumnHeader } } } };
+
     case ProcessMgtActionType.SET_DELETE_COLUMN:
       // need to write correct reducers for delete column
       return currentState;
-    
-      // issue may occure in below reducers due to pulse structure 
-      //=> right now PulseItem, it should Pulse
-      case ProcessMgtActionType.SET_ADD_PULSE:
-      console.log('currentState---- old',currentState);
+
+    // issue may occure in below reducers due to pulse structure 
+    //=> right now PulseItem, it should Pulse
+    case ProcessMgtActionType.SET_ADD_PULSE:
+      console.log('currentState---- old', currentState);
       console.log('action.payload.pulse', action.payload.pulse);
-      console.log('currentState---- new', {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: [...currentState.currentBoard.pulse, action.payload.pulse]}}}});
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: action.payload.pulse }}}}
+      console.log('currentState---- new', { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: [...currentState.currentBoard.pulse, action.payload.pulse] } } } });
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
 
-    
+
     case ProcessMgtActionType.SET_EDIT_PULSE:
       const oldPulse = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      const newPulse = {...oldPulse, pulseTxt: action.payload.pulseTxt};
+      const newPulse = { ...oldPulse, pulseTxt: action.payload.pulseTxt };
       const newPulseList = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse : p);
-      return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList}}}}
-            
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList } } } }
+
     case ProcessMgtActionType.SET_DELETE_PULSE:
-        // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
-        // return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: action.payload.pulse }}}}
+      // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
+      // return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:
       const targetCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
@@ -82,54 +82,54 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       });
       const oldPulse1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
       const oldCellsList1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-      .cells;
+        .cells;
       const newCellsList1 = oldCellsList1.map(oc => oc.cellId === action.payload.cell.cellId ? updatedCell : oc);
-      const newPulse1 = {...oldPulse1, cells: newCellsList1};
+      const newPulse1 = { ...oldPulse1, cells: newCellsList1 };
       const newPulseList1 = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse1 : p);
-      return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList1}}}};
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList1 } } } };
 
-      case ProcessMgtActionType.SET_ADD_NEW_LABEL:
+    case ProcessMgtActionType.SET_ADD_NEW_LABEL:
       const targetCell_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.filter(c => c.cellId === action.payload.cellId)[0]; 
-      const targetCell_With_newLables = {...targetCell_, labels: [...targetCell_.labels, action.payload.label]};
+        .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const targetCell_With_newLables = { ...targetCell_, labels: [...targetCell_.labels, action.payload.label] };
       const oldPulse_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
       const newPulse_with_new_label_and_cell = oldPulse_.cells.map(op => op.cellId === action.payload.cellId ? targetCell_With_newLables : op);
-      const newPulse_ = {...oldPulse_, cells: newPulse_with_new_label_and_cell};
+      const newPulse_ = { ...oldPulse_, cells: newPulse_with_new_label_and_cell };
       const newPulseList_ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_ : p);
-      return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList_}}}};
- 
-      case ProcessMgtActionType.SET_EDIT_LABEL:
-        const targetCell__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-          .cells.filter(c => c.cellId === action.payload.cellId)[0];
-        const updatedLables = targetCell__.labels.map(l => l.labelId === action.payload.label.labelId ? action.payload.label : l);
-        const updatedTargetCell = {...targetCell__, labels: updatedLables}
-        const oldPulse__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-        const updatedTargetCellWithPulse = oldPulse__.cells.map(op => op.cellId === action.payload.cellId ? updatedTargetCell : op);
-        const newPulse__ = {...oldPulse__, cells: updatedTargetCellWithPulse};
-        const newPulseList__ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse__ : p);
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList__}}}};
-      
-      case ProcessMgtActionType.SET_DELETE_LABEL:
-        const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-          .cells.filter(c => c.cellId === action.payload.cellId)[0]
-            .labels.filter(l => l.labelId !== action.payload.labelId);
-        const oldCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-          .cells.filter(c => c.cellId === action.payload.cellId)[0];
-        const newCell = {...oldCell, labels: newLabelList};
-        const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-          .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
-        const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-        const newPulse_after_delete_label = {...oldPulse_before_delete_label, cells: newCellsList};
-        const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList_after_delete_label}}}};
-      
-        case ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD:
-          return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{members: [...currentState.currentBoard.members, action.payload.user]}}}};
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_ } } } };
 
-        case ProcessMgtActionType.SET_REMOVE_MEMBER_FROM_BOARD:
-          const newMemberList = currentState.currentBoard.members.filter(m => m.userId !== action.payload.userId);
-          // console.log(newMemberList);
-          return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{members: newMemberList}}}};
+    case ProcessMgtActionType.SET_EDIT_LABEL:
+      const targetCell__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const updatedLables = targetCell__.labels.map(l => l.labelId === action.payload.label.labelId ? action.payload.label : l);
+      const updatedTargetCell = { ...targetCell__, labels: updatedLables }
+      const oldPulse__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      const updatedTargetCellWithPulse = oldPulse__.cells.map(op => op.cellId === action.payload.cellId ? updatedTargetCell : op);
+      const newPulse__ = { ...oldPulse__, cells: updatedTargetCellWithPulse };
+      const newPulseList__ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse__ : p);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList__ } } } };
+
+    case ProcessMgtActionType.SET_DELETE_LABEL:
+      const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0]
+        .labels.filter(l => l.labelId !== action.payload.labelId);
+      const oldCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const newCell = { ...oldCell, labels: newLabelList };
+      const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
+      const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      const newPulse_after_delete_label = { ...oldPulse_before_delete_label, cells: newCellsList };
+      const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
+
+    case ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD:
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: [...currentState.currentBoard.members, action.payload.user] } } } };
+
+    case ProcessMgtActionType.SET_REMOVE_MEMBER_FROM_BOARD:
+      const newMemberList = currentState.currentBoard.members.filter(m => m.userId !== action.payload.userId);
+      // console.log(newMemberList);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: newMemberList } } } };
 
         case ProcessMgtActionType.SET_LOGGEDIN_USER:
           const currentUser: User = {

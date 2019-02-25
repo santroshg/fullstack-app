@@ -22,6 +22,7 @@ export interface BoardProps {
     removeMemberToBoardSaga?: any,
     addPulseSaga?: any,
     deletePulseSaga?: any,
+    addColumnSaga?: any,
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
@@ -62,6 +63,13 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
         }
     }
 
+    handleAddColumn = (e: any) => {
+        const headerData = {
+        "headerTxt": "Status"
+        }
+        this.props.addColumnSaga(this.props.currentBoard.boardId, headerData);
+    }
+
     public render() {
         // {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
@@ -88,7 +96,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                                     <ProgressHeaderComponent key={i} progressHeader={header} />
                                 )}
                             </div>
-                            <div className='progress-header-add'>
+                            <div className='progress-header-add' onClick={this.handleAddColumn}>
                                 <Tooltip title="Add coloumn">
                                     <IconButton aria-label="Add coloumn">
                                         <AddIcon fontSize="small" />

@@ -1,5 +1,6 @@
 .pulse-component{
-
+    display: flex;
+    flex-direction: column;
 }
 
 .pulse-wrapper{
@@ -7,16 +8,23 @@
     border-bottom: 1px solid #fff;
     height: 36px;
     line-height: 36px;
+    flex-grow: 1;
+}
+.pulse-cell-wrapper {
+    flex-grow: 1;
 }
 .pulse-cell {
-    display: flex;
+   // display: flex;
     align-items: center;
     height: 100%;
     text-align: left;
-    flex-grow: 1;
+    
     background-color: #f0f0f0;
     padding-left: 5px;
     border-left: 8px solid #009688;
+}
+.cell-wrapper {
+    border-left: 1px solid #009688;
 }
 .pulse-delete {
     background: #f1f1f1;
