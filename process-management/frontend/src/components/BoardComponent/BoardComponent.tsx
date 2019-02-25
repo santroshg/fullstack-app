@@ -13,12 +13,15 @@ import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
 import { Button } from '@material-ui/core';
 import { timingSafeEqual } from 'crypto';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 
 export interface BoardProps {
     currentBoard?: Board,
     addMemberToBoardSaga?: any,
     removeMemberToBoardSaga?: any,
-    addPulseSaga?: any
+    addPulseSaga?: any,
+    deletePulseSaga?: any,
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
@@ -28,10 +31,10 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
             needPulseCreateTxtBox: false,
             newPulseTxt: '',
         }
-        console.log('currentBoard', this.props.currentBoard);
-        console.log('this.props.currentBoard.pulse', this.props.currentBoard);
+        // console.log('currentBoard', this.props.currentBoard);
+        // console.log('this.props.currentBoard.pulse', this.props.currentBoard);
     }
-   
+
 
     handlePulseAddTextBox = () => {
         this.setState({
@@ -51,7 +54,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                 "pulseCreatedBy": "",
                 "pulseTxt": this.state.newPulseTxt,
             }
-            this.props.addPulseSaga(this.props.currentBoard.boardId,addPulseData)
+            this.props.addPulseSaga(this.props.currentBoard.boardId, addPulseData)
             this.setState({
                 newPulseTxt: '',
                 needPulseCreateTxtBox: false,
@@ -60,12 +63,12 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
     }
 
     public render() {
-        {console.log('this.props.currentBoard', this.props.currentBoard)}
+        // {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
-            
+
             this.props.currentBoard ? (
-                <div>
-                    <Grid style={styles.boardHeader}>
+                <div className='borad-component-wrapper'>
+                    <Grid className='board-header-component'>
                         <Paper style={styles.boardHeaderFlex}>
                             <Typography variant="h5" gutterBottom style={styles.boardEmptyMsg}>
                                 {this.props.currentBoard.boardName}
@@ -78,17 +81,24 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                         </Paper>
                     </Grid>
 
-                    <div className="board-component">
+                    <div className="board-pulse-component">
                         <div className='progress-header-component'>
                             <div className='progress-header-wrapper'>
                                 {this.props.currentBoard.progressHeader.map((header, i) =>
                                     <ProgressHeaderComponent key={i} progressHeader={header} />
                                 )}
                             </div>
+                            <div className='progress-header-add'>
+                                <Tooltip title="Add coloumn">
+                                    <IconButton aria-label="Add coloumn">
+                                        <AddIcon fontSize="small" />
+                                    </IconButton>
+                                </Tooltip>
+                            </div>
                         </div>
                         <div className='pulse-component'>
                             {this.props.currentBoard.pulse.map((pulse, i) => (
-                                <PulseComponent key={i} pulse={pulse} />
+                                <PulseComponent key={i} pulse={pulse} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} />
                             ))}
                             <div className='add-pulse-wrapper'>
                                 {this.state.needPulseCreateTxtBox ? (
@@ -99,6 +109,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                                         label="Required"
                                         placeholder="New Item/Pulse name"
                                         margin="normal"
+                                        fullWidth
                                         value={this.state.newPulseTxt}
                                         onChange={this.handlePulseTxtEntered.bind(this)}
                                         onKeyPress={this.handleAddNewPulse.bind(this)}

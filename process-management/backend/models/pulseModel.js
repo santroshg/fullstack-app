@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const cellModel = require('./cellModel');
 
+
 const pulseSchema = mongoose.Schema({
-  createTime: {
-    type: String,
+  pulseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    required: true,
+    auto: true,
   },
   pulseCreatedBy: {
     type: String,
@@ -11,10 +15,13 @@ const pulseSchema = mongoose.Schema({
   pulseTxt: {
     type: String,
   },
+  createTime: {
+    type: String,
+  },
   headerId: {
     type: String,
   },
   cells: [cellModel],
-});
+}, { _id: false });
 
 module.exports = pulseSchema;

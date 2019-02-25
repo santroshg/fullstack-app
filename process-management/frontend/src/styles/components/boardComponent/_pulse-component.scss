@@ -3,9 +3,27 @@
 }
 
 .pulse-wrapper{
-   background: gold;
+    display: flex;
+    border-bottom: 1px solid #fff;
+    height: 36px;
+    line-height: 36px;
 }
-
+.pulse-cell {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-align: left;
+    flex-grow: 1;
+    background-color: #f0f0f0;
+    padding-left: 5px;
+    border-left: 8px solid #009688;
+}
+.pulse-delete {
+    background: #f1f1f1;
+    border-right: 8px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+}
 .add-pulse-wrapper{
     background: darkcyan;
 }

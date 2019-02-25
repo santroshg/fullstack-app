@@ -4,6 +4,9 @@ const progressHeaderModel = require('./progressHeaderModel');
 const pulseModel = require('./pulseModel');
 
 const boardSchema = mongoose.Schema({
+  boardId: {
+
+  },
   boardName: {
     type: String,
     required: true,

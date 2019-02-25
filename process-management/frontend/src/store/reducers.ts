@@ -66,8 +66,9 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: newPulseList}}}}
             
     case ProcessMgtActionType.SET_DELETE_PULSE:
-        const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
-        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
+        // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
+        // return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
+        return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: action.payload.pulse }}}}
 
     case ProcessMgtActionType.SET_EDIT_CELL:
       const targetCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]

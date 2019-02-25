@@ -74,8 +74,14 @@ export function editPulseAPI(dummy: String) {
 
 }
 
-export function deletePulseAPI(dummy: String) {
-
+export function deletePulseAPI(action: any) {
+  console.log('deletePulseAPI=action', action)
+  return axios.delete(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`)
+    .then((res: any) => {
+      console.log('deletePulseAPI response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function editCellAPI(dummy: String) {

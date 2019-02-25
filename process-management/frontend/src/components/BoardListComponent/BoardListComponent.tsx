@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BoardItem, ProcessManagementState, Board, User, PulseItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +22,8 @@ export interface BoardListProps {
     getBoardDetailsSaga: any,
     addMemberToBoardSaga: any,
     removeMemberToBoardSaga: any,
-    addPulseSaga: any
+    addPulseSaga: any,
+    deletePulseSaga: any
 }
 
 export class BoardListComponent extends React.Component<BoardListProps, any> {
@@ -79,11 +80,13 @@ export class BoardListComponent extends React.Component<BoardListProps, any> {
             </List>
             <Divider />
         </div>
-        <div>
+        <div className='board-component'>
             <BoardComponent currentBoard={this.props.currentBoard}
                 addMemberToBoardSaga={this.props.addMemberToBoardSaga}
                 removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
-                addPulseSaga={this.props.addPulseSaga} />
+                addPulseSaga={this.props.addPulseSaga} 
+                deletePulseSaga={this.props.deletePulseSaga}
+            />
         </div>
         </div>
         );
@@ -101,7 +104,8 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     getBoardDetailsSaga: (boardId: String) => dispatch(getBoardDetailsAction(boardId)),
     addMemberToBoardSaga: (boardId: String, user: User) => dispatch(addMemberToBoardAction(boardId, user)),
     removeMemberToBoardSaga: (boardId: String, userId: String) => dispatch(removeMemberToBoardAction(boardId, userId)),
-    addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse))
+    addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse)),
+    deletePulseSaga: (boardId: String, pulseId: String) => dispatch(deletePulseAction(boardId, pulseId)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

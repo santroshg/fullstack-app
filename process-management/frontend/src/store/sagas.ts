@@ -63,6 +63,7 @@ export function* editPulse(action: AnyAction) {
 }
 
 export function* deletePulse(action: AnyAction) {
+  console.log('deletePulse-saga ', action.payload);
   const boardAfterDeletePulse = yield call(deletePulseAPI, action.payload);
   yield put(deletePulseAction(boardAfterDeletePulse.boardId, boardAfterDeletePulse.pulseId));
 }
