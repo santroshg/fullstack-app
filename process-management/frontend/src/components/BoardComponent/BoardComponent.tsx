@@ -4,12 +4,14 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
 
 import { Board } from '../../store/types';
 import { styles } from './BoardComponentStyle';
 import ProgressHeaderComponent from '../ProgressHeader/ProgressHeaderComponent';
 import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
+import { Button } from '@material-ui/core';
 
 export interface BoardProps {
     currentBoard?: Board,
@@ -18,6 +20,33 @@ export interface BoardProps {
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
+    state = {
+        needPulseCreateTxtBox: false,
+        newPulseTxt: '',
+    }
+
+    handlePulseAddTextBox = () => {
+        this.setState({
+            needPulseCreateTxtBox: true,
+        });
+    };
+
+    handlePulseTxtEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            newPulseTxt: e.target.value,
+        });
+    };
+
+    handleAddNewPulse = (e: any) => {
+        if(e.key === 'Enter' && this.state.newPulseTxt !== '') {
+
+            this.setState({
+                newPulseTxt: '',
+                needPulseCreateTxtBox: false,
+            });
+        }
+    }
+
     public render() {
         return (
             this.props.currentBoard ? (
@@ -63,6 +92,25 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             ))}
                         </ul>
                         
+                        {this.state.needPulseCreateTxtBox ? (
+                            <TextField
+                                required
+                                autoFocus
+                                id="standard-required"
+                                label="Required"
+                                placeholder="New Item/Pulse name"
+                                margin="normal"
+                                value={this.state.newPulseTxt}
+                                onChange={this.handlePulseTxtEntered.bind(this)}
+                                onKeyPress={this.handleAddNewPulse.bind(this)}
+                            />
+                        ) : (
+                            <Button onClick={this.handlePulseAddTextBox.bind(this)}>Add New Pulse</Button>
+                        )}
+
+
+
+
                     </div>
                 </div>
             ) : (<div><br /></div>)
