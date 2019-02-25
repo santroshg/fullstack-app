@@ -3,7 +3,8 @@
 }
 
 .app-header__title {
-    flex-grow: 1
+    flex-grow: 1;
+    cursor: pointer;
 }
 
 .app-header__login {
