@@ -125,7 +125,6 @@ export function removeMemberToBoardAPI(payload: any) {
   console.log('removeMemberToBoardAPI---', payload);
   return axios.delete(`http://localhost:3000/api/members/${payload.boardId}/${payload.userId}`)
     .then((res: any) => {
-      console.log('removeMemberToBoardAPI before response--------', res.data);
       return Promise.resolve(res.data);
     });
 }
@@ -134,7 +133,6 @@ export function getLoggedinUserAPI() {
   
   return axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
     .then((res: any) => {
-      console.log('res.data-------------', res);
       return Promise.resolve(res.data);
     });
 }

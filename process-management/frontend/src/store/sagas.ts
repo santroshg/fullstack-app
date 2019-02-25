@@ -98,13 +98,11 @@ export function* addMemberToBoard(action: AnyAction) {
 }
 
 export function* removeMemberToBoard(action: AnyAction) {
-  console.log('calling remove----saga --------------------', action.payload);
   const boardAfterRemoveMember = yield call(removeMemberToBoardAPI, action.payload);
   yield put(setRemoveMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.userId));
 }
 
 export function* getLoggedinUser(action: AnyAction) {
-  console.log('sssssssagaaaaaaaaa-----called--------------');
   const loggedinUser = yield call(getLoggedinUserAPI);
   yield put(setLoggedinUserAction(loggedinUser));
 }

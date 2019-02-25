@@ -19,8 +19,9 @@ export default class AppHeader extends Component<AppHeaderProps, AppHeaderState>
     super(props);
     this.state = {
     }
-    console.log('authenticatedUser', this.props.authenticatedUser);
+    console.log('authenticatedUser--------------------', this.props.authenticatedUser);
   }
+
   render() {
     return (
       <div className='app-header'>
@@ -28,6 +29,9 @@ export default class AppHeader extends Component<AppHeaderProps, AppHeaderState>
         <Toolbar>
           <Typography variant="h6" color="inherit" className='app-header__title'>
            <a href="/home" className='app-header__title--link'>Process Management</a> 
+          </Typography>
+          <Typography variant="h6" color="inherit" className='app-header__title'>
+           <a href="" className='app-header__title--link'>{this.props.authenticatedUser.userDisplayName}</a> 
           </Typography>
         </Toolbar>
       </AppBar>

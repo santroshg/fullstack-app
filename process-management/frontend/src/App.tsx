@@ -11,39 +11,24 @@ import GoogleAuthComponent from './components/AuthComponent/GoogleAuthComponent'
 import queryString from 'query-string';
 
 
-import { getBoardsListAction, getLoggedinUserAction } from './store/actions';
+import { getLoggedinUserAction } from './store/actions';
 
-
-interface authenticatedUser {
-  _id: string,
-  userId: string,
-  userDisplayName: string,
-  userEmail: string,
-  userActive: boolean,
-}
 interface AppProps {
-
 }
 interface AppState {
   boardList?: BoardItem[],
   currentBoard?: Board,
   authenticatedUser?: User,
+  isUserAuthenticated: Boolean,
 }
 
 export default class App extends Component<AppProps, AppState> {
   constructor(props: AppState) {
     super(props);
     this.state = {
-      //currentBoard: ''
-      authenticatedUser: {
-        userId: '',
-        userDisplayName: '',
-        userEmail: '',
-        userActive: null,
-      }
+      isUserAuthenticated: false,
     }
   }
-
 
   componentDidMount() {
     store.subscribe(() => {
@@ -51,22 +36,33 @@ export default class App extends Component<AppProps, AppState> {
     });
 
     store.dispatch(getLoggedinUserAction());
-    
+    axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
+      .then((res) => {
+        if(res.data) { // here is the user data
+          this.setState({
+            isUserAuthenticated: true,
+            authenticatedUser: { 
+              userId: res.data.googleId,
+              userDisplayName: res.data.userDisplayName,
+              userEmail: res.data.userEmail,
+              userActive: res.data.userActive,
+            }
+          });
 
-    // axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
-    //   .then((res) => {
-    //     console.log('res---------------usrt-----', res);
-    //   });
-
-    
+        }
+      });
   }
 
   render() {
+    console.log('00000000--------------', this.state.authenticatedUser);
     return (
       <div>
       <Router>
         <Provider store={store}>
-          <AppHeader authenticatedUser={this.state.authenticatedUser} />
+          {this.state.authenticatedUser &&
+            <AppHeader authenticatedUser={this.state.authenticatedUser} />
+          }
+          
           <Route path="/home" component={BoardListComponent} />
           <Route path="/boards/:boardId" component={BoardComponent} />
         </Provider>
