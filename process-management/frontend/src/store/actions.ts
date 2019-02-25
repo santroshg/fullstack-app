@@ -40,3 +40,6 @@ export const addMemberToBoardAction = (boardId: String, user: User) => action(Pr
 export const setAddMemberToBoardAction = (boardId: String, user: User) => action(ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD, {boardId, user});
 export const removeMemberToBoardAction = (boardId: String, userId: String) => action(ProcessMgtActionType.REMOVE_MEMBER_FROM_BOARD, {boardId, userId});
 export const setRemoveMemberToBoardAction = (boardId: String, userId: String) => action(ProcessMgtActionType.SET_REMOVE_MEMBER_FROM_BOARD, {boardId, userId});
+
+export const getLoggedinUserAction = () => action(ProcessMgtActionType.GET_LOGGEDIN_USER);
+export const setLoggedinUserAction = (loggedinUser: User) => action(ProcessMgtActionType.SET_LOGGEDIN_USER, loggedinUser);

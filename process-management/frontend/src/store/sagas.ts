@@ -1,13 +1,13 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
-import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI } from './api-services';
+import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
 import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction,
     deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction,
     deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, 
     deleteLabelAction, editPulseAction, addMemberToBoardAction, 
     removeMemberToBoardAction, editColumnAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
@@ -101,6 +101,12 @@ export function* removeMemberToBoard(action: AnyAction) {
   yield put(setRemoveMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.userId));
 }
 
+export function* getLoggedinUser(action: AnyAction) {
+  console.log('sssssssagaaaaaaaaa-----called--------------');
+  const loggedinUser = yield call(getLoggedinUserAPI);
+  yield put(setLoggedinUserAction(loggedinUser));
+}
+
 export default function* sagas() {
   yield takeLatest(ProcessMgtActionType.GET_BOARDS_LIST, getBoardsList);
   yield takeLatest(ProcessMgtActionType.GET_BOARD_DETAILS, getBoardDetails);
@@ -119,4 +125,5 @@ export default function* sagas() {
   yield takeLatest(ProcessMgtActionType.DELETE_LABEL, deleteLabel);
   yield takeLatest(ProcessMgtActionType.ADD_MEMBER_TO_BOARD, addMemberToBoard);
   yield takeLatest(ProcessMgtActionType.REMOVE_MEMBER_FROM_BOARD, removeMemberToBoard);
+  yield takeLatest(ProcessMgtActionType.GET_LOGGEDIN_USER, getLoggedinUser);
 }

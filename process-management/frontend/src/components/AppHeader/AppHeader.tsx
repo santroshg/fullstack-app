@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { Route, Switch } from 'react-router';
 import Button from '@material-ui/core/Button';
 import {styles} from './AppHeaderStyle';
-import GoogleAuthComponent from '../AuthComponent/GoogleAuthComponent';
 import { User } from '../../store/types';
 
 interface AppHeaderProps {
@@ -30,7 +29,6 @@ export default class AppHeader extends Component<AppHeaderProps, AppHeaderState>
           <Typography variant="h6" color="inherit" className='app-header__title'>
            <a href="/home" className='app-header__title--link'>Process Management</a> 
           </Typography>
-          <GoogleAuthComponent authenticatedUser={this.props.authenticatedUser} />
         </Toolbar>
       </AppBar>
     </div>

@@ -15,11 +15,20 @@ usersRouter.get('/login', (req, res) => {
 usersRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 /* Google oauth-2 ling */
-usersRouter.get('/auth/google/success', passport.authenticate('google', { failureRedirect: 'http://localhost:3001/auth/google' }), (req, res) => {
-  res.redirect(`http://localhost:3001?user=${req.user}`);
+usersRouter.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+  // res.redirect(`http://localhost:3001?user=${req.user}`);
+  // res.redirect('/user/loggedin/test');
+    res.send('hihihihhihihihih');
+  });
+
+usersRouter.get('/api/current_user', (req, res) => {
+  console.log('server side ---------------------', req.headers);
+  res.send(req.user);
 });
 
-usersRouter.get('/logout', (req, res) => {
+usersRouter.get('/api/logout', (req, res) => {
   req.logout();
   res.redirect('/users/login');
 });

@@ -124,3 +124,12 @@ export function removeMemberToBoardAPI(payload: any) {
       return Promise.resolve(res.data);
     });
 }
+
+export function getLoggedinUserAPI() {
+  
+  return axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
+    .then((res: any) => {
+      console.log('res.data-------------', res);
+      return Promise.resolve(res.data);
+    });
+}

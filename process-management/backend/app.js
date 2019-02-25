@@ -1,9 +1,11 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const logger = require('morgan');
 const passport = require('passport');
+const goolgeAuthCredentials = require('./config/googleAuthCredentials');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
 const boardsRouter = require('./routes/boardsRouter');
@@ -11,11 +13,22 @@ const membersRouter = require('./routes/membersRouter');
 const pulseRouter = require('./routes/pulseRouter');
 const progressHeaderRouter = require('./routes/progressHeaderRouter');
 const labelsRouter = require('./routes/labelsRouter');
+require('./models/googleUser');
 
 require('./auth/auth');
 
 
 const app = express();
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [goolgeAuthCredentials.web.cookiesKey],
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 require('./db/dbConnect');
 
@@ -29,7 +42,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // CORS issue, allowed methods
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   if (req.method === 'OPTIONS') {
@@ -39,11 +53,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
