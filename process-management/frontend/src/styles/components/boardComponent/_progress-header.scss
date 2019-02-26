@@ -16,8 +16,12 @@
     background-color: #f0f0f0;
     padding-left: 5px;
     border-left: 1px solid #009688;
+    width: 50px;
+    font-weight: bold;
 }
-
+.column-header-default {
+    width: 100px !important;
+}
 .column-header-add{
     border-right: 8px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;

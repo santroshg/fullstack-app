@@ -17,7 +17,7 @@ const pulseController = {
           if (response.length > 0) {
             if (response[0].pulse.length === 0) {
               const headerData = {
-                headerTxt: 'Edit Header',
+                headerTxt: 'Task Header',
                 createTime: new Date(),
                 headerId: newHeaderId,
                 headerType: 'default',
@@ -40,7 +40,7 @@ const pulseController = {
                     if (header.headerType !== 'default') {
                       const cellData = {
                         headerId: header.headerId,
-                        cellLabelTxt: '',
+                        cellLabelTxt: 'Edit cell',
                         color: '',
                         createTime: new Date(),
                       };
@@ -98,7 +98,14 @@ const pulseController = {
       const { pulseId } = req.params;
       const { boardId } = req.params;
       if (boardId && pulseId) {
-        BoardModel.fin({ _id: boardId }, { $pull: { pulse: { pulseId: req.params.pulseId } } }, { new: true }, (err, pulseData) => {
+        BoardModel.find({ _id: boardId }, { pulse: 1 }, (error, response) => {
+          if (response.length === 1) {
+            BoardModel.updateOne({ _id: boardId }, { $set: { progressHeader: [] } }, (err) => {
+              next(err);
+            });
+          }
+        });
+        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { pulse: { pulseId: req.params.pulseId } } }, { new: true }, (err, pulseData) => {
           if (err) {
             res.status(404).send(`${pulseId} not exist in database.`);
           } else {

@@ -81,7 +81,7 @@ export function editPulseAPI(dummy: String) {
 
 export function deletePulseAPI(action: any) {
   console.log('deletePulseAPI=action', action)
-  return axios.delete(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`)
+  return axios.delete(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`, {withCredentials: true})
     .then((res: any) => {
       console.log('deletePulseAPI response---', res.data);
       res.data.boardId = res.data._id;
@@ -130,7 +130,6 @@ export function removeMemberToBoardAPI(payload: any) {
 }
 
 export function getLoggedinUserAPI() {
-  
   return axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
     .then((res: any) => {
       return Promise.resolve(res.data);

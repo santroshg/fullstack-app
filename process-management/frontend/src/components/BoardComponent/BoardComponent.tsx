@@ -2,8 +2,6 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 
 import { Board } from '../../store/types';
@@ -13,8 +11,7 @@ import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
 import { Button } from '@material-ui/core';
 import { timingSafeEqual } from 'crypto';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
+import AddColumnComponent from '../ProgressHeader/AddColumnComponent';
 
 export interface BoardProps {
     currentBoard?: Board,
@@ -31,6 +28,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
         this.state = {
             needPulseCreateTxtBox: false,
             newPulseTxt: '',
+            addColumnDialog: false,
         }
         // console.log('currentBoard', this.props.currentBoard);
         // console.log('this.props.currentBoard.pulse', this.props.currentBoard);
@@ -63,15 +61,8 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
         }
     }
 
-    handleAddColumn = (e: any) => {
-        const headerData = {
-        "headerTxt": "Status"
-        }
-        this.props.addColumnSaga(this.props.currentBoard.boardId, headerData);
-    }
-
     public render() {
-        // {console.log('this.props.currentBoard', this.props.currentBoard)}
+        {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
 
             this.props.currentBoard ? (
@@ -90,20 +81,19 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
                     </Grid>
 
                     <div className="board-pulse-component">
-                        <div className='progress-header-component'>
-                            <div className='progress-header-wrapper'>
-                                {this.props.currentBoard.progressHeader.map((header, i) =>
-                                    <ProgressHeaderComponent key={i} progressHeader={header} />
-                                )}
+                        {this.props.currentBoard.pulse.length > 0 ? (
+                            <div className='progress-header-component'>
+                                <div className='progress-header-wrapper'>
+                                    {this.props.currentBoard.progressHeader.map((header, i) =>
+                                        <ProgressHeaderComponent key={i} progressHeader={header} />
+                                    )}
+                                </div>
+                                <div className='progress-header-add'>
+                                    <AddColumnComponent currentBoardId={this.props.currentBoard.boardId} addColumnSaga={this.props.addColumnSaga} />
+                                </div>
                             </div>
-                            <div className='progress-header-add' onClick={this.handleAddColumn}>
-                                <Tooltip title="Add coloumn">
-                                    <IconButton aria-label="Add coloumn">
-                                        <AddIcon fontSize="small" />
-                                    </IconButton>
-                                </Tooltip>
-                            </div>
-                        </div>
+                        ) : (null)}
+
                         <div className='pulse-component'>
                             {this.props.currentBoard.pulse.map((pulse, i) => (
                                 <PulseComponent key={i} pulse={pulse} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} />

@@ -110,6 +110,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse)),
     deletePulseSaga: (boardId: String, pulseId: String) => dispatch(deletePulseAction(boardId, pulseId)),
     addColumnSaga: (boardId: String, progressHeader: ProgressHeader) => dispatch(addColumnAction(boardId, progressHeader)),
+    
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

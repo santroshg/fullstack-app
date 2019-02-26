@@ -34,6 +34,7 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
 
     case ProcessMgtActionType.SET_ADD_COLUMN:
       // this is incorrect, need handle row and column both
+      console.log('action.payload.progressHeader-----', action.payload.progressHeader);
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
 
     case ProcessMgtActionType.SET_EDIT_COLUMN:
@@ -52,10 +53,19 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     // issue may occure in below reducers due to pulse structure 
     //=> right now PulseItem, it should Pulse
     case ProcessMgtActionType.SET_ADD_PULSE:
-      console.log('currentState---- old', currentState);
-      console.log('action.payload.pulse', action.payload.pulse);
-      console.log('currentState---- new', { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: [...currentState.currentBoard.pulse, action.payload.pulse] } } } });
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
+    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+
+      // console.log('currentState---- old', currentState);
+      // console.log('action.payload.pulse', action.payload.pulse);
+      // console.log('currentState---- new', { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: [...currentState.currentBoard.pulse, action.payload.pulse] } } } });
+      // if(action.payload.pulse.length === 1 ) {
+      //   return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse} } } };
+      //   // console.log('oldPulse---------', oldPulse);
+      // //  return { ...oldPulse, ...{ currentBoard: { ...oldPulse.currentBoard, ...{ progressHeader: action.payload.progressHeader} } } };
+      // } else {
+      //   return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
+      // }
+      
 
 
 
@@ -68,6 +78,7 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     case ProcessMgtActionType.SET_DELETE_PULSE:
       // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
       // return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
+      console.log('ProcessMgtActionType.SET_DELETE_PULSE = action.payload',  action.payload);
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:

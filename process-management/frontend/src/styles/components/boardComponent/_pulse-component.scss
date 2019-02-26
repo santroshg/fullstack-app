@@ -1,37 +1,54 @@
-.pulse-component{
+.pulse-component {
     display: flex;
     flex-direction: column;
 }
 
-.pulse-wrapper{
+.pulse-wrapper {
     display: flex;
-    border-bottom: 1px solid #fff;
-    height: 36px;
-    line-height: 36px;
-    flex-grow: 1;
+    border-bottom: 1px solid #e6e6e6;
+    flex-direction: row;
+    // height: 36px;
+    // line-height: 36px;
+    // flex-grow: 1;
 }
+
 .pulse-cell-wrapper {
+    display: flex;
     flex-grow: 1;
+    align-items: center;
+    text-align: left;
 }
+
 .pulse-cell {
-   // display: flex;
+    display: flex;
     align-items: center;
     height: 100%;
     text-align: left;
-    
+    flex-grow: 1;
     background-color: #f0f0f0;
     padding-left: 5px;
-    border-left: 8px solid #009688;
+    border-left: 1px solid #009688;
+    width: 100px;
 }
 .cell-wrapper {
-    border-left: 1px solid #009688;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-align: left;
+    flex-grow: 1;
+    background-color: #f0f0f0;
+    padding-left: 5px;
+    border-left: 1px solid #ffffff;
 }
+
 .pulse-delete {
-    background: #f1f1f1;
-    border-right: 8px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
-    cursor: pointer;
+    justify-content: flex-end;
+    // background: #f1f1f1;
+    // border-right: 8px solid #e6e6e6;
+    // border-bottom: 1px solid #e6e6e6;
+    // cursor: pointer;
 }
-.add-pulse-wrapper{
+
+.add-pulse-wrapper {
     background: darkcyan;
 }

@@ -7,7 +7,7 @@ import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAc
     deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, 
     deleteLabelAction, editPulseAction, addMemberToBoardAction, 
     removeMemberToBoardAction, editColumnAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI);
@@ -17,7 +17,6 @@ export function* getBoardsList(action: AnyAction) {
 
 export function* getBoardDetails(action: AnyAction) {
   // console.log('getBoardDetails in saga---------', action.payload);
-
   const currentBoard: Board = yield call(getBoardDetailsAPI, action.payload);
   yield put(setBoardDetailsAction(currentBoard));
 }
@@ -29,29 +28,29 @@ export function* addBoard(action: AnyAction) {
 
 export function* editBoard(action: AnyAction) {
   const updatedBoard: BoardItem = yield call(editBoardAPI, action.payload);
-  yield put(editBoardAction(updatedBoard));
+  yield put(setEditBoardAction(updatedBoard));
 }
 
 export function* deleteBoard(action: AnyAction) {
   const deletedBoard: BoardItem = yield call(deleteBoardAPI, action.payload);
-  yield put(deleteBoardAction(deletedBoard.boardId));
+  yield put(setDeleteBoardAction(deletedBoard.boardId));
 }
 
 export function* addColumn(action: AnyAction) {
   console.log('addColumn saga action',action);
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
   console.log('boardAfterAddedColumn', boardAfterAddedColumn);
-  yield put(addColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader));
+  yield put(setAddColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader));
 }
 
 export function* editColumn(action: AnyAction) {
   const boardAftereditColumn = yield call(editColumnAPI, action.payload);
-  yield put(editColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
+  yield put(setEditColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
 }
 
 export function* deleteColumn(action: AnyAction) {
   const boardAfterDeleteColumn = yield call(deleteColumnAPI, action.payload);
-  yield put(deleteColumnAction(boardAfterDeleteColumn.boardId, boardAfterDeleteColumn.headerId));
+  yield put(setDeleteColumnAction(boardAfterDeleteColumn.boardId, boardAfterDeleteColumn.headerId));
 }
 
 export function* addPulse(action: AnyAction) {
@@ -61,33 +60,34 @@ export function* addPulse(action: AnyAction) {
 
 export function* editPulse(action: AnyAction) {
   const boardAftereditPulse = yield call(editPulseAPI, action.payload);
-  yield put(editPulseAction(boardAftereditPulse.boardId, boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
+  yield put(setEditPulseAction(boardAftereditPulse.boardId, boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
 }
 
 export function* deletePulse(action: AnyAction) {
   console.log('deletePulse-saga ', action.payload);
   const boardAfterDeletePulse = yield call(deletePulseAPI, action.payload);
-  yield put(deletePulseAction(boardAfterDeletePulse.boardId, boardAfterDeletePulse.pulseId));
+  console.log('boardAfterDeletePulse', boardAfterDeletePulse);
+  yield put(setDeletePulseAction(boardAfterDeletePulse.boardId, boardAfterDeletePulse.pulse));
 }
 
 export function* editCell(action: AnyAction) {
   const boardAfterEditCell = yield call(editCellAPI, action.payload);
-  yield put(editCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulseId, boardAfterEditCell.cell));
+  yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulseId, boardAfterEditCell.cell));
 }
 
 export function* addNewLabel(action: AnyAction) {
   const boardAfterAddNewLabel = yield call(addNewLabelAPI, action.payload);
-  yield put(addNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulseId, boardAfterAddNewLabel.cellId, boardAfterAddNewLabel.label));
+  yield put(setAddNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulseId, boardAfterAddNewLabel.cellId, boardAfterAddNewLabel.label));
 }
 
 export function* editLabel(action: AnyAction) {
   const boardAfterEditLabel = yield call(editLabelAPI, action.payload);
-  yield put(editLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
+  yield put(setEditLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
 }
 
 export function* deleteLabel(action: AnyAction) {
   const boardAfterDeleteLabel = yield call(deleteLabelAPI, action.payload);
-  yield put(deleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
+  yield put(setDeleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
 }
 
 export function* addMemberToBoard(action: AnyAction) {

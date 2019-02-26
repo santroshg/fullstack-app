@@ -10,19 +10,18 @@ const progressHeaderController = {
         const newHeaderId = Math.random() * 1234;
         const cellData = {
           headerColumnId: newHeaderId,
-          cellLabelTxt: 'select label',
+          cellLabelTxt: '',
           color: '',
           createTime: new Date(),
         };
         progressHeaderData.headerColumnId = newHeaderId;
-        progressHeaderData.headerTxt = 'Status';
+        // progressHeaderData.headerTxt = 'Status';
         progressHeaderData.createTime = new Date();
         BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { progressHeader: progressHeaderData, 'pulse.$[].cells': cellData } }, { new: true }, (err, newProgressHeader) => {
           if (err) {
             res.set('Content-Type', 'application/json');
             res.status(200).send({ message: 'borad not exist' });
           } else {
-            console.log('newProgressHeader', newProgressHeader);
             res.set('Content-Type', 'application/json');
             res.status(200).send(newProgressHeader);
           }
