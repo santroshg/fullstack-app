@@ -28,7 +28,7 @@ export interface BoardListProps {
     addColumnSaga: any
 }
 
-export class BoardListComponent extends React.Component<BoardListProps, any> {
+export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
 
     state = {
         currentBoatdId: '',

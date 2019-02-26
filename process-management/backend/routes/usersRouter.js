@@ -2,6 +2,7 @@ const express = require('express');
 
 const usersRouter = express.Router();
 const passport = require('passport');
+const url = require('../config/config');
 
 /* GET users listing. */
 usersRouter.get('/', (req, res) => {
@@ -18,19 +19,18 @@ usersRouter.get('/auth/google', passport.authenticate('google', { scope: ['profi
 usersRouter.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-  // res.redirect(`http://localhost:3001?user=${req.user}`);
-  // res.redirect('/user/loggedin/test');
-    res.send('hihihihhihihihih');
+    res.redirect(`${url.frontendHost}/home`);
+    // res.redirect('/user/loggedin/test');
+    // res.send('Successfully loggedin');
   });
 
 usersRouter.get('/api/current_user', (req, res) => {
-  console.log('server side ---------------------', req.headers);
   res.send(req.user);
 });
 
 usersRouter.get('/api/logout', (req, res) => {
   req.logout();
-  res.redirect('/users/login');
+  res.redirect(url.frontendHost);
 });
 
 module.exports = usersRouter;

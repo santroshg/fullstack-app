@@ -13,6 +13,7 @@ const membersRouter = require('./routes/membersRouter');
 const pulseRouter = require('./routes/pulseRouter');
 const progressHeaderRouter = require('./routes/progressHeaderRouter');
 const labelsRouter = require('./routes/labelsRouter');
+const verifyUser = require('./auth/user-verify');
 require('./models/googleUser');
 
 require('./auth/auth');
@@ -66,6 +67,9 @@ app.use('/api/pulse', pulseRouter);
 app.use('/api/headers', progressHeaderRouter);
 app.use('/api/labels', labelsRouter);
 
+app.use('/test', verifyUser.isLoggedin, (req, res) => {
+  res.send('Authenticated user');
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

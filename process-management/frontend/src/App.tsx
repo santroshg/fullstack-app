@@ -7,9 +7,8 @@ import { Board, BoardItem, User } from './store/types';
 import BoardListComponent from './components/BoardListComponent/BoardListComponent';
 import BoardComponent from './components/BoardComponent/BoardComponent';
 import AppHeader from './components/AppHeader/AppHeader';
-import GoogleAuthComponent from './components/AuthComponent/GoogleAuthComponent';
-import queryString from 'query-string';
-
+import GoogleLoginComponent from './components/AuthComponent/GoogleLoginComponent';
+import { backtendHost } from './constants/constants';
 
 import { getLoggedinUserAction } from './store/actions';
 
@@ -22,7 +21,7 @@ interface AppState {
   isUserAuthenticated: Boolean,
 }
 
-export default class App extends Component<AppProps, AppState> {
+export default class App extends React.PureComponent<AppProps, AppState> {
   constructor(props: AppState) {
     super(props);
     this.state = {
@@ -30,13 +29,13 @@ export default class App extends Component<AppProps, AppState> {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     store.subscribe(() => {
       this.setState({ currentBoard: store.getState().currentBoard })
     });
 
     store.dispatch(getLoggedinUserAction());
-    axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
+    await axios.get(`${backtendHost}/users/api/current_user`, {withCredentials: true})
       .then((res) => {
         if(res.data) { // here is the user data
           this.setState({
@@ -59,12 +58,19 @@ export default class App extends Component<AppProps, AppState> {
       <div>
       <Router>
         <Provider store={store}>
-          {this.state.authenticatedUser &&
-            <AppHeader authenticatedUser={this.state.authenticatedUser} />
+          {this.state.authenticatedUser ? (
+            <div>
+              <AppHeader authenticatedUser={this.state.authenticatedUser} />
+              <Route path="/home" component={BoardListComponent} />
+              <Route path="/boards/:boardId" component={BoardComponent} />
+            </div>
+          ) : (
+            <GoogleLoginComponent />
+          )
+          
           }
           
-          <Route path="/home" component={BoardListComponent} />
-          <Route path="/boards/:boardId" component={BoardComponent} />
+          
         </Provider>
       </Router>
       </div>

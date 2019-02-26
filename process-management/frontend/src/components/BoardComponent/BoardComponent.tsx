@@ -25,7 +25,7 @@ export interface BoardProps {
     addColumnSaga?: any,
 }
 
-export default class BoardComponent extends React.Component<BoardProps, any> {
+export default class BoardComponent extends React.PureComponent<BoardProps, any> {
     constructor(props: BoardProps) {
         super(props);
         this.state = {

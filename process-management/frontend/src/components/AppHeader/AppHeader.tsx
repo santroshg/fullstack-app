@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { Route, Switch } from 'react-router';
-import Button from '@material-ui/core/Button';
-import {styles} from './AppHeaderStyle';
 import { User } from '../../store/types';
+import { backtendHost } from '../../constants/constants';
 
 interface AppHeaderProps {
   authenticatedUser: User
@@ -14,12 +12,9 @@ interface AppHeaderState {
 
 }
 
-export default class AppHeader extends Component<AppHeaderProps, AppHeaderState> {
+export default class AppHeader extends React.PureComponent<AppHeaderProps, AppHeaderState> {
   constructor(props: AppHeaderProps) {
     super(props);
-    this.state = {
-    }
-    console.log('authenticatedUser--------------------', this.props.authenticatedUser);
   }
 
   render() {
@@ -31,7 +26,10 @@ export default class AppHeader extends Component<AppHeaderProps, AppHeaderState>
            <a href="/home" className='app-header__title--link'>Process Management</a> 
           </Typography>
           <Typography variant="h6" color="inherit" className='app-header__title'>
-           <a href="" className='app-header__title--link'>{this.props.authenticatedUser.userDisplayName}</a> 
+            {this.props.authenticatedUser.userDisplayName}
+          </Typography>
+          <Typography variant="h6" color="inherit" className='app-header__title'>
+            <a href={`${backtendHost}/users/api/logout`} className='app-header__title--link'>Logout</a> 
           </Typography>
         </Toolbar>
       </AppBar>
