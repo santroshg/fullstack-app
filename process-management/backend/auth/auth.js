@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy({
   callbackURL: goolgeAuthCredentials.web.redirect_uris,
 },
 ((request, accessToken, refreshToken, profile, done) => {
-  // console.log('profile---', profile.emails[0].value);
+  console.log('profile---', profile._json.image.url);
   GoogleUser.findOne({ googleId: profile.id })
     .then((existingUser) => {
       if (existingUser) {
@@ -35,7 +35,7 @@ passport.use(new GoogleStrategy({
           googleId: profile.id,
           userDisplayName: profile.displayName,
           userEmail: profile.emails[0].value,
-          userActive: false,
+          profileImgUrl: profile._json.image.url,
         }).save().then((user) => {
           done(null, user);
         });

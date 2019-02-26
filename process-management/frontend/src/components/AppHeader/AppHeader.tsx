@@ -2,11 +2,12 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { User } from '../../store/types';
+import Avatar from '@material-ui/core/Avatar';
+import { GoogleUser } from '../../store/types';
 import { backtendHost } from '../../constants/constants';
 
 interface AppHeaderProps {
-  authenticatedUser: User
+  authenticatedUser: GoogleUser,
 }
 interface AppHeaderState {
 
@@ -21,11 +22,12 @@ export default class AppHeader extends React.PureComponent<AppHeaderProps, AppHe
     return (
       <div className='app-header'>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="app-header__element">
           <Typography variant="h6" color="inherit" className='app-header__title'>
            <a href="/home" className='app-header__title--link'>Process Management</a> 
           </Typography>
           <Typography variant="h6" color="inherit" className='app-header__title'>
+            <Avatar alt="Remy Sharp" src={this.props.authenticatedUser.profileImgUrl as string} />
             {this.props.authenticatedUser.userDisplayName}
           </Typography>
           <Typography variant="h6" color="inherit" className='app-header__title'>

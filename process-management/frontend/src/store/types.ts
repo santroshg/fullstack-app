@@ -44,6 +44,13 @@ export interface User {
   userActive: Boolean,
 }
 
+export interface GoogleUser {
+  userId: String,
+  userDisplayName: String,
+  userEmail: String,
+  profileImgUrl: String,
+}
+
 export interface ProgressHeader {
   headerId: String,
   headerTxt: String,

@@ -1,4 +1,155 @@
 
+.login-page {
+  text-align: center;
+  width: 95%;
+  margin: 20px auto;
+}
+
+.badge {
+  position: relative;
+  width: 500px;
+  border-radius: 90%;
+  transform: rotate(-100deg);
+}
+
+.foldingChar span {
+  font: 1em Monaco, MonoSpace;
+  height: 10em;
+  position: absolute;
+  width: 20px;
+  left: 0;
+  top: 0;
+  transform-origin: bottom center;
+}
+
+.char1 {
+  transform: rotate(-40deg);
+}
+
+.char2 {
+  transform: rotate(-34deg);
+}
+
+.char3 {
+  transform: rotate(-28deg);
+}
+
+.char4 {
+  transform: rotate(-22deg);
+}
+
+.char5 {
+  transform: rotate(-16deg);
+}
+
+.char6 {
+  transform: rotate(-10deg);
+}
+
+.char7 {
+  transform: rotate(-4deg);
+}
+
+.char8 {
+  transform: rotate(2deg);
+}
+
+.char9 {
+  transform: rotate(6deg);
+}
+
+.char10 {
+  transform: rotate(14deg);
+}
+
+.char11 {
+  transform: rotate(20deg);
+}
+
+.char12 {
+  transform: rotate(26deg);
+}
+
+.char13 {
+  transform: rotate(32deg);
+}
+
+.char14 {
+  transform: rotate(38deg);
+}
+
+.char15 {
+  transform: rotate(44deg);
+}
+
+.char16 {
+  transform: rotate(50deg);
+}
+
+.char17 {
+  transform: rotate(56deg);
+}
+
+.char18 {
+  transform: rotate(62deg);
+}
+
+.char19 {
+  transform: rotate(68deg);
+}
+
+.char20 {
+  transform: rotate(74deg);
+}
+
+.char21 {
+  transform: rotate(80deg);
+}
+
+.char22 {
+  transform: rotate(86deg);
+}
+
+.char23 {
+  transform: rotate(92deg);
+}
+
+.char24 {
+  transform: rotate(98deg);
+}.char25 {
+  transform: rotate(104deg);
+}.char26 {
+  transform: rotate(110deg);
+}.char27 {
+  transform: rotate(116deg);
+}.char28 {
+  transform: rotate(122deg);
+}.char29 {
+  transform: rotate(128deg);
+}.char30 {
+  transform: rotate(134deg);
+}.char31 {
+  transform: rotate(140deg);
+}.char32 {
+  transform: rotate(146deg);
+}.char33 {
+  transform: rotate(152deg);
+}.char34 {
+  transform: rotate(158deg);
+}.char35 {
+  transform: rotate(164deg);
+}.char36 {
+  transform: rotate(170deg);
+}.char37 {
+  transform: rotate(176deg);
+}.char38 {
+  transform: rotate(184deg);
+}.char39 {
+  transform: rotate(190deg);
+}
+    
+
+
 /* Google */
 .loginBtn--google {
   /*font-family: "Roboto", Roboto, arial, sans-serif;*/

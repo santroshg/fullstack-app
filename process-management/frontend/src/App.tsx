@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import store from './store';
-import { Board, BoardItem, User } from './store/types';
+import { Board, BoardItem, User, GoogleUser } from './store/types';
 import BoardListComponent from './components/BoardListComponent/BoardListComponent';
 import BoardComponent from './components/BoardComponent/BoardComponent';
 import AppHeader from './components/AppHeader/AppHeader';
@@ -17,7 +17,7 @@ interface AppProps {
 interface AppState {
   boardList?: BoardItem[],
   currentBoard?: Board,
-  authenticatedUser?: User,
+  authenticatedUser?: GoogleUser,
   isUserAuthenticated: Boolean,
 }
 
@@ -44,7 +44,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
               userId: res.data.googleId,
               userDisplayName: res.data.userDisplayName,
               userEmail: res.data.userEmail,
-              userActive: res.data.userActive,
+              profileImgUrl: res.data.profileImgUrl,
             }
           });
         }

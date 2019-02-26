@@ -3,6 +3,11 @@
     color: white;
 }
 
+.app-header__element {
+    display: flex;
+    flex-direction: row;
+}
+
 .app-header__title {
     flex-grow: 1;
     cursor: pointer;

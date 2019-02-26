@@ -4,7 +4,7 @@ const GoogleUserSchema = mongoose.Schema({
   googleId: { type: String },
   userDisplayName: { type: String },
   userEmail: { type: String },
-  userActive: { type: Boolean },
+  profileImgUrl: { type: String },
 });
 
 mongoose.model('GoogleUser', GoogleUserSchema);
