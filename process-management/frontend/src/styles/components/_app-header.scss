@@ -6,6 +6,16 @@
 .app-header__element {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.userSpace {
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar {
+    margin-right: 10px;
 }
 
 .app-header__title {

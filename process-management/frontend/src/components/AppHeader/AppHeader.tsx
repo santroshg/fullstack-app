@@ -23,16 +23,24 @@ export default class AppHeader extends React.PureComponent<AppHeaderProps, AppHe
       <div className='app-header'>
       <AppBar position="static">
         <Toolbar className="app-header__element">
+        <div>
           <Typography variant="h6" color="inherit" className='app-header__title'>
            <a href="/home" className='app-header__title--link'>Process Management</a> 
           </Typography>
+        </div>
+        <div className="userSpace">
+          <Avatar alt="Avatar Img" 
+            src={this.props.authenticatedUser.profileImgUrl as string}
+            className="avatar" />
           <Typography variant="h6" color="inherit" className='app-header__title'>
-            <Avatar alt="Remy Sharp" src={this.props.authenticatedUser.profileImgUrl as string} />
             {this.props.authenticatedUser.userDisplayName}
           </Typography>
+        </div>
+        <div>
           <Typography variant="h6" color="inherit" className='app-header__title'>
             <a href={`${backtendHost}/users/api/logout`} className='app-header__title--link'>Logout</a> 
           </Typography>
+        </div>
         </Toolbar>
       </AppBar>
     </div>
