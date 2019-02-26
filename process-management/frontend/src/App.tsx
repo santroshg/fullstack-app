@@ -52,7 +52,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
   }
 
   render() {
-    console.log('00000000--------------', this.state.authenticatedUser);
+    // console.log('00000000--------------', this.state.authenticatedUser);
     return (
       <div>
         <Router>

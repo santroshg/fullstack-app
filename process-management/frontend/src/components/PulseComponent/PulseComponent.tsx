@@ -41,8 +41,8 @@ export default class PulseComponent extends React.Component<PulseComponentProps>
                     </div>
                     <div className='pulse-delete'>
                         <Tooltip title="Delete pulse">
-                            <IconButton aria-label="Delete">
-                                <DeleteIcon fontSize="small" onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)} />
+                            <IconButton aria-label="Delete" onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)}>
+                                <DeleteIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
                     </div>

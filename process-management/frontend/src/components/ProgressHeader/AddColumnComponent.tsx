@@ -50,8 +50,8 @@ export default class AddColumnComponent extends Component <AddColumnComponentPro
         return (
             <div>
                 <Tooltip title="Add coloumn">
-                    <IconButton aria-label="Add coloumn">
-                        <AddIcon fontSize="small" onClick={this.handleClickOpen} />
+                    <IconButton aria-label="Add coloumn" onClick={this.handleClickOpen}>
+                        <AddIcon fontSize="small" />
                     </IconButton>
                 </Tooltip>
 

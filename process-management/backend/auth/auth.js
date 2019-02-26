@@ -25,7 +25,7 @@ passport.use(new GoogleStrategy({
   callbackURL: goolgeAuthCredentials.web.redirect_uris,
 },
 ((request, accessToken, refreshToken, profile, done) => {
-  console.log('profile---', profile._json.image.url);
+  // console.log('profile---', profile._json.image.url);
   GoogleUser.findOne({ googleId: profile.id })
     .then((existingUser) => {
       if (existingUser) {
