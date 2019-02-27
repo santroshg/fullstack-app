@@ -114,7 +114,7 @@ export interface CellItem {
 }
 
 export interface ProcessManagementState {
-  loggedinUser?: User,
+  loggedinUser?: GoogleUser,
   boardList?: BoardItem[],
   currentBoard?: Board,
 }

@@ -1,5 +1,5 @@
 import { Reducer, AnyAction } from 'redux';
-import { ProcessManagementState, ProcessMgtActionType, BoardItem, User } from './types';
+import { ProcessManagementState, ProcessMgtActionType, BoardItem, User, GoogleUser } from './types';
 
 const initialState: ProcessManagementState = {
   loggedinUser: undefined,
@@ -142,14 +142,14 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // console.log(newMemberList);
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: newMemberList } } } };
 
-        case ProcessMgtActionType.SET_LOGGEDIN_USER:
-          const currentUser: User = {
-            userId: action.payload.googleId,
-            userDisplayName: action.payload.userDisplayName,
-            userEmail: action.payload.userEmail,
-            userActive: action.payload.userActive,
-          }
-          return {...currentState, ...{loggedinUser: currentUser}};
+      case ProcessMgtActionType.SET_LOGGEDIN_USER:
+        const currentUser: GoogleUser = {
+          userId: action.payload.googleId,
+          userDisplayName: action.payload.userDisplayName,
+          userEmail: action.payload.userEmail,
+          profileImgUrl: action.payload.profileImgUrl,
+        }
+        return {...currentState, ...{loggedinUser: currentUser}};
 
 
     default:

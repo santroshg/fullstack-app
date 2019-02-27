@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import axios from 'axios';
 import store from './store';
-import { Board, BoardItem, User, GoogleUser } from './store/types';
+import { Board, BoardItem, GoogleUser } from './store/types';
 import BoardListComponent from './components/BoardListComponent/BoardListComponent';
 import BoardComponent from './components/BoardComponent/BoardComponent';
 import AppHeader from './components/AppHeader/AppHeader';
 import GoogleLoginComponent from './components/AuthComponent/GoogleLoginComponent';
-import { backtendHost } from './constants/constants';
 
 import { getLoggedinUserAction } from './store/actions';
 
-interface AppProps {
-}
+interface AppProps {}
+
 interface AppState {
   boardList?: BoardItem[],
   currentBoard?: Board,
-  authenticatedUser?: GoogleUser,
+  authenticatedUser: GoogleUser,
   isUserAuthenticated: Boolean,
 }
 
@@ -26,38 +24,32 @@ export default class App extends React.PureComponent<AppProps, AppState> {
     super(props);
     this.state = {
       isUserAuthenticated: false,
+      authenticatedUser: {
+        userId: '',
+        userDisplayName: '',
+        userEmail: '',
+        profileImgUrl: ''},
     }
   }
 
   async componentDidMount() {
     store.subscribe(() => {
-      this.setState({ currentBoard: store.getState().currentBoard })
+      this.setState({ currentBoard: store.getState().currentBoard,
+        authenticatedUser: store.getState().loggedinUser });
+      if(this.state.authenticatedUser.userId) {
+        this.setState({ isUserAuthenticated: true });
+      }
     });
 
     store.dispatch(getLoggedinUserAction());
-    await axios.get(`${backtendHost}/users/api/current_user`, { withCredentials: true })
-      .then((res) => {
-        if (res.data) { // here is the user data
-          this.setState({
-            isUserAuthenticated: true,
-            authenticatedUser: {
-              userId: res.data.googleId,
-              userDisplayName: res.data.userDisplayName,
-              userEmail: res.data.userEmail,
-              profileImgUrl: res.data.profileImgUrl,
-            }
-          });
-        }
-      });
   }
 
   render() {
-    // console.log('00000000--------------', this.state.authenticatedUser);
     return (
       <div>
         <Router>
           <Provider store={store}>
-            {this.state.authenticatedUser ? (
+            {this.state.isUserAuthenticated ? (
               <div>
                 <AppHeader authenticatedUser={this.state.authenticatedUser} />
                 <Route path="/home" component={BoardListComponent} />
@@ -66,10 +58,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
             ) : (
                 <GoogleLoginComponent />
               )
-
             }
-
-
           </Provider>
         </Router>
       </div>
