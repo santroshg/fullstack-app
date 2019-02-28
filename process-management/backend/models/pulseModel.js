@@ -18,7 +18,7 @@ const pulseSchema = mongoose.Schema({
   createTime: {
     type: String,
   },
-  headerId: {
+  headerColumnId: {
     type: String,
   },
   cells: [cellModel],

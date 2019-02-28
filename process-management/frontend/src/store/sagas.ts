@@ -44,8 +44,10 @@ export function* addColumn(action: AnyAction) {
 }
 
 export function* editColumn(action: AnyAction) {
+  console.log('editColumn saga action',action);
   const boardAftereditColumn = yield call(editColumnAPI, action.payload);
-  yield put(setEditColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
+  console.log('boardAftereditColumn', boardAftereditColumn);
+  yield put(setEditColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.progressHeader));
 }
 
 export function* deleteColumn(action: AnyAction) {
@@ -59,8 +61,10 @@ export function* addPulse(action: AnyAction) {
 }
 
 export function* editPulse(action: AnyAction) {
+  console.log(' editPulse- AnyAction', action);
   const boardAftereditPulse = yield call(editPulseAPI, action.payload);
-  yield put(setEditPulseAction(boardAftereditPulse.boardId, boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
+  console.log('boardAftereditPulse', boardAftereditPulse);
+  yield put(setEditPulseAction(boardAftereditPulse.boardId, boardAftereditPulse.pulse));
 }
 
 export function* deletePulse(action: AnyAction) {

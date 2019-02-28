@@ -36,10 +36,12 @@ const progressHeaderController = {
   editProgressHeader: (req, res, next) => {
     try {
       const updateProgressHeaderData = req.body;
+      console.log('updateProgressHeaderData', updateProgressHeaderData);
       const { boardId } = req.params;
       const { headerId } = req.params;
       if (boardId) {
-        BoardModel.update({ _id: boardId, 'progressHeader._id': headerId }, { $set: { progressHeader: updateProgressHeaderData } }, (err, updatedProgressHeader) => {
+        // eslint-disable-next-line max-len
+        BoardModel.findOneAndUpdate({ _id: boardId, 'progressHeader.headerId': headerId }, { $set: { 'progressHeader.$.headerTxt': updateProgressHeaderData.headerTxt } }, { new: true }, (err, updatedProgressHeader) => {
           if (err) {
             throw err;
           } else {

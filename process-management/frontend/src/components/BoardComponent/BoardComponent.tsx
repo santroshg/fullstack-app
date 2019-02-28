@@ -18,8 +18,11 @@ export interface BoardProps {
     addMemberToBoardSaga?: any,
     removeMemberToBoardSaga?: any,
     addPulseSaga?: any,
+    editPulseSaga? : any,
     deletePulseSaga?: any,
     addColumnSaga?: any,
+    editColumnSaga?: any,
+    currentBoardId?: String,
 }
 
 export default class BoardComponent extends React.PureComponent<BoardProps, any> {
@@ -62,7 +65,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
     }
 
     public render() {
-        {console.log('this.props.currentBoard', this.props.currentBoard)}
+        // {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
 
             this.props.currentBoard ? (
@@ -85,7 +88,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
                             <div className='progress-header-component'>
                                 <div className='progress-header-wrapper'>
                                     {this.props.currentBoard.progressHeader.map((header, i) =>
-                                        <ProgressHeaderComponent key={i} progressHeader={header} />
+                                        <ProgressHeaderComponent key={i} progressHeader={header} currentBoardId={this.props.currentBoard.boardId} editColumnSaga={this.props.editColumnSaga}/>
                                     )}
                                 </div>
                                 <div className='progress-header-add'>
@@ -96,7 +99,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
 
                         <div className='pulse-component'>
                             {this.props.currentBoard.pulse.map((pulse, i) => (
-                                <PulseComponent key={i} pulse={pulse} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} />
+                                <PulseComponent key={i} pulse={pulse} editPulseSaga={this.props.editPulseSaga} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} />
                             ))}
                             <div className='add-pulse-wrapper'>
                                 {this.state.needPulseCreateTxtBox ? (

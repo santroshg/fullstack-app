@@ -30,6 +30,10 @@
     border-left: 1px solid #009688;
     width: 100px;
 }
+.pulse-cell-edit:hover {
+    cursor: pointer;
+    border: #607D8B dotted 1px;
+}
 .cell-wrapper {
     display: flex;
     align-items: center;

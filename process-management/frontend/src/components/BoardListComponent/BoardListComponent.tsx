@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -24,8 +24,10 @@ export interface BoardListProps {
     addMemberToBoardSaga: any,
     removeMemberToBoardSaga: any,
     addPulseSaga: any,
+    editPulseSaga: any,
     deletePulseSaga: any,
-    addColumnSaga: any
+    addColumnSaga: any,
+    editColumnSaga: any,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
@@ -87,8 +89,10 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                 addMemberToBoardSaga={this.props.addMemberToBoardSaga}
                 removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
                 addPulseSaga={this.props.addPulseSaga} 
+                editPulseSaga={this.props.editPulseSaga}
                 deletePulseSaga={this.props.deletePulseSaga}
                 addColumnSaga={this.props.addColumnSaga}
+                editColumnSaga={this.props.editColumnSaga}
             />
         </div>
         </div>
@@ -110,7 +114,9 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     addPulseSaga: (boardId: String, pulse: PulseItem) => dispatch(addPulseAction(boardId, pulse)),
     deletePulseSaga: (boardId: String, pulseId: String) => dispatch(deletePulseAction(boardId, pulseId)),
     addColumnSaga: (boardId: String, progressHeader: ProgressHeader) => dispatch(addColumnAction(boardId, progressHeader)),
-    
+    editColumnSaga: (boardId: String, headerId: String, headerTxt: String) => dispatch(editColumnAction(boardId, headerId, headerTxt)),
+  //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
+    editPulseSaga : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

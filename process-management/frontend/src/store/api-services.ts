@@ -59,8 +59,14 @@ export function addColumnAPI(action: any) {
   });
 }
 
-export function editColumnAPI(dummy: String) {
-  
+export function editColumnAPI(action: any) {
+  console.log('editColumnAPI=action', action)
+  return axios.put(`http://localhost:3000/api/headers/${action.boardId}/${action.headerId}`, {headerTxt: action.headerTxt})
+    .then((res: any) => {
+      console.log('editColumnAPI response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function deleteColumnAPI(dummy: String) {
@@ -77,8 +83,14 @@ export function addPulseAPI(action: any) {
     });
 }
 
-export function editPulseAPI(dummy: String) {
-
+export function editPulseAPI(action: any) {
+  console.log('editPulseAPI=action', action)
+  return axios.put(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`, {pulseTxt: action.pulseTxt})
+    .then((res: any) => {
+      console.log('editPulseAPI response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function deletePulseAPI(action: any) {

@@ -9,17 +9,44 @@ import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import { TextField } from '@material-ui/core';
+
 
 interface PulseComponentProps {
     pulse?: Pulse,
+    editPulseSaga? : any,
     deletePulseSaga?: any,
     selectedBoardId: String,
 
 }
-export default class PulseComponent extends React.Component<PulseComponentProps> {
+interface PulseComponentState {
+    showPulseCellEdit: boolean,
+    pulseCellEditText: String,
+}
+export default class PulseComponent extends React.Component<PulseComponentProps, PulseComponentState> {
     constructor(props: PulseComponentProps) {
         super(props);
-        console.log('PulseComponentProps', this.props.pulse);
+       // console.log('PulseComponentProps', this.props.pulse);
+        this.state = {
+            showPulseCellEdit: false,
+            pulseCellEditText: this.props.pulse.pulseTxt,
+        }
+    }
+    handleShowPulseCellEdit = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        this.setState({ showPulseCellEdit: true });
+    }
+    handlePulseCellEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({ pulseCellEditText: e.target.value })
+    }
+    handlePulseCellEdit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            const boardId = this.props.selectedBoardId;
+            const pulseId = this.props.pulse.pulseId;
+            const pulseText = this.state.pulseCellEditText;
+            this.props.editPulseSaga(boardId, pulseId, pulseText);
+            this.setState({ showPulseCellEdit: false });
+        }
     }
     handleDeletePulse = (pulseId: any) => {
         // alert(pulseId);
@@ -27,14 +54,29 @@ export default class PulseComponent extends React.Component<PulseComponentProps>
             console.log('pulseId', pulseId)
             const boardId = this.props.selectedBoardId;
             this.props.deletePulseSaga(boardId, pulseId);
+            this.setState({ showPulseCellEdit: false });
         }
     }
+
     render() {
         return (
             <Fragment>
                 <div className='pulse-wrapper'>
                     <div className='pulse-cell-wrapper'>
-                        <div className='pulse-cell'>{this.props.pulse.pulseTxt}</div>
+                        <div className='pulse-cell'>
+                            {this.state.showPulseCellEdit ? (<TextField
+                                id="standard-bare"
+                                type="text"
+                                name="PulseCellEdit"
+                                margin="normal"
+                                fullWidth
+                                value={this.state.pulseCellEditText as string}
+                                onChange={this.handlePulseCellEditText}
+                                onKeyPress={this.handlePulseCellEdit} />) 
+                            : (
+                                <span onDoubleClick={this.handleShowPulseCellEdit} className='pulse-cell-edit'>{this.props.pulse.pulseTxt}</span>
+                            )}
+                        </div>
                         {this.props.pulse.cells.map(cell => (
                             <PulseCell key={cell.cellId as string} cellData={cell} />
                         ))}

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const progressHeaderSchema = mongoose.Schema({
-  hedaerId: {
+  headerId: {
     type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,

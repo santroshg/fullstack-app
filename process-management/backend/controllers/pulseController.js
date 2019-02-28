@@ -11,7 +11,7 @@ const pulseController = {
       const pulseData = req.body;
       const newHeaderId = Math.random() * 123456789;
       pulseData.createTime = new Date();
-      pulseData.headerId = newHeaderId;
+      pulseData.headerColumnId = newHeaderId;
       if (boardId) {
         BoardModel.find({ _id: boardId }, { pulse: 1 }, (error, response) => {
           if (response.length > 0) {
@@ -19,7 +19,7 @@ const pulseController = {
               const headerData = {
                 headerTxt: 'Task Header',
                 createTime: new Date(),
-                headerId: newHeaderId,
+                headerColumnId: newHeaderId,
                 headerType: 'default',
               };
               BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData, progressHeader: headerData } }, { new: true }, (err, newPulse) => {
@@ -50,11 +50,12 @@ const pulseController = {
                   pulseData.cells = cells;
                   // pulseData.pulseId = new mongoose.Schema.Types.ObjectId();
                   BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData } }, { new: true }, (err, newPulse) => {
-                    if (err) {
-                      throw err;
+                    if (newPulse) {
+                      // res.set('Content-Type', 'application/json');
+                      res.status(200).send(newPulse);
                     } else {
                       res.set('Content-Type', 'application/json');
-                      res.status(200).send(newPulse);
+                      res.status(200).send(err);
                     }
                   });
                 }
@@ -75,10 +76,12 @@ const pulseController = {
   editPulse: (req, res, next) => {
     try {
       const updatePulseData = req.body;
+      console.log('updatePulseData', updatePulseData);
+      // const { pulseTxt } = updatePulseData;
       const { boardId } = req.params;
       const { pulseId } = req.params;
       if (boardId) {
-        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId }, { $set: { pulse: updatePulseData } }, { new: true }, (err, updatedPulse) => {
+        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId }, { $set: { 'pulse.$.pulseTxt': updatePulseData.pulseTxt } }, { new: true }, (err, updatedPulse) => {
           if (err) {
             throw err;
           } else {

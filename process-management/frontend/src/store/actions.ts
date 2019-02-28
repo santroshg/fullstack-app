@@ -17,13 +17,13 @@ export const setDeleteBoardAction = (boardId: String) => action(ProcessMgtAction
 export const addColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.ADD_COLUMN_SAGA, {boardId, progressHeader});
 export const setAddColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.SET_ADD_COLUMN, {boardId, progressHeader});
 export const editColumnAction = (boardId: String, headerId: String, headerTxt: String) => action(ProcessMgtActionType.EDIT_COLUMN_SAGA, {boardId, headerId, headerTxt});
-export const setEditColumnAction = (boardId: String, headerId: String, headerTxt: String) => action(ProcessMgtActionType.SET_EDIT_COLUMN, {boardId, headerId, headerTxt});
+export const setEditColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.SET_EDIT_COLUMN, {boardId, progressHeader});
 export const deleteColumnAction = (boardId: String, headerId: String) => action(ProcessMgtActionType.DELETE_COLUMN_SAGA, {boardId, headerId});
 export const setDeleteColumnAction = (boardId: String, headerId: String) => action(ProcessMgtActionType.SET_DELETE_COLUMN, {boardId, headerId});
 export const addPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.ADD_PULSE_SAGA, {boardId, pulse});
 export const setAddPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.SET_ADD_PULSE, {boardId, pulse});
 export const editPulseAction = (boardId: String, pulseId: String, pulseTxt: String) => action(ProcessMgtActionType.EDIT_PULSE_SAGA, {boardId, pulseId, pulseTxt});
-export const setEditPulseAction = (boardId: String, pulseId: String, pulseTxt: String) => action(ProcessMgtActionType.SET_EDIT_PULSE, {boardId, pulseId, pulseTxt});
+export const setEditPulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_EDIT_PULSE, {boardId, pulse});
 export const deletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.DELETE_PULSE_SAGA, {boardId, pulseId});
 export const setDeletePulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_DELETE_PULSE, {boardId, pulse});
 export const editCellAction = (boardId: String, pulseId: String, cell: CellItem) => action(ProcessMgtActionType.EDIT_CELL_SAGA, {boardId, pulseId, cell});

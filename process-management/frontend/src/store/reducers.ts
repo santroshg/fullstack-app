@@ -34,14 +34,15 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
 
     case ProcessMgtActionType.SET_EDIT_COLUMN:
-      const updatedColumnHeader = currentState.currentBoard.progressHeader
-        .map(ph => ph.headerId === action.payload.headerId ? {
-          headerId: action.payload.headerId,
-          headerTxt: action.payload.headerTxt,
-          createTime: ph.createTime
-        } : ph);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: updatedColumnHeader } } } };
-
+      // const updatedColumnHeader = currentState.currentBoard.progressHeader
+      //   .map(ph => ph.headerId === action.payload.headerId ? {
+      //     headerId: action.payload.headerId,
+      //     headerTxt: action.payload.headerTxt,
+      //     createTime: ph.createTime
+      //   } : ph);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: updatedColumnHeader } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
+      
     case ProcessMgtActionType.SET_DELETE_COLUMN:
       // need to write correct reducers for delete column
       return currentState;
@@ -66,10 +67,11 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
 
 
     case ProcessMgtActionType.SET_EDIT_PULSE:
-      const oldPulse = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      const newPulse = { ...oldPulse, pulseTxt: action.payload.pulseTxt };
-      const newPulseList = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse : p);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList } } } }
+      // const oldPulse = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      // const newPulse = { ...oldPulse, pulseTxt: action.payload.pulseTxt };
+      // const newPulseList = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse : p);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList } } } }
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_DELETE_PULSE:
       // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
