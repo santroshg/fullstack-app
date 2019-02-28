@@ -24,6 +24,7 @@ export interface BoardProps {
     editColumnSaga?: any,
     currentBoardId?: String,
     addNewLabelSaga: any,
+    editLabelSaga: any,
 }
 
 export default class BoardComponent extends React.PureComponent<BoardProps, any> {
@@ -100,7 +101,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
 
                         <div className='pulse-component'>
                             {this.props.currentBoard.pulse.map((pulse, i) => (
-                                <PulseComponent key={i} pulse={pulse} editPulseSaga={this.props.editPulseSaga} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} addNewLabelSaga={this.props.addNewLabelSaga} />
+                                <PulseComponent key={i} pulse={pulse} editPulseSaga={this.props.editPulseSaga} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} />
                             ))}
                             <div className='add-pulse-wrapper'>
                                 {this.state.needPulseCreateTxtBox ? (

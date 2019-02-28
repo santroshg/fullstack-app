@@ -90,6 +90,7 @@ export function* addNewLabel(action: AnyAction) {
 }
 
 export function* editLabel(action: AnyAction) {
+  console.log('editLabel-saga ', action.payload);
   const boardAfterEditLabel = yield call(editLabelAPI, action.payload);
   yield put(setEditLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
 }

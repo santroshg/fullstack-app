@@ -116,8 +116,14 @@ export function addNewLabelAPI(action: any) {
     });
 }
 
-export function editLabelAPI(dummy: String) {
-
+export function editLabelAPI(action: any) {
+  console.log('addNewLabelAPI', action)
+  return axios.put(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}/${action.labelId}`, action.label, {withCredentials: true})
+    .then((res: any) => {
+      console.log('response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function deleteLabelAPI(dummy: String) {

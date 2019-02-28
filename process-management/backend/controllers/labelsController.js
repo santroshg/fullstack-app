@@ -31,7 +31,7 @@ const labelsController = {
       const labelData = req.body;
       if (boardId && pulseId && cellId && labelData) {
         // eslint-disable-next-line max-len
-        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { $push: { 'pulse.$.cells.0.labels': labelData } }, { upsert: true }, (error, response) => {
+        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { $push: { 'pulse.$.cells.0.labels': labelData } }, { upsert: true }, { new: true }, (error, response) => {
           if (error) {
             throw error;
           } else {
@@ -57,14 +57,13 @@ const labelsController = {
 
       if (boardId && pulseId && cellId && labelId) {
         BoardModel.update({
-          _id: boardId, 'pulse._id': pulseId, 'pulse.cells._id': cellId, 'pulse.cells.labels._id': labelId,
-        }, { $set: { 'pulse.$.cells.0.labels': updatedLabelData } }, (err, response) => {
+          _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId, 'pulse.cells.labels.labelId': labelId,
+        }, { $set: { 'pulse.0.cells.0.labels.$.labelTxt': updatedLabelData.labelTxt } }, { new: true }, (err, response) => {
           if (err) {
             throw err;
-          } else {
+          } else { 
             res.set('Content-Type', 'application/json');
             res.status(200).send(response);
-            return res;
           }
         });
       }

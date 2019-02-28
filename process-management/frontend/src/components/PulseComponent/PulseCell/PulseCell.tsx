@@ -11,6 +11,7 @@ interface PulseCellProps {
     selectedBoardId: String,
     selectedPulseId: String,
     addNewLabelSaga: any,
+    editLabelSaga: any,
 }
 
 interface PulseCellState {
@@ -67,7 +68,7 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
                         horizontal: 'center',
                     }}
                 >
-                    <LabelComponent labels={this.props.cellData.labels} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props. selectedPulseId} selectedCellId={this.props.cellData.cellId} addNewLabelSaga={this.props.addNewLabelSaga}/>
+                    <LabelComponent labels={this.props.cellData.labels} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props. selectedPulseId} selectedCellId={this.props.cellData.cellId} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga}/>
                 </Popover>
             </React.Fragment>
 

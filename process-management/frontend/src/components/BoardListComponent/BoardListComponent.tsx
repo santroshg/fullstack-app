@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader } from '../../store/types';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -29,6 +29,7 @@ export interface BoardListProps {
     addColumnSaga: any,
     editColumnSaga: any,
     addNewLabelSaga: any,
+    editLabelSaga: any,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
@@ -95,6 +96,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                 addColumnSaga={this.props.addColumnSaga}
                 editColumnSaga={this.props.editColumnSaga}
                 addNewLabelSaga={this.props.addNewLabelSaga}
+                editLabelSaga={this.props.editLabelSaga}
             />
         </div>
         </div>
@@ -120,6 +122,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
   //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
     editPulseSaga : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
     addNewLabelSaga: (boardId: String, pulseId: String, cellId: String, label: String) => dispatch(addNewLabelAction(boardId, pulseId, cellId, label)),
+    editLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => dispatch(editLabelAction(boardId, pulseId, cellId, labelId, label)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);
