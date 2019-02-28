@@ -1,0 +1,22 @@
+label-component {}
+
+.label-component-container {
+    width: 300px;
+   // display: flex;
+}
+
+.label-component-wrapper {
+    height: 200px;
+    //display: flex;
+}
+
+.label-list {
+// flex-grow: 1
+}   
+
+.add-label-wrapper{
+   // background: blue;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}

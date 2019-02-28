@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -28,6 +28,7 @@ export interface BoardListProps {
     deletePulseSaga: any,
     addColumnSaga: any,
     editColumnSaga: any,
+    addNewLabelSaga: any,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
@@ -93,6 +94,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                 deletePulseSaga={this.props.deletePulseSaga}
                 addColumnSaga={this.props.addColumnSaga}
                 editColumnSaga={this.props.editColumnSaga}
+                addNewLabelSaga={this.props.addNewLabelSaga}
             />
         </div>
         </div>
@@ -117,6 +119,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     editColumnSaga: (boardId: String, headerId: String, headerTxt: String) => dispatch(editColumnAction(boardId, headerId, headerTxt)),
   //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
     editPulseSaga : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
+    addNewLabelSaga: (boardId: String, pulseId: String, cellId: String, label: String) => dispatch(addNewLabelAction(boardId, pulseId, cellId, label)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

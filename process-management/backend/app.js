@@ -65,9 +65,9 @@ app.use('/users', usersRouter);
 // API ROUTES
 app.use('/api/boards', verifyUser.isLoggedin, boardsRouter);
 app.use('/api/members', verifyUser.isLoggedin, membersRouter);
-app.use('/api/pulse', verifyUser.isLoggedin, pulseRouter);
-app.use('/api/headers', verifyUser.isLoggedin, progressHeaderRouter);
-app.use('/api/labels', verifyUser.isLoggedin, labelsRouter);
+app.use('/api/pulse', pulseRouter);
+app.use('/api/headers', progressHeaderRouter);
+app.use('/api/labels', labelsRouter);
 
 app.use('/api/accept', acceptRouter);
 

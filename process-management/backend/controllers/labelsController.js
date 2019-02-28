@@ -30,7 +30,8 @@ const labelsController = {
       const { cellId } = req.params;
       const labelData = req.body;
       if (boardId && pulseId && cellId && labelData) {
-        BoardModel.update({ _id: boardId, 'pulse._id': pulseId, 'pulse.cells._id': cellId }, { $push: { 'pulse.$.cells.0.labels': labelData } }, { upsert: true }, (error, response) => {
+        // eslint-disable-next-line max-len
+        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { $push: { 'pulse.$.cells.0.labels': labelData } }, { upsert: true }, (error, response) => {
           if (error) {
             throw error;
           } else {

@@ -80,8 +80,13 @@ export function* editCell(action: AnyAction) {
 }
 
 export function* addNewLabel(action: AnyAction) {
+  console.log('addNewLabel-saga ', action.payload);
   const boardAfterAddNewLabel = yield call(addNewLabelAPI, action.payload);
-  yield put(setAddNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulseId, boardAfterAddNewLabel.cellId, boardAfterAddNewLabel.label));
+  console.log('boardAfterAddNewLabel', boardAfterAddNewLabel);
+  // const pulse = boardAfterAddNewLabel.pulse.filter((p:any) => p.pulseId === action.payload.pulseId)[0];
+  // console.log('boardAfterAddNewLabel', pulse);
+ //yield put(setAddNewLabelAction(action.payload.boardId, action.payload.pulseId, action.payload.cellId, boardAfterAddNewLabel.label));
+ yield put(setAddNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulse));
 }
 
 export function* editLabel(action: AnyAction) {

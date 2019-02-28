@@ -98,14 +98,15 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList1 } } } };
 
     case ProcessMgtActionType.SET_ADD_NEW_LABEL:
-      const targetCell_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.filter(c => c.cellId === action.payload.cellId)[0];
-      const targetCell_With_newLables = { ...targetCell_, labels: [...targetCell_.labels, action.payload.label] };
-      const oldPulse_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      const newPulse_with_new_label_and_cell = oldPulse_.cells.map(op => op.cellId === action.payload.cellId ? targetCell_With_newLables : op);
-      const newPulse_ = { ...oldPulse_, cells: newPulse_with_new_label_and_cell };
-      const newPulseList_ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_ : p);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_ } } } };
+    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+      // const targetCell_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      // const targetCell_With_newLables = { ...targetCell_, labels: [...targetCell_.labels, action.payload.label] };
+      // const oldPulse_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      // const newPulse_with_new_label_and_cell = oldPulse_.cells.map(op => op.cellId === action.payload.cellId ? targetCell_With_newLables : op);
+      // const newPulse_ = { ...oldPulse_, cells: newPulse_with_new_label_and_cell };
+      // const newPulseList_ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_ : p);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_ } } } };
 
     case ProcessMgtActionType.SET_EDIT_LABEL:
       const targetCell__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]

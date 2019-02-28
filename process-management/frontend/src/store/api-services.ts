@@ -106,8 +106,14 @@ export function editCellAPI(dummy: String) {
 
 }
 
-export function addNewLabelAPI(dummy: String) {
-
+export function addNewLabelAPI(action: any) {
+  console.log('addNewLabelAPI', action)
+  return axios.post(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}`, action.label, {withCredentials: true})
+    .then((res: any) => {
+      console.log('response---', res.data);
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
 export function editLabelAPI(dummy: String) {

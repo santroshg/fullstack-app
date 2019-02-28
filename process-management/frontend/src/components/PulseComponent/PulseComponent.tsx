@@ -17,6 +17,7 @@ interface PulseComponentProps {
     editPulseSaga? : any,
     deletePulseSaga?: any,
     selectedBoardId: String,
+    addNewLabelSaga?: any,
 
 }
 interface PulseComponentState {
@@ -78,7 +79,7 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
                             )}
                         </div>
                         {this.props.pulse.cells.map(cell => (
-                            <PulseCell key={cell.cellId as string} cellData={cell} />
+                            <PulseCell key={cell.cellId as string} cellData={cell} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.pulse.pulseId} addNewLabelSaga={this.props.addNewLabelSaga} />
                         ))}
                     </div>
                     <div className='pulse-delete'>
