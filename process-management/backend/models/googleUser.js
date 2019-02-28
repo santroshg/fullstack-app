@@ -11,3 +11,5 @@ const GoogleUserSchema = mongoose.Schema({
 GoogleUserSchema.plugin(uniqueValidator);
 
 mongoose.model('GoogleUser', GoogleUserSchema);
+
+module.exports = mongoose.model('GoogleUser', GoogleUserSchema);
