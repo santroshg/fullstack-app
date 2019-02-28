@@ -1,4 +1,6 @@
+const acceptView = require('../views/accept-view');
 const BoardModel = require('../models/boardModel');
+const url = require('../config/config');
 
 const membersController = {
 
@@ -9,12 +11,12 @@ const membersController = {
       const memberData = req.body;
       // TODO find userID before Updating
       if (boardId) {
-        BoardModel.updateOne({ _id: boardId }, { $push: { members: memberData } }, (err, newMember) => {
+        BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { members: memberData } }, { new: true }, (err, boardsWithUpdatedMember) => {
           if (err) {
             throw err;
           } else {
             res.set('Content-Type', 'application/json');
-            res.status(200).send(newMember);
+            res.status(200).send(boardsWithUpdatedMember);
           }
         });
       }
@@ -29,13 +31,35 @@ const membersController = {
       const { memberId } = req.params;
       const { boardId } = req.params;
       if (boardId && memberId) {
-        BoardModel.updateOne({ _id: boardId }, { $pull: { members: { _id: memberId } } }, (err) => {
+        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { members: { userId: memberId } } }, { new: true }, (err, data) => {
           if (err) {
             res.status(404).send(`${memberId} not exist in database.`);
           } else {
-            res.status(200).send({ message: 'member deleted sucessfully.' });
+            res.status(200).send(data);
           }
         });
+      }
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  acceptRequest: (req, res, next) => {
+    try {
+      const { boardId, userId } = req.query;
+      if (boardId && userId) {
+        BoardModel.findOneAndUpdate({ _id: boardId, 'members.userId': userId },
+          { $set: { 'members.$.userActive': true } }, { new: true }, (err, data) => {
+            if (err) {
+              res.status(404).send(`${userId} not exist in database.`);
+            } else {
+              // res.status(200).send(data);
+              
+              res.writeHead(200, { 'Content-Type': 'text/html' });
+              res.write(acceptView.acceptView(data.boardName, url.frontendHost));
+              res.end();
+            }
+          });
       }
     } catch (error) {
       next(error);

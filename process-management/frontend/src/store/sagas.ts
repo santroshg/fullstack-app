@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
@@ -91,15 +91,13 @@ export function* deleteLabel(action: AnyAction) {
 }
 
 export function* addMemberToBoard(action: AnyAction) {
-  console.log('hiting saga----------------', action.payload);
   const boardAfterAddMember = yield call(addMemberToBoardAPI, action.payload);
-  console.log('boardAfterAddMember----', boardAfterAddMember);
-  yield put(setAddMemberToBoardAction(boardAfterAddMember.boardId, boardAfterAddMember.user));
+  yield put(setAddMemberToBoardAction(boardAfterAddMember.boardId, boardAfterAddMember.members));
 }
 
 export function* removeMemberToBoard(action: AnyAction) {
   const boardAfterRemoveMember = yield call(removeMemberToBoardAPI, action.payload);
-  yield put(setRemoveMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.userId));
+  yield put(setRemoveMemberToBoardAction(boardAfterRemoveMember.boardId, boardAfterRemoveMember.members));
 }
 
 export function* getLoggedinUser(action: AnyAction) {
@@ -108,22 +106,22 @@ export function* getLoggedinUser(action: AnyAction) {
 }
 
 export default function* sagas() {
-  yield takeLatest(ProcessMgtActionType.GET_BOARDS_LIST, getBoardsList);
-  yield takeLatest(ProcessMgtActionType.GET_BOARD_DETAILS, getBoardDetails);
-  yield takeLatest(ProcessMgtActionType.ADD_BOARD, addBoard);
-  yield takeLatest(ProcessMgtActionType.EDIT_BOARD, editBoard);
-  yield takeLatest(ProcessMgtActionType.DELETE_BOARD, deleteBoard);
-  yield takeLatest(ProcessMgtActionType.ADD_COLUMN, addColumn);
-  yield takeLatest(ProcessMgtActionType.EDIT_COLUMN, editColumn);
-  yield takeLatest(ProcessMgtActionType.DELETE_COLUMN, deleteColumn);
-  yield takeLatest(ProcessMgtActionType.ADD_PULSE, addPulse);
-  yield takeLatest(ProcessMgtActionType.EDIT_PULSE, editPulse);
-  yield takeLatest(ProcessMgtActionType.DELETE_PULSE, deletePulse);
-  yield takeLatest(ProcessMgtActionType.EDIT_CELL, editCell);
-  yield takeLatest(ProcessMgtActionType.ADD_NEW_LABEL, addNewLabel);
-  yield takeLatest(ProcessMgtActionType.EDIT_LABEL, editLabel);
-  yield takeLatest(ProcessMgtActionType.DELETE_LABEL, deleteLabel);
-  yield takeLatest(ProcessMgtActionType.ADD_MEMBER_TO_BOARD, addMemberToBoard);
-  yield takeLatest(ProcessMgtActionType.REMOVE_MEMBER_FROM_BOARD, removeMemberToBoard);
-  yield takeLatest(ProcessMgtActionType.GET_LOGGEDIN_USER, getLoggedinUser);
+  yield takeEvery(ProcessMgtActionType.GET_BOARDS_LIST_SAGA, getBoardsList);
+  yield takeLatest(ProcessMgtActionType.GET_BOARD_DETAILS_SAGA, getBoardDetails);
+  yield takeEvery(ProcessMgtActionType.ADD_BOARD_SAGA, addBoard);
+  yield takeLatest(ProcessMgtActionType.EDIT_BOARD_SAGA, editBoard);
+  yield takeLatest(ProcessMgtActionType.DELETE_BOARD_SAGA, deleteBoard);
+  yield takeLatest(ProcessMgtActionType.ADD_COLUMN_SAGA, addColumn);
+  yield takeLatest(ProcessMgtActionType.EDIT_COLUMN_SAGA, editColumn);
+  yield takeEvery(ProcessMgtActionType.DELETE_COLUMN_SAGA, deleteColumn);
+  yield takeEvery(ProcessMgtActionType.ADD_PULSE_SAGA, addPulse);
+  yield takeLatest(ProcessMgtActionType.EDIT_PULSE_SAGA, editPulse);
+  yield takeEvery(ProcessMgtActionType.DELETE_PULSE_SAGA, deletePulse);
+  yield takeLatest(ProcessMgtActionType.EDIT_CELL_SAGA, editCell);
+  yield takeEvery(ProcessMgtActionType.ADD_NEW_LABEL_SAGA, addNewLabel);
+  yield takeLatest(ProcessMgtActionType.EDIT_LABEL_SAGA, editLabel);
+  yield takeEvery(ProcessMgtActionType.DELETE_LABEL_SAGA, deleteLabel);
+  yield takeEvery(ProcessMgtActionType.ADD_MEMBER_TO_BOARD_SAGA, addMemberToBoard);
+  yield takeLatest(ProcessMgtActionType.REMOVE_MEMBER_FROM_BOARD_SAGA, removeMemberToBoard);
+  yield takeEvery(ProcessMgtActionType.GET_LOGGEDIN_USER_SAGA, getLoggedinUser);
 }

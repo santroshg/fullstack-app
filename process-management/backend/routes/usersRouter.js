@@ -12,6 +12,7 @@ usersRouter.get('/', (req, res) => {
 usersRouter.get('/login', (req, res) => {
   res.render('login');
 });
+
 /* Google oauth-2 ling */
 usersRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 

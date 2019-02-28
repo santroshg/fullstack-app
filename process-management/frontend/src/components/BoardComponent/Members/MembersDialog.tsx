@@ -47,16 +47,17 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
 
   handleAddUser = (boardId: String, e: any) => {
       if (this.state.newUser !== '' && e.key === 'Enter') {
+        const tempUserId: String = Math.random() * 34567 + ''; // once user accept request, this id will be updated with googleid.
         this.props.addMemberToBoardSaga(
           boardId, {
-            userId: Math.random() * 34567 + '',
-            userDisplayName: 'NA',
+            userId: tempUserId,
+            userDisplayName: this.state.newUser,
             userEmail: this.state.newUser,
             userActive: false,
           }
         );
-        sendMail(this.state.newUser, boardId);
-        this.setState({ openModal: false });
+        sendMail(this.state.newUser, boardId, tempUserId);
+        this.setState({ openModal: false, isNewuserTxtbox: false });
       }
       this.setState({ newUser: '' });
   };
@@ -82,7 +83,8 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
         >
           <DialogTitle id="draggable-dialog-title">Add/Remove members from board</DialogTitle>
           <DialogContent>
-            {this.props.currentBoard.members.map(m => (
+            {this.props.currentBoard.members ? (
+            this.props.currentBoard.members.map(m => (
               <List key={m.userId as string} >
                 <ListItem style={m.userActive ? {} : styles.disabledUser}>
                     <ListItemText
@@ -96,7 +98,8 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
                     </ListItemSecondaryAction>
                 </ListItem>
               </List>
-            ))}
+            ))) : (<div>anok</div>)}
+            
           </DialogContent>
           <DialogActions>
             {this.state.isNewuserTxtbox ? (

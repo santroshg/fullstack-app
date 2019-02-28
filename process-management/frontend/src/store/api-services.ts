@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { BoardItem, User, PulseItem } from './types';
+import { backtendHost } from '../constants/constants'
+
 
 export function getBoardsListAPI() {
   // console.log('api call getBoardsListAPI----------------');
-  return axios.get('http://localhost:3000/api/boards')
+  return axios.get(`${backtendHost}/api/boards`, {withCredentials: true})
     .then((res: any) => {
       // console.log('res------------------', res.data);
       return res.data.map((d: any) => {
@@ -18,7 +20,7 @@ export function getBoardsListAPI() {
 }
 
 export function getBoardDetailsAPI(boardId: String) {
-  return axios.get(`http://localhost:3000/api/boards/${boardId}`)
+  return axios.get(`${backtendHost}/api/boards/${boardId}`, {withCredentials: true})
     .then((res: any) => {
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
@@ -32,7 +34,7 @@ export function addBoardAPI(boardItem: BoardItem) {
     boardDesc: boardItem.boardDesc
   }
   console.log('boardItem---starting saving-----', notNeededBoardObject);
-  return axios.post('http://localhost:3000/api/boards', notNeededBoardObject)
+  return axios.post(`${backtendHost}/api/boards`, notNeededBoardObject, {withCredentials: true})
     .then((res: any) => {
       console.log('addBoardAPI before response---', res.data);
       res.data.boardId = res.data._id;
@@ -49,7 +51,7 @@ export function deleteBoardAPI(dummy: String) {
 }
 
 export function addColumnAPI(action: any) {
-  return axios.post(`http://localhost:3000/api/headers/${action.boardId}`, action.progressHeader)
+  return axios.post(`${backtendHost}/api/headers/${action.boardId}`, action.progressHeader, {withCredentials: true})
   .then((res: any) => {
     console.log('response---', res.data);
     res.data.boardId = res.data._id;
@@ -67,7 +69,7 @@ export function deleteColumnAPI(dummy: String) {
 
 export function addPulseAPI(action: any) {
   console.log('addPulseAPI(action', action)
-  return axios.post(`http://localhost:3000/api/pulse/${action.boardId}`, action.pulse)
+  return axios.post(`${backtendHost}/api/pulse/${action.boardId}`, action.pulse, {withCredentials: true})
     .then((res: any) => {
       console.log('response---', res.data);
       res.data.boardId = res.data._id;
@@ -81,9 +83,8 @@ export function editPulseAPI(dummy: String) {
 
 export function deletePulseAPI(action: any) {
   console.log('deletePulseAPI=action', action)
-  return axios.delete(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`, {withCredentials: true})
+  return axios.delete(`${backtendHost}/api/pulse/${action.boardId}/${action.pulseId}`, {withCredentials: true})
     .then((res: any) => {
-      console.log('deletePulseAPI response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
@@ -106,7 +107,6 @@ export function deleteLabelAPI(dummy: String) {
 }
 
 export function addMemberToBoardAPI(action: any) {
-  console.log('------------boardId---', action.user);
   const newUser: User = {
     userId: action.user.userId,
     userDisplayName: action.user.userDisplayName,
@@ -114,23 +114,21 @@ export function addMemberToBoardAPI(action: any) {
     userActive: false,
   }
 
-  return axios.post(`http://localhost:3000/api/members/${action.boardId}`, newUser)
+  return axios.post(`${backtendHost}/api/members/${action.boardId}`, newUser, {withCredentials: true})
     .then((res: any) => {
-      console.log('addBoardAPI before response--------', res.data);
       return Promise.resolve(res.data);
     });
 }
 
 export function removeMemberToBoardAPI(payload: any) {
-  console.log('removeMemberToBoardAPI---', payload);
-  return axios.delete(`http://localhost:3000/api/members/${payload.boardId}/${payload.userId}`)
+  return axios.delete(`${backtendHost}/api/members/${payload.boardId}/${payload.userId}`, {withCredentials: true})
     .then((res: any) => {
       return Promise.resolve(res.data);
     });
 }
 
 export function getLoggedinUserAPI() {
-  return axios.get('http://localhost:3000/users/api/current_user', {withCredentials: true})
+  return axios.get(`${backtendHost}/users/api/current_user`, {withCredentials: true})
     .then((res: any) => {
       return Promise.resolve(res.data);
     });

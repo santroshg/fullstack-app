@@ -1,4 +1,4 @@
-import { frontendHost } from '../constants/constants';
+import { backtendHost } from '../constants/constants';
 
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-sequences */
@@ -17,8 +17,9 @@ export const Email = {
     createCORSRequest(e, o) { let t = new XMLHttpRequest(); return 'withCredentials' in t ? t.open(e, o, !0) : typeof XDomainRequest !== 'undefined' ? (t = new XDomainRequest()).open(e, o) : t = null, t; },
 };
 
-export const sendMail = (to, boardId) => {
-  const hrefUrl = `${frontendHost}/update-active-user?boardId=${boardId}`;
+export const sendMail = (to, boardId, userId) => {
+  // const hrefUrl = `${backtendHost}/api/accept/update-active-user?boardId=${boardId}&userId=${userId}`;
+  const hrefUrl = `${backtendHost}/users/auth/google/?boardId=${boardId}&userId=${userId}`;
   Email.send('slackmailing@gmail.com',
     to,
     'Invitation to join Process Management application',

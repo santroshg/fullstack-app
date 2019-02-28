@@ -6,6 +6,7 @@ const cookieSession = require('cookie-session');
 const logger = require('morgan');
 const passport = require('passport');
 const goolgeAuthCredentials = require('./config/googleAuthCredentials');
+const url = require('./config/config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
 const boardsRouter = require('./routes/boardsRouter');
@@ -13,6 +14,7 @@ const membersRouter = require('./routes/membersRouter');
 const pulseRouter = require('./routes/pulseRouter');
 const progressHeaderRouter = require('./routes/progressHeaderRouter');
 const labelsRouter = require('./routes/labelsRouter');
+const acceptRouter = require('./routes/acceptRouter');
 const verifyUser = require('./auth/user-verify');
 require('./models/googleUser');
 
@@ -43,7 +45,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // CORS issue, allowed methods
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.header('Access-Control-Allow-Origin', url.frontendHost);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -61,15 +63,13 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // API ROUTES
-app.use('/api/boards', boardsRouter);
-app.use('/api/members', membersRouter);
-app.use('/api/pulse', pulseRouter);
-app.use('/api/headers', progressHeaderRouter);
-app.use('/api/labels', labelsRouter);
+app.use('/api/boards', verifyUser.isLoggedin, boardsRouter);
+app.use('/api/members', verifyUser.isLoggedin, membersRouter);
+app.use('/api/pulse', verifyUser.isLoggedin, pulseRouter);
+app.use('/api/headers', verifyUser.isLoggedin, progressHeaderRouter);
+app.use('/api/labels', verifyUser.isLoggedin, labelsRouter);
 
-app.use('/test', verifyUser.isLoggedin, (req, res) => {
-  res.send('Authenticated user');
-});
+app.use('/api/accept', acceptRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

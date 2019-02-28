@@ -10,14 +10,10 @@ const initialState: ProcessManagementState = {
 const ProcessManagementReducer = (currentState: ProcessManagementState = initialState, action: AnyAction) => {
   switch (action.type) {
     case ProcessMgtActionType.SET_BOARDS_LIST:
-      // console.log('------------inside reducers-', action.payload);
-      // console.log('currentState.boardList----', currentState.boardList);
-      // console.log('currentState----', {...currentState, boardList: [...currentState.boardList, ...action.payload]});
       if (currentState.boardList !== undefined) {
         return { ...currentState, boardList: [...currentState.boardList, ...action.payload] };
       } else {
-        // console.log('{...currentState, boardList: [...action.payload]}-', {...currentState, boardList: [...action.payload]});
-        return { ...currentState, boardList: [...action.payload] };
+       return { ...currentState, boardList: [...action.payload] };
       }
 
     case ProcessMgtActionType.SET_BOARD_DETAILS:
@@ -135,12 +131,10 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
 
     case ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD:
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: [...currentState.currentBoard.members, action.payload.user] } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: action.payload.user } } } };
 
     case ProcessMgtActionType.SET_REMOVE_MEMBER_FROM_BOARD:
-      const newMemberList = currentState.currentBoard.members.filter(m => m.userId !== action.payload.userId);
-      // console.log(newMemberList);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: newMemberList } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: action.payload.members } } } };
 
       case ProcessMgtActionType.SET_LOGGEDIN_USER:
         const currentUser: GoogleUser = {
