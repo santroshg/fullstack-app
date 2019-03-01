@@ -1,6 +1,7 @@
 .pulse-component {
     display: flex;
     flex-direction: column;
+    border: 1px solid #e6e6e6;
 }
 
 .pulse-wrapper {
@@ -27,7 +28,7 @@
     flex-grow: 1;
     background-color: #f0f0f0;
     padding-left: 5px;
-    border-left: 1px solid #009688;
+    //border-left: 1px solid #009688;
     width: 100px;
 }
 .pulse-cell-edit:hover {
@@ -54,5 +55,6 @@
 }
 
 .add-pulse-wrapper {
-    background: darkcyan;
+    // background: darkcyan;
+    border: 1px solid #e6e6e6;
 }

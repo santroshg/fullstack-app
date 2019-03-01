@@ -1,9 +1,10 @@
 .progress-header-component{
     display: flex;
+    border: 1px solid #e6e6e6;
 }
 .progress-header-wrapper{
-    height: 40px;
-    border-bottom: bisque solid 2px;
+    //height: 40px;
+    border-bottom: 1px solid #e6e6e6;
     flex-grow: 1;
     display: flex;
 }
@@ -15,7 +16,7 @@
     flex-grow: 1;
     background-color: #f0f0f0;
     padding-left: 5px;
-    border-left: 1px solid #009688;
+    border-left: 1px solid #ffffff;
     width: 50px;
     font-weight: bold;
 }
