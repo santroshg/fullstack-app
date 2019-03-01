@@ -75,8 +75,9 @@ export function* deletePulse(action: AnyAction) {
 }
 
 export function* editCell(action: AnyAction) {
+  console.log('editCell-saga ', action.payload);
   const boardAfterEditCell = yield call(editCellAPI, action.payload);
-  yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulseId, boardAfterEditCell.cell));
+  yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulse));
 }
 
 export function* addNewLabel(action: AnyAction) {

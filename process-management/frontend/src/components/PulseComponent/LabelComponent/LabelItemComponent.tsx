@@ -8,8 +8,10 @@ interface LabelItemComponentProps {
     selectedBoardId: String,
     selectedPulseId: String,
     selectedCellId: String,
+    editCellSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
+    handlePopoverClose: any,
 }
 interface LabelItemComponentState {
     editLabelText: String,
@@ -45,6 +47,9 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
                 color: 'green',
             }
             this.props.editLabelSaga(boardId, pulseId, cellId, labelId, label);
+            this.setState({ showEditLabel: false });
+            this.setState({ editLabelText: this.props.label.labelTxt });
+            this.props.handlePopoverClose();
         }
     }
 
@@ -62,9 +67,21 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
             const cellId = this.props.selectedCellId;
             this.props.deleteLabelSaga(boardId, pulseId, cellId, labelId);
             this.setState({ showEditLabel: false });
+            this.props.handlePopoverClose();
         }
     }
 
+    handelEditCell = (label: any) => {
+        const boardId = this.props.selectedBoardId;
+        const pulseId = this.props.selectedPulseId;
+        const cellId = this.props.selectedCellId;
+        const cellData = {
+            cellLabelTxt: label.labelTxt,
+            color: label.color
+        }
+        console.log('label', label);
+        this.props.editCellSaga(boardId, pulseId, cellId, cellData);
+    }
 
     render() {
         return (
@@ -81,7 +98,7 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
                             onChange={this.handelEditLabelText}
                             onKeyPress={this.handelEditLabel} />)
                             : (
-                                <div className='label-item-text' onDoubleClick={this.handelShowEditLabel}>{this.props.label.labelTxt}</div>
+                                <div className='label-item-text' onClick={() => this.handelEditCell(this.props.label)} onDoubleClick={this.handelShowEditLabel}>{this.props.label.labelTxt}</div>
                             )}
                         <div className='label-item-delete'>
                             <Tooltip title="delete label">

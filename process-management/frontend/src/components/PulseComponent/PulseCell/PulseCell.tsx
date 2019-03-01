@@ -10,6 +10,7 @@ interface PulseCellProps {
     cellData?: Cells,
     selectedBoardId: String,
     selectedPulseId: String,
+    editCellSaga: any,
     addNewLabelSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
@@ -26,13 +27,13 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
         }
         console.log('this.props.cellData.', this.props.cellData)
     }
-    handleClick = (event: any) => {
+    handlePopoverClick = (event: any) => {
         this.setState({
             anchorEl: event.currentTarget,
         });
     };
 
-    handleClose = () => {
+    handlePopoverClose = () => {
         this.setState({
             anchorEl: null,
         });
@@ -40,7 +41,7 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
 
     setCellColor = (cellColor: String) => {
         let names = ['cell-wrapper'];
-        if (cellColor === '') names.push('color-gray-shadow');
+        (cellColor === '') ? names.push('color-gray-shadow') : names.push(`color-${cellColor}-shadow`);
         return names.join(' ');
     }
     render() {
@@ -48,7 +49,7 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
         const open = Boolean(anchorEl)
         return (
             <React.Fragment>
-                <div className={this.setCellColor(this.props.cellData.color)} aria-owns={open ? 'simple-popper' : undefined} onClick={this.handleClick}>
+                <div className={this.setCellColor(this.props.cellData.color)} aria-owns={open ? 'simple-popper' : undefined} onClick={this.handlePopoverClick}>
                     <div className='cell-label-wrapper' aria-haspopup="true">
                         <div className='cell-label'>
                             {this.props.cellData.cellLabelTxt}
@@ -57,9 +58,10 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
                 </div>
                 <Popover
                     id="simple-popper"
+                    className="popover-class"
                     open={open}
                     anchorEl={anchorEl}
-                    onClose={this.handleClose}
+                    onClose={this.handlePopoverClose}
                     anchorOrigin={{
                         vertical: 'center',
                         horizontal: 'center',
@@ -69,7 +71,7 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
                         horizontal: 'center',
                     }}
                 >
-                    <LabelComponent labels={this.props.cellData.labels} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.cellData.cellId} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga}/>
+                    <LabelComponent handlePopoverClose={this.handlePopoverClose} labels={this.props.cellData.labels} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.cellData.cellId} editCellSaga={this.props.editCellSaga} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga}/>
                 </Popover>
             </React.Fragment>
 

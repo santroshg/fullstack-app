@@ -9,9 +9,11 @@ interface LabelComponentProps {
     selectedBoardId: String,
     selectedPulseId: String,
     selectedCellId: String,
+    editCellSaga: any,
     addNewLabelSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
+    handlePopoverClose: any,
 }
 interface LabelComponentState {
     addLabelText: String,
@@ -50,6 +52,7 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
             console.log('label', label);
             this.props.addNewLabelSaga(boardId, pulseId, cellId, label);
             this.setState({ showAddLabel: false });
+            this.setState({ addLabelText: '' });
         }
     }
     handleColorChange = (e: any) => {
@@ -61,10 +64,9 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
             <Fragment>
                 <div className='label-component-container'>
                     <div className='label-component-wrapper'>
-
                         <div className='label-item-component'>
                             {this.props.labels.map((label) => (
-                                <LabelItemComponent key={label.labelId as string} label={label} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.selectedCellId} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga}/>
+                                <LabelItemComponent key={label.labelId as string} label={label} handlePopoverClose={this.props.handlePopoverClose} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.selectedCellId} editCellSaga={this.props.editCellSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga}/>
                             ))}
                         </div>
                         <div className='add-label-wrapper'>

@@ -26,8 +26,8 @@ export const editPulseAction = (boardId: String, pulseId: String, pulseTxt: Stri
 export const setEditPulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_EDIT_PULSE, {boardId, pulse});
 export const deletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.DELETE_PULSE_SAGA, {boardId, pulseId});
 export const setDeletePulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_DELETE_PULSE, {boardId, pulse});
-export const editCellAction = (boardId: String, pulseId: String, cell: CellItem) => action(ProcessMgtActionType.EDIT_CELL_SAGA, {boardId, pulseId, cell});
-export const setEditCellAction = (boardId: String, pulseId: String, cell: CellItem) => action(ProcessMgtActionType.SET_EDIT_CELL, {boardId, pulseId, cell});
+export const editCellAction = (boardId: String, pulseId: String, cellId: String, cell:CellItem) => action(ProcessMgtActionType.EDIT_CELL_SAGA, {boardId, pulseId, cellId, cell});
+export const setEditCellAction = (boardId: String, pulse:Pulse ) => action(ProcessMgtActionType.SET_EDIT_CELL, { boardId, pulse });
 // create new label in selected cell lebel list 
 export const addNewLabelAction = (boardId: String, pulseId: String, cellId: String, label: String) => action(ProcessMgtActionType.ADD_NEW_LABEL_SAGA, {boardId, pulseId, cellId, label});
 export const setAddNewLabelAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, pulse});

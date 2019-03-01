@@ -5,7 +5,8 @@ const labelsController = require('../controllers/labelsController');
 
 labelsRouter.route('/:boardId/:pulseId/:cellId')
   .get(labelsController.getLabelsList)
-  .post(labelsController.addLabel);
+  .post(labelsController.addLabel)
+  .put(labelsController.setCellLabel);
 
 labelsRouter.route('/:boardId/:pulseId/:cellId/:labelId')
   .put(labelsController.editLabel)

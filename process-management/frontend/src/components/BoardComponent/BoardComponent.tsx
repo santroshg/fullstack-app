@@ -23,12 +23,13 @@ export interface BoardProps {
     addColumnSaga?: any,
     editColumnSaga?: any,
     currentBoardId?: String,
+    editCellSaga: any,
     addNewLabelSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
 }
 
-export default class BoardComponent extends React.PureComponent<BoardProps, any> {
+export default class BoardComponent extends React.Component<BoardProps, any> {
     constructor(props: BoardProps) {
         super(props);
         this.state = {
@@ -36,8 +37,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
             newPulseTxt: '',
             addColumnDialog: false,
         }
-        // console.log('currentBoard', this.props.currentBoard);
-        // console.log('this.props.currentBoard.pulse', this.props.currentBoard);
+        console.log('currentBoard', this.props.currentBoard);
     }
 
 
@@ -68,7 +68,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
     }
 
     public render() {
-        // {console.log('this.props.currentBoard', this.props.currentBoard)}
+         {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
 
             this.props.currentBoard ? (
@@ -102,7 +102,7 @@ export default class BoardComponent extends React.PureComponent<BoardProps, any>
 
                         <div className='pulse-component'>
                             {this.props.currentBoard.pulse.map((pulse, i) => (
-                                <PulseComponent key={i} pulse={pulse} editPulseSaga={this.props.editPulseSaga} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
+                                <PulseComponent key={i} pulse={pulse} editPulseSaga={this.props.editPulseSaga} deletePulseSaga={this.props.deletePulseSaga} selectedBoardId={this.props.currentBoard.boardId} editCellSaga={this.props.editCellSaga} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
                             ))}
                             <div className='add-pulse-wrapper'>
                                 {this.state.needPulseCreateTxtBox ? (

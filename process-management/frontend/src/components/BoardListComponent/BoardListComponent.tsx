@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label } from '../../store/types';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, CellItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, editCellAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -28,6 +28,7 @@ export interface BoardListProps {
     deletePulseSaga: any,
     addColumnSaga: any,
     editColumnSaga: any,
+    editCellSaga: any,
     addNewLabelSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
@@ -96,6 +97,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                 deletePulseSaga={this.props.deletePulseSaga}
                 addColumnSaga={this.props.addColumnSaga}
                 editColumnSaga={this.props.editColumnSaga}
+                editCellSaga={this.props.editCellSaga}
                 addNewLabelSaga={this.props.addNewLabelSaga}
                 editLabelSaga={this.props.editLabelSaga}
                 deleteLabelSaga={this.props.deleteLabelSaga}
@@ -123,6 +125,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     editColumnSaga: (boardId: String, headerId: String, headerTxt: String) => dispatch(editColumnAction(boardId, headerId, headerTxt)),
   //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
     editPulseSaga : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
+    editCellSaga: (boardId: String, pulseId: String, cellId: String, cell:CellItem) => dispatch(editCellAction(boardId, pulseId, cellId, cell)),
     addNewLabelSaga: (boardId: String, pulseId: String, cellId: String, label: String) => dispatch(addNewLabelAction(boardId, pulseId, cellId, label)),
     editLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => dispatch(editLabelAction(boardId, pulseId, cellId, labelId, label)),
     deleteLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String) => dispatch(deleteLabelAction(boardId, pulseId, cellId, labelId)),

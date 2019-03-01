@@ -80,22 +80,23 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:
-      const targetCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.filter(c => c.cellId === action.payload.cell.cellId)[0];
-      const updatedCell = Object.assign(targetCell, {
-        cellId: action.payload.cell.cellId,
-        headerId: action.payload.cell.headerId,
-        cellLabelTxt: action.payload.cell.cellLabelTxt,
-        color: action.payload.cell.color,
-        createTime: targetCell.createTime
-      });
-      const oldPulse1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      const oldCellsList1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells;
-      const newCellsList1 = oldCellsList1.map(oc => oc.cellId === action.payload.cell.cellId ? updatedCell : oc);
-      const newPulse1 = { ...oldPulse1, cells: newCellsList1 };
-      const newPulseList1 = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse1 : p);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList1 } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
+      // const targetCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells.filter(c => c.cellId === action.payload.cell.cellId)[0];
+      // const updatedCell = Object.assign(targetCell, {
+      //   cellId: action.payload.cell.cellId,
+      //   headerId: action.payload.cell.headerId,
+      //   cellLabelTxt: action.payload.cell.cellLabelTxt,
+      //   color: action.payload.cell.color,
+      //   createTime: targetCell.createTime
+      // });
+      // const oldPulse1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      // const oldCellsList1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells;
+      // const newCellsList1 = oldCellsList1.map(oc => oc.cellId === action.payload.cell.cellId ? updatedCell : oc);
+      // const newPulse1 = { ...oldPulse1, cells: newCellsList1 };
+      // const newPulseList1 = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse1 : p);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList1 } } } };
 
     case ProcessMgtActionType.SET_ADD_NEW_LABEL:
     return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };

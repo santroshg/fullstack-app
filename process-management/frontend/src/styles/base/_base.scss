@@ -54,18 +54,40 @@ h1 {
     box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
 }
 
-.color-gray-shadow{
+.color-gray-shadow {
     background-color: #c4c4c4 !important;
+    color: #FFF;
 }
 
-.color-green-shadow{
+.color-green-shadow {
     background-color: #00c875 !important;
+    color: #FFF;
 }
 
-.color-orange-shadow{
+.color-orange-shadow {
     background-color: #fdab3d !important;
+    color: #FFF;
 }
 
-.color-red-shadow{
+.color-red-shadow {
     background-color: #e2445c !important;
+    color: #FFF;
+}
+
+
+.popover-class {
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.popover-class:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 5px;
+    border-bottom: 10px solid black;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-top: 10px solid transparent;
+    z-index: 10;
 }
