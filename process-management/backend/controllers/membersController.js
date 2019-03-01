@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 const acceptView = require('../views/accept-view');
 const BoardModel = require('../models/boardModel');
 const url = require('../config/config');
@@ -46,18 +47,31 @@ const membersController = {
 
   acceptRequest: (req, res, next) => {
     try {
-      const { boardId, userId } = req.query;
+      // console.log('--------------req.boardId--------', req.boardId);
+      // console.log('--------------req.userId--------', req.userId);
+      // console.log('--------------req.query--------', req.query);
+      // console.log('-------------req.user-----------', req.user);
+
+      const boardId = req.boardId;
+      const userId = req.userId;
+
       if (boardId && userId) {
         BoardModel.findOneAndUpdate({ _id: boardId, 'members.userId': userId },
-          { $set: { 'members.$.userActive': true } }, { new: true }, (err, data) => {
+          {
+            $set: {
+              'members.$.userActive': true,
+              'members.$.userId': req.user.googleId,
+              'members.$.userDisplayName': req.user.userDisplayName,
+            },
+          }, { new: true }, (err, data) => {
             if (err) {
               res.status(404).send(`${userId} not exist in database.`);
             } else {
               // res.status(200).send(data);
-              
-              res.writeHead(200, { 'Content-Type': 'text/html' });
-              res.write(acceptView.acceptView(data.boardName, url.frontendHost));
-              res.end();
+              res.redirect(`${url.frontendHost}/home`);
+              // res.writeHead(200, { 'Content-Type': 'text/html' });
+              // res.write(acceptView.acceptView(data.boardName, url.frontendHost));
+              // res.end();
             }
           });
       }
