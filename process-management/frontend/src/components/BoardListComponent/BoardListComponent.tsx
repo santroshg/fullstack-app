@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, GoogleUser, CellItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, CellItem, GoogleUser } from '../../store/types';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, editCellAction, deleteBoardAction, editBoardAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, deleteBoardAction, editBoardAction, editCellAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';

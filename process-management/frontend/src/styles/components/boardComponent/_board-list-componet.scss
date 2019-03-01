@@ -1,0 +1,15 @@
+.board-action {
+  display: flex;
+  flex-direction: row;
+  color: rgb(139, 136, 136);
+}
+
+.board-action :hover {
+  opacity: 1;
+  color: rgb(0, 0, 0);
+}
+
+.edit-pen:hover {
+  opacity: 1;
+  color: rgb(0, 0, 0);
+}
