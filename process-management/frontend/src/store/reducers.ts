@@ -120,18 +120,19 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList__ } } } };
 
     case ProcessMgtActionType.SET_DELETE_LABEL:
-      const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.filter(c => c.cellId === action.payload.cellId)[0]
-        .labels.filter(l => l.labelId !== action.payload.labelId);
-      const oldCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.filter(c => c.cellId === action.payload.cellId)[0];
-      const newCell = { ...oldCell, labels: newLabelList };
-      const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-        .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
-      const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      const newPulse_after_delete_label = { ...oldPulse_before_delete_label, cells: newCellsList };
-      const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
+      // const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells.filter(c => c.cellId === action.payload.cellId)[0]
+      //   .labels.filter(l => l.labelId !== action.payload.labelId);
+      // const oldCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      // const newCell = { ...oldCell, labels: newLabelList };
+      // const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+      //   .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
+      // const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      // const newPulse_after_delete_label = { ...oldPulse_before_delete_label, cells: newCellsList };
+      // const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
 
     case ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD:
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: action.payload.user } } } };

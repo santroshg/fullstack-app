@@ -1,37 +1,39 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import { Label } from '../../../store/types';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, IconButton, Tooltip } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 interface LabelItemComponentProps {
     label: Label,
     selectedBoardId: String,
     selectedPulseId: String,
     selectedCellId: String,
-   editLabelSaga: any,
+    editLabelSaga: any,
+    deleteLabelSaga: any,
 }
 interface LabelItemComponentState {
-   editLabelText: String,
-   showEditLabel: Boolean,
+    editLabelText: String,
+    showEditLabel: Boolean,
 }
 
- export default class LabelItemComponent extends Component<LabelItemComponentProps, LabelItemComponentState> {
+export default class LabelItemComponent extends Component<LabelItemComponentProps, LabelItemComponentState> {
     constructor(props: LabelItemComponentProps) {
         super(props);
         this.state = {
-           editLabelText: this.props.label.labelTxt,
-           showEditLabel: false
+            editLabelText: this.props.label.labelTxt,
+            showEditLabel: false
         }
         console.log('labelItem data ', this.props.label);
     }
-    handelShowEditLabel= () => {
-        this.setState({showEditLabel: true});
+    handelShowEditLabel = () => {
+        this.setState({ showEditLabel: true });
     }
-   
-    handelEditLabelText =(e: React.ChangeEvent<HTMLInputElement>) => {
+
+    handelEditLabelText = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ editLabelText: e.target.value });
     }
 
-    handelEditLabel= (e: React.KeyboardEvent<HTMLInputElement>) => {
+    handelEditLabel = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             const boardId = this.props.selectedBoardId;
             const pulseId = this.props.selectedPulseId;
@@ -48,32 +50,50 @@ interface LabelItemComponentState {
 
     setLabelColor = (labelColor: String) => {
         let names = ['label-item'];
-        (labelColor === '')  ? names.push('color-gray-shadow') : names.push(`color-${labelColor}-shadow`);
+        (labelColor === '') ? names.push('color-gray-shadow') : names.push(`color-${labelColor}-shadow`);
         return names.join(' ');
     }
 
+    handleDeleteLabel = (labelId: any) => {
+        // alert(labelId);
+        if (labelId) {
+            const boardId = this.props.selectedBoardId;
+            const pulseId = this.props.selectedPulseId;
+            const cellId = this.props.selectedCellId;
+            this.props.deleteLabelSaga(boardId, pulseId, cellId, labelId);
+            this.setState({ showEditLabel: false });
+        }
+    }
 
-    render () {
+
+    render() {
         return (
             <Fragment>
-               <div className='label-item-wrapper'>
-                <div className={this.setLabelColor(this.props.label.color)}>
-                {this.state.showEditLabel ? (<TextField
-                                id="standard-bare"
-                                type="text"
-                                name="editLabel"
-                                margin="normal"
-                                fullWidth
-                                value={this.state.editLabelText as string}
-                                onChange={this.handelEditLabelText}
-                                onKeyPress={this.handelEditLabel} />) 
+                <div className='label-item-wrapper'>
+                    <div className={this.setLabelColor(this.props.label.color)}>
+                        {this.state.showEditLabel ? (<TextField
+                            id="standard-bare"
+                            type="text"
+                            name="editLabel"
+                            margin="normal"
+                            fullWidth
+                            value={this.state.editLabelText as string}
+                            onChange={this.handelEditLabelText}
+                            onKeyPress={this.handelEditLabel} />)
                             : (
-                                <span onDoubleClick={this.handelShowEditLabel}>{this.props.label.labelTxt}</span> 
+                                <div className='label-item-text' onDoubleClick={this.handelShowEditLabel}>{this.props.label.labelTxt}</div>
                             )}
-                </div>
+                        <div className='label-item-delete'>
+                            <Tooltip title="delete label">
+                                <IconButton aria-label="delete label" onClick={() => this.handleDeleteLabel(this.props.label.labelId)}>
+                                    <DeleteIcon fontSize="small" />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                    </div>
 
-               </div>
+                </div>
             </Fragment>
         )
     }
- }
+}

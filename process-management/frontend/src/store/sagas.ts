@@ -96,8 +96,11 @@ export function* editLabel(action: AnyAction) {
 }
 
 export function* deleteLabel(action: AnyAction) {
+  console.log('deleteLabel-saga ', action.payload);
   const boardAfterDeleteLabel = yield call(deleteLabelAPI, action.payload);
-  yield put(setDeleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
+  console.log('boardAfterDeleteLabel', boardAfterDeleteLabel);
+  yield put(setAddNewLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulse));
+ // yield put(setDeleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
 }
 
 export function* addMemberToBoard(action: AnyAction) {

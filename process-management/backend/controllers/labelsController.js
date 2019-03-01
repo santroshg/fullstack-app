@@ -58,7 +58,7 @@ const labelsController = {
       if (boardId && pulseId && cellId && labelId) {
         BoardModel.update({
           _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId, 'pulse.cells.labels.labelId': labelId,
-        }, { $set: { 'pulse.0.cells.0.labels.$.labelTxt': updatedLabelData.labelTxt } }, { new: true }, (err, response) => {
+        }, { $set: { 'pulse.$.cells.0.labels.0.labelTxt': updatedLabelData.labelTxt } }, { new: true }, (err, response) => {
           if (err) {
             throw err;
           } else { 
@@ -80,13 +80,13 @@ const labelsController = {
       const { cellId } = req.params;
       const { labelId } = req.params;
       if (boardId && pulseId && cellId && labelId) {
-        BoardModel.updateOne({ _id: boardId, 'pulse._id': pulseId, 'pulse.cells._id': cellId }, { $pull: { 'pulse.$.cells.0.labels': { _id: labelId } } }, (err, response) => {
+        // eslint-disable-next-line max-len
+        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { $pull: { 'pulse.$.cells.0.labels': { labelId: req.params.labelId } } }, (err, response) => {
           if (err) {
             throw err;
           } else {
             res.set('Content-Type', 'application/json');
             res.status(200).send(response);
-            return res;
           }
         });
       }
