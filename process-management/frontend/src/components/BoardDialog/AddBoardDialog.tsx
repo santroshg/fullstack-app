@@ -10,9 +10,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { styles } from './AddBoardDialogStyle';
+import { GoogleUser } from '../../store/types';
 
 interface AddBoardDialogProps {
-  addBoardFromSaga?: any
+  addBoardFromSaga?: any,
+  loggedinUser: GoogleUser,
 }
 
 export default class AddBoardDialog extends React.Component<AddBoardDialogProps> {
@@ -43,7 +45,8 @@ export default class AddBoardDialog extends React.Component<AddBoardDialogProps>
                   {
                     boardName: this.state.newBoardName, 
                     boardDesc: this.state.newBoardDesc,
-                  });
+                  },
+                  this.props.loggedinUser);
           this.setState({ openModal: false });
       }
       this.setState({ newBoardName: '' });

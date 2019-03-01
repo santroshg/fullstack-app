@@ -1,17 +1,10 @@
 const BoardModel = require('../models/boardModel');
 
 const boardsController = {
-  // getBoardsList: (req, res, next) => {
-  //   try {
-  //     console.log('boardsController-');
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // },
 
   getBoardsList: (req, res, next) => {
     try {
-      BoardModel.find((err, response) => {
+      BoardModel.find({ 'members.userId': req.query.userId }, (err, response) => {
         if (err) {
           throw err;
         } else {
@@ -47,12 +40,19 @@ const boardsController = {
   // addBoard
   addBoard: (req, res, next) => {
     try {
-      if (req.body.boardName) {
+      if (req.body.loggedinUser) {
+        const memberUser = {
+          userId: req.body.loggedinUser.userId,
+          userDisplayName: req.body.loggedinUser.userDisplayName,
+          userEmail: req.body.loggedinUser.userEmail,
+          userActive: true,
+        };
+
         const boardModel = new BoardModel({
-          boardName: req.body.boardName,
-          boardDesc: req.body.boardDesc,
-          boardCreatedBy: 'santosh',
-          members: [],
+          boardName: req.body.notNeededBoardObject.boardName,
+          boardDesc: req.body.notNeededBoardObject.boardDesc,
+          boardCreatedBy: req.body.loggedinUser.userEmail,
+          members: [memberUser],
           progressHeader: [],
           pulse: [],
           createTime: new Date(),
@@ -74,17 +74,26 @@ const boardsController = {
   // editBoard
   editBoard: (req, res, next) => {
     try {
-      const updateBoardData = req.body;
       const { boardId } = req.params;
       if (boardId) {
-        BoardModel.update({ _id: boardId }, updateBoardData, (err, updatedBoard) => {
-          if (err) {
-            throw err;
-          } else {
-            res.set('Content-Type', 'application/json');
-            res.status(200).send(updatedBoard);
-          }
-        });
+        BoardModel.findOneAndUpdate({ _id: boardId },
+          {
+            $set: {
+              boardName: req.body.board.boardName,
+              boardDesc: req.body.board.boardDesc,
+            },
+          }, { new: true }, (err, updatedBoard) => {
+            if (err) {
+              throw err;
+            } else {
+              res.set('Content-Type', 'application/json');
+              res.status(200).send({
+                _id: updatedBoard._id,
+                boardName: updatedBoard.boardName,
+                boardDesc: updatedBoard.boardDesc,
+              });
+            }
+          });
       }
     } catch (error) {
       next(error);
@@ -97,11 +106,11 @@ const boardsController = {
     try {
       const { boardId } = req.params;
       if (boardId) {
-        BoardModel.deleteOne({ _id: boardId }, (err) => {
+        BoardModel.findOneAndDelete({ _id: boardId }, (err, deletedBoardData) => {
           if (err) {
             res.status(404).send(`${boardId} not exist in database.`);
           } else {
-            res.status(200).send({ message: 'Board deleted sucessfully.' });
+            res.status(200).send({ deletedBoardId: deletedBoardData._id });
           }
         });
       }

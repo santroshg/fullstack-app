@@ -26,7 +26,8 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload) };
 
     case ProcessMgtActionType.SET_DELETE_BOARD:
-      return { ...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload) };
+      
+      return { ...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload), currentBoard: null };
 
     case ProcessMgtActionType.SET_ADD_COLUMN:
       // this is incorrect, need handle row and column both
@@ -141,15 +142,14 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     case ProcessMgtActionType.SET_REMOVE_MEMBER_FROM_BOARD:
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: action.payload.members } } } };
 
-      case ProcessMgtActionType.SET_LOGGEDIN_USER:
-        const currentUser: GoogleUser = {
-          userId: action.payload.googleId,
-          userDisplayName: action.payload.userDisplayName,
-          userEmail: action.payload.userEmail,
-          profileImgUrl: action.payload.profileImgUrl,
-        }
-        return {...currentState, ...{loggedinUser: currentUser}};
-
+    case ProcessMgtActionType.SET_LOGGEDIN_USER:
+      const currentUser: GoogleUser = {
+        userId: action.payload.googleId,
+        userDisplayName: action.payload.userDisplayName,
+        userEmail: action.payload.userEmail,
+        profileImgUrl: action.payload.profileImgUrl,
+      }
+      return {...currentState, ...{loggedinUser: currentUser}};
 
     default:
       return currentState;

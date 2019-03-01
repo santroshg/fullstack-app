@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, CellItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, editCellAction } from '../../store/actions';
+import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, CellItem, GoogleUser } from '../../store/types';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, editCellAction, deleteBoardAction, editBoardAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -10,10 +10,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SettingsInputAntenna from '@material-ui/icons/SettingsInputAntenna';
+import Edit from '@material-ui/icons/Edit';
+import TextField from '@material-ui/core/TextField';
 import AddBoardDialog from '../BoardDialog/AddBoardDialog';
 import { styles } from './BoardListComponentStyle';
 import BoardComponent from '../BoardComponent/BoardComponent';
 import { addColumn } from '../../store/sagas';
+import DeleteAlert from './DeleteAlert/DeleteAlert';
 
 export interface BoardListProps {
     boardList: BoardItem[],
@@ -32,21 +35,24 @@ export interface BoardListProps {
     addNewLabelSaga: any,
     editLabelSaga: any,
     deleteLabelSaga: any,
+    loggedinUser: GoogleUser,
+    deleteBoardSaga: any,
+    editBoardSaga: any,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
 
     state = {
         currentBoatdId: '',
+        showBoardEditbox: false,
+        targetEditBoardid: '',
+        updateBoardName: '',
     }
 
     componentDidMount() {
         if(!this.props.boardList) {
-            this.props.getBoardsListFromSaga();
+            this.props.getBoardsListFromSaga(this.props.loggedinUser.userId);
         }
-        // if(!this.props.currentBoard) {
-        //     this.props.getBoardDetailsSaga(this.state.currentBoatdId);
-        // }
     }
 
     handleAddNewBoard = () => {
@@ -58,12 +64,42 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
         this.props.getBoardDetailsSaga(board.boardId);
     }
 
+    handleEditBoardBox = (board: BoardItem) => {
+        this.setState({
+            showBoardEditbox: true,
+            targetEditBoardid: board.boardId,
+            updateBoardName: board.boardName
+        });
+    }
+
+    handleChangeBoardName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({updateBoardName: e.target.value});
+    }
+
+    updateBoardName = (e: any, board: BoardItem) => {
+        if(e.key === 'Enter' && this.state.updateBoardName !== '') {
+            // saga call
+            this.props.editBoardSaga({
+                boardId: board.boardId,
+                boardName: this.state.updateBoardName,
+                boardDesc: board.boardDesc
+            });
+            this.setState({
+                showBoardEditbox: false,
+                targetEditBoardid: '',
+                updateBoardName: '',
+            });
+        }
+    }
+
+    deleteBoardResponse = (response: Boolean, boardId: String) => {
+        if (response) {
+            this.props.deleteBoardSaga(boardId);
+        }
+    }
+
     public render() {
         return (
-            // this.props.boardList ? <ul>
-            //     {this.props.boardList.map(i => <li key={i.boardId as string}>{i.boardName}</li>)}
-            // </ul> : <div>No Board Present</div>
-
         <div style={styles.WrapSidebarAndBoady}>
         <div style={styles.sideBar}>
             <List>
@@ -72,15 +108,37 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                     <strong>Your Boards</strong>
                     </div>
                     <div>
-                        <AddBoardDialog addBoardFromSaga={this.props.addBoardFromSaga} />
+                        <AddBoardDialog addBoardFromSaga={this.props.addBoardFromSaga}
+                            loggedinUser={this.props.loggedinUser} />
                     </div>
                 </Typography>
                 <Divider />
                 {this.props.boardList ? 
                 this.props.boardList.map(board => (
                     <ListItem button key={board.boardId as string} onClick={this.getBoardAsCurrentBoard.bind(null, board)}>
-                    <ListItemIcon><SettingsInputAntenna /></ListItemIcon>
-                    <ListItemText primary={board.boardName} />
+                        <ListItemIcon><SettingsInputAntenna /></ListItemIcon>
+                        {this.state.showBoardEditbox && this.state.targetEditBoardid === board.boardId ? (
+                            <TextField
+                                placeholder="Board Name"
+                                fullWidth
+                                autoFocus
+                                margin="normal"
+                                value={this.state.updateBoardName}
+                                onChange={this.handleChangeBoardName.bind(this)}
+                                onKeyPress={e => this.updateBoardName(e, board)}
+                            />
+                        ) : (
+                            <React.Fragment>
+                            <ListItemText primary={board.boardName}  /> 
+                            <div className="board-action">
+                                <Edit onClick={e => this.handleEditBoardBox(board)} />
+                                
+                                <DeleteAlert board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
+                                
+                            </div>
+                            </React.Fragment>
+                        )
+                        }
                     </ListItem>
                 )) : <p>No Boards, Please create</p>
                 }
@@ -111,11 +169,12 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
 const connectStateToProps = (state: ProcessManagementState) => ({
     boardList: state.boardList,
     currentBoard: state.currentBoard,
+    loggedinUser: state.loggedinUser,
 });
 
 const connectDispatchToProps = (dispatch: Dispatch) => ({
-    getBoardsListFromSaga: () => dispatch(getBoardsListAction()),
-    addBoardFromSaga: (newBoard: BoardItem) => dispatch(addBoardAction(newBoard)),
+    getBoardsListFromSaga: (userId: String) => dispatch(getBoardsListAction(userId)),
+    addBoardFromSaga: (newBoard: BoardItem, loggedinUser: GoogleUser) => dispatch(addBoardAction(newBoard, loggedinUser)),
     getBoardDetailsSaga: (boardId: String) => dispatch(getBoardDetailsAction(boardId)),
     addMemberToBoardSaga: (boardId: String, user: User) => dispatch(addMemberToBoardAction(boardId, user)),
     removeMemberToBoardSaga: (boardId: String, userId: String) => dispatch(removeMemberToBoardAction(boardId, userId)),
@@ -129,6 +188,8 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     addNewLabelSaga: (boardId: String, pulseId: String, cellId: String, label: String) => dispatch(addNewLabelAction(boardId, pulseId, cellId, label)),
     editLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => dispatch(editLabelAction(boardId, pulseId, cellId, labelId, label)),
     deleteLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String) => dispatch(deleteLabelAction(boardId, pulseId, cellId, labelId)),
+    deleteBoardSaga: (boardId: String) => dispatch(deleteBoardAction(boardId)),
+    editBoardSaga: (updatedBoard: BoardItem) => dispatch(editBoardAction(updatedBoard)),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);

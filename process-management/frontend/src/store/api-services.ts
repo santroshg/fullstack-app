@@ -3,9 +3,8 @@ import { BoardItem, User, PulseItem } from './types';
 import { backtendHost } from '../constants/constants'
 
 
-export function getBoardsListAPI() {
-  // console.log('api call getBoardsListAPI----------------');
-  return axios.get(`${backtendHost}/api/boards`, {withCredentials: true})
+export function getBoardsListAPI(userId: String) {
+  return axios.get(`${backtendHost}/api/boards/?userId=${userId}`, {withCredentials: true})
     .then((res: any) => {
       // console.log('res------------------', res.data);
       return res.data.map((d: any) => {
@@ -27,27 +26,38 @@ export function getBoardDetailsAPI(boardId: String) {
     });
 }
 
-export function addBoardAPI(boardItem: BoardItem) {
+export function addBoardAPI(action: any) {
+  const loggedinUser: User = {
+    userId: action.loggedinUser.userId,
+    userDisplayName: action.loggedinUser.userDisplayName,
+    userEmail: action.loggedinUser.userEmail,
+    userActive: true,
+  }
   const notNeededBoardObject: BoardItem = {
     boardId: Math.random() * 23456 + '',
-    boardName: boardItem.boardName,
-    boardDesc: boardItem.boardDesc
+    boardName: action.newBoard.boardName,
+    boardDesc: action.newBoard.boardDesc
   }
-  console.log('boardItem---starting saving-----', notNeededBoardObject);
-  return axios.post(`${backtendHost}/api/boards`, notNeededBoardObject, {withCredentials: true})
+  return axios.post(`${backtendHost}/api/boards`, {notNeededBoardObject, loggedinUser}, {withCredentials: true})
     .then((res: any) => {
-      console.log('addBoardAPI before response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
-export function editBoardAPI(dummy: String) {
-
+export function editBoardAPI(action: any) {
+  return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
+    .then((res: any) => {
+      res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
 
-export function deleteBoardAPI(dummy: String) {
-
+export function deleteBoardAPI(boardId: String) {
+  return axios.delete(`${backtendHost}/api/boards/${boardId}`, {withCredentials: true})
+  .then((res: any) => {
+    return Promise.resolve(res.data.deletedBoardId);
+  });
 }
 
 export function addColumnAPI(action: any) {

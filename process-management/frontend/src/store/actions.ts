@@ -1,16 +1,16 @@
 import { action } from 'typesafe-actions';
-import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User, Pulse } from './types';
+import { ProcessMgtActionType, BoardItem, Board, ProgressHeader, PulseItem, CellItem, Label, User, Pulse, GoogleUser } from './types';
 
-export const getBoardsListAction = () => action(ProcessMgtActionType.GET_BOARDS_LIST_SAGA);
+export const getBoardsListAction = (userId: String) => action(ProcessMgtActionType.GET_BOARDS_LIST_SAGA, userId);
 export const setBoardsListAction = (boardList: BoardItem[]) => action(ProcessMgtActionType.SET_BOARDS_LIST, boardList);
 export const getBoardDetailsAction = (boardId: String) => action(ProcessMgtActionType.GET_BOARD_DETAILS_SAGA, boardId);
 export const setBoardDetailsAction = (currentBoard: Board) => action(ProcessMgtActionType.SET_BOARD_DETAILS, currentBoard);
 
 
-export const addBoardAction = (newBoard: BoardItem) => action(ProcessMgtActionType.ADD_BOARD_SAGA, newBoard);
+export const addBoardAction = (newBoard: BoardItem, loggedinUser: GoogleUser) => action(ProcessMgtActionType.ADD_BOARD_SAGA, {newBoard, loggedinUser});
 export const setAddBoardAction = (newBoard: BoardItem) => action(ProcessMgtActionType.SET_ADD_BOARD, newBoard);
 
-export const editBoardAction = (updatedBoard: BoardItem) => action(ProcessMgtActionType.EDIT_BOARD_SAGA, updatedBoard);
+export const editBoardAction = (board: BoardItem) => action(ProcessMgtActionType.EDIT_BOARD_SAGA, board);
 export const setEditBoardAction = (updatedBoard: BoardItem) => action(ProcessMgtActionType.SET_EDIT_BOARD, updatedBoard);
 export const deleteBoardAction = (boardId: String) => action(ProcessMgtActionType.DELETE_BOARD_SAGA, boardId);
 export const setDeleteBoardAction = (boardId: String) => action(ProcessMgtActionType.SET_DELETE_BOARD, boardId);

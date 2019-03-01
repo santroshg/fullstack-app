@@ -26,7 +26,7 @@ export interface BoardProps {
     editCellSaga: any,
     addNewLabelSaga: any,
     editLabelSaga: any,
-    deleteLabelSaga: any,
+    deleteLabelSaga?: any,
 }
 
 export default class BoardComponent extends React.Component<BoardProps, any> {
