@@ -23,7 +23,7 @@ export const setDeleteColumnAction = (boardId: String, headerId: String) => acti
 export const addPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.ADD_PULSE_SAGA, {boardId, pulse});
 export const setAddPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.SET_ADD_PULSE, {boardId, pulse});
 export const editPulseAction = (boardId: String, pulseId: String, pulseTxt: String) => action(ProcessMgtActionType.EDIT_PULSE_SAGA, {boardId, pulseId, pulseTxt});
-export const setEditPulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_EDIT_PULSE, {boardId, pulse});
+export const setEditPulseAction = (pulseId: String, pulseTxt: Pulse) => action(ProcessMgtActionType.SET_EDIT_PULSE, {pulseId, pulseTxt});
 export const deletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.DELETE_PULSE_SAGA, {boardId, pulseId});
 export const setDeletePulseAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_DELETE_PULSE, {boardId, pulse});
 export const editCellAction = (boardId: String, pulseId: String, cellId: String, cell:CellItem) => action(ProcessMgtActionType.EDIT_CELL_SAGA, {boardId, pulseId, cellId, cell});

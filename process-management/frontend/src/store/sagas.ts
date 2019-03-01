@@ -64,7 +64,7 @@ export function* editPulse(action: AnyAction) {
   console.log(' editPulse- AnyAction', action);
   const boardAftereditPulse = yield call(editPulseAPI, action.payload);
   console.log('boardAftereditPulse', boardAftereditPulse);
-  yield put(setEditPulseAction(boardAftereditPulse.boardId, boardAftereditPulse.pulse));
+  yield put(setEditPulseAction(boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
 }
 
 export function* deletePulse(action: AnyAction) {

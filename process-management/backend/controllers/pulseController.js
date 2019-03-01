@@ -86,7 +86,20 @@ const pulseController = {
             throw err;
           } else {
             res.set('Content-Type', 'application/json');
-            res.status(200).send(updatedPulse);
+            console.log('pulseId', pulseId);
+            console.log('updatedPulse', updatedPulse);
+            // const pulseData = updatedPulse.pulse.filter((p) => {
+            //   console.log('typeof(pulseId)', typeof (pulseId));
+            //   console.log('typeof(p.pulseId)', typeof (p.pulseId.toString()));
+            //   p.pulseId.toString() === pulseId
+            // });
+            const pulse = updatedPulse.pulse.filter(p => p.pulseId.toString() === pulseId)[0];
+            const pulseData = {
+              pulseId: pulse.pulseId,
+              pulseTxt: pulse.pulseTxt,
+            };
+            console.log('pulseData', pulseData);
+            res.status(200).send(pulseData);
           }
         });
       }

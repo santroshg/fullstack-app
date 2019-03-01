@@ -66,13 +66,35 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
                     <div className='label-component-wrapper'>
                         <div className='label-item-component'>
                             {this.props.labels.map((label) => (
-                                <LabelItemComponent key={label.labelId as string} label={label} handlePopoverClose={this.props.handlePopoverClose} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.selectedCellId} editCellSaga={this.props.editCellSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga}/>
+                                <LabelItemComponent key={label.labelId as string} label={label} handlePopoverClose={this.props.handlePopoverClose} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.selectedCellId} editCellSaga={this.props.editCellSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
                             ))}
                         </div>
                         <div className='add-label-wrapper'>
                             {this.state.showAddLabel ? (
                                 <div>
-
+                                    Color:
+                                    G<Radio
+                                        checked={this.state.selectedColor === 'green'}
+                                        onChange={this.handleColorChange}
+                                        value="green"
+                                        className="radio-button-green"
+                                        name="radio-button-demo"
+                                        aria-label="Green"
+                                    /> 
+                                    R<Radio
+                                        checked={this.state.selectedColor === 'red'}
+                                        onChange={this.handleColorChange}
+                                        value="red"
+                                        name="radio-button-demo"
+                                        aria-label="red"
+                                    />
+                                    O<Radio
+                                        checked={this.state.selectedColor === 'orange'}
+                                        onChange={this.handleColorChange}
+                                        value="orange"
+                                        name="radio-button-demo"
+                                        aria-label="orange"
+                                    />
                                     <TextField
                                         required
                                         autoFocus
@@ -86,28 +108,7 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
                                         onKeyPress={this.handelAddLabel}
                                     />
                                     {/* <CirclePicker /> */}
-                                    <Radio
-                                        checked={this.state.selectedColor === 'green'}
-                                        onChange={this.handleColorChange}
-                                        value="green"
-                                        className="radio-button-green"
-                                        name="radio-button-demo"
-                                        aria-label="Green"
-                                    /> : Green
-                                    <Radio
-                                        checked={this.state.selectedColor === 'red'}
-                                        onChange={this.handleColorChange}
-                                        value="red"
-                                        name="radio-button-demo"
-                                        aria-label="red"
-                                    /> : Red
-                                    <Radio
-                                        checked={this.state.selectedColor === 'orange'}
-                                        onChange={this.handleColorChange}
-                                        value="orange"
-                                        name="radio-button-demo"
-                                        aria-label="orange"
-                                    />: Orange
+
                                 </div>
 
 
