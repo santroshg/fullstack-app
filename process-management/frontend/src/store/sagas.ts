@@ -28,7 +28,7 @@ export function* addBoard(action: AnyAction) {
 
 export function* editBoard(action: AnyAction) {
   const updatedBoard: BoardItem = yield call(editBoardAPI, action.payload);
-  yield put(setEditBoardAction(updatedBoard));
+  // yield put(setEditBoardAction(updatedBoard));
 }
 
 export function* deleteBoard(action: AnyAction) {

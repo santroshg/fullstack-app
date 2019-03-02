@@ -5,6 +5,12 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 const logger = require('morgan');
 const passport = require('passport');
+
+const app = express();
+const httpServer = require('http').Server(app);
+const io = require('socket.io')(httpServer);
+require('./controllers/socketController').socketIo(io);
+
 const goolgeAuthCredentials = require('./config/googleAuthCredentials');
 const url = require('./config/config');
 const indexRouter = require('./routes/index');
@@ -20,8 +26,7 @@ require('./models/googleUser');
 
 require('./auth/auth');
 
-
-const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(
   cookieSession({
@@ -88,4 +93,8 @@ app.use((err, req, res, next) => {
   next();
 });
 
-module.exports = app;
+httpServer.listen(port, () => {
+  console.log('Server started at port- ', port);
+});
+
+// module.exports.io = io;

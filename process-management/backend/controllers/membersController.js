@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring */
-const acceptView = require('../views/accept-view');
 const BoardModel = require('../models/boardModel');
 const url = require('../config/config');
 
@@ -68,6 +67,7 @@ const membersController = {
               res.status(404).send(`${userId} not exist in database.`);
             } else {
               // res.status(200).send(data);
+
               res.redirect(`${url.frontendHost}/home`);
               // res.writeHead(200, { 'Content-Type': 'text/html' });
               // res.write(acceptView.acceptView(data.boardName, url.frontendHost));

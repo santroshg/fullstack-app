@@ -23,8 +23,16 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, boardList: [...currentState.boardList, action.payload] };
 
     case ProcessMgtActionType.SET_EDIT_BOARD:
-      return { ...currentState, boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload) };
-
+    // console.log('in reducers================================',action.payload);
+    if(currentState.currentBoard && currentState.currentBoard.boardId === action.payload.boardId ) {
+      return { ...currentState,
+        boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload),
+        currentBoard: {...currentState.currentBoard, boardName: action.payload.boardName, boardDesc: action.payload.boardDesc} };
+    } else {
+      return { ...currentState,
+        boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload) };
+    }
+      
     case ProcessMgtActionType.SET_DELETE_BOARD:
       
       return { ...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload), currentBoard: null };

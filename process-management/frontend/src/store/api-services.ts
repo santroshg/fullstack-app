@@ -1,6 +1,8 @@
 import axios from 'axios';
+import socketIOClient from 'socket.io-client';
 import { BoardItem, User, PulseItem } from './types';
 import { backtendHost } from '../constants/constants'
+import { setEditBoardAction } from './actions';
 
 
 export function getBoardsListAPI(userId: String) {
@@ -45,13 +47,21 @@ export function addBoardAPI(action: any) {
     });
 }
 
+// export function editBoardAPI(action: any) {
+//   return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
+//     .then((res: any) => {
+//       res.data.boardId = res.data._id;
+//       return Promise.resolve(res.data);
+//     });
+// }
+
+const socket = socketIOClient(backtendHost);
 export function editBoardAPI(action: any) {
-  return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
-    .then((res: any) => {
-      res.data.boardId = res.data._id;
-      return Promise.resolve(res.data);
-    });
+  // console.log('action.payload-------------', action);
+  socket.emit('updateBoard', action);
 }
+
+
 
 export function deleteBoardAPI(boardId: String) {
   return axios.delete(`${backtendHost}/api/boards/${boardId}`, {withCredentials: true})

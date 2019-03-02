@@ -37,7 +37,6 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
             newPulseTxt: '',
             addColumnDialog: false,
         }
-        console.log('currentBoard', this.props.currentBoard);
     }
 
 
@@ -68,7 +67,6 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
     }
 
     public render() {
-         {console.log('this.props.currentBoard', this.props.currentBoard)}
         return (
 
             this.props.currentBoard ? (
