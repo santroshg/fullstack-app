@@ -73,53 +73,43 @@ export function deleteBoardAPI(boardId: String) {
 export function addColumnAPI(action: any) {
   return axios.post(`${backtendHost}/api/headers/${action.boardId}`, action.progressHeader, {withCredentials: true})
   .then((res: any) => {
-    console.log('response---', res.data);
     res.data.boardId = res.data._id;
     return Promise.resolve(res.data);
   });
 }
 
 export function editColumnAPI(action: any) {
-  console.log('editColumnAPI=action', action)
-  return axios.put(`http://localhost:3000/api/headers/${action.boardId}/${action.headerId}`, {headerTxt: action.headerTxt})
+  return axios.put(`${backtendHost}/api/headers/${action.boardId}/${action.headerId}`, {headerTxt: action.headerTxt})
     .then((res: any) => {
-      console.log('editColumnAPI response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function deleteColumnAPI(action: any) {
-  console.log('deleteColumnAPI=action', action)
   return axios.delete(`${backtendHost}/api/headers/${action.boardId}/${action.headerId}/${action.headerColumnId}`, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
       return Promise.resolve(res.data);
     });
 }
 
 export function addPulseAPI(action: any) {
-  console.log('addPulseAPI(action', action)
   return axios.post(`${backtendHost}/api/pulse/${action.boardId}`, action.pulse, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function editPulseAPI(action: any) {
-  console.log('editPulseAPI=action', action)
-  return axios.put(`http://localhost:3000/api/pulse/${action.boardId}/${action.pulseId}`, {pulseTxt: action.pulseTxt})
+  return axios.put(`${backtendHost}/api/pulse/${action.boardId}/${action.pulseId}`, {pulseTxt: action.pulseTxt})
     .then((res: any) => {
-      console.log('editPulseAPI response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function deletePulseAPI(action: any) {
-  console.log('deletePulseAPI=action', action)
   return axios.delete(`${backtendHost}/api/pulse/${action.boardId}/${action.pulseId}`, {withCredentials: true})
     .then((res: any) => {
       return Promise.resolve(res.data);
@@ -127,40 +117,32 @@ export function deletePulseAPI(action: any) {
 }
 
 export function editCellAPI(action: any) {
-  console.log('editCellAPI', action)
   return axios.put(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}`, action.cell, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function addNewLabelAPI(action: any) {
-  console.log('addNewLabelAPI', action)
   return axios.post(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}`, action.label, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function editLabelAPI(action: any) {
-  console.log('addNewLabelAPI', action)
   return axios.put(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}/${action.labelId}`, action.label, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function deleteLabelAPI(action: any) {
-  console.log('deleteLabelAPI', action)
   return axios.delete(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}/${action.labelId}`, {withCredentials: true})
     .then((res: any) => {
-      console.log('response---', res.data);
       res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });

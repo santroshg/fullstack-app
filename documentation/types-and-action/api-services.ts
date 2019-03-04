@@ -6,10 +6,8 @@ export function getBoardsListAPI() {
 }
 
 export function getBoardDetailsAPI(boardId: String) {
-  console.log('in api-----------------------------boardId-', boardId);
   return axios.get(`http://localhost:3000/currentBoard?boardId=${boardId}`)
     .then((res: any) => {
-      console.log('iiiiiiiii--------------------------');
       Promise.resolve(res.data)
     });
 }

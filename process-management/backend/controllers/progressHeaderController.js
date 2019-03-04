@@ -36,7 +36,6 @@ const progressHeaderController = {
   editProgressHeader: (req, res, next) => {
     try {
       const updateProgressHeaderData = req.body;
-      console.log('updateProgressHeaderData', updateProgressHeaderData);
       const { boardId } = req.params;
       const { headerId } = req.params;
       if (boardId) {

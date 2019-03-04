@@ -76,7 +76,6 @@ const pulseController = {
   editPulse: (req, res, next) => {
     try {
       const updatePulseData = req.body;
-      console.log('updatePulseData', updatePulseData);
       // const { pulseTxt } = updatePulseData;
       const { boardId } = req.params;
       const { pulseId } = req.params;

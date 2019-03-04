@@ -30,7 +30,6 @@ export default class ProgressHeaderComponent extends React.Component<ProgressHea
             progressHeaderEditText: this.props.progressHeader.headerTxt,
             deleteHeaderDialogOpen: false,
         }
-        console.log('this.props.progressHeader.', this.props.progressHeader)
     }
 
     setColumHeaderClass = (headerType: String) => {
@@ -50,14 +49,12 @@ export default class ProgressHeaderComponent extends React.Component<ProgressHea
             const boardId = this.props.currentBoardId;
             const headerTxt = this.state.progressHeaderEditText;
             const headerId = this.props.progressHeader.headerId;
-            console.log('headerId=========', headerId)
             this.props.editColumnSaga(boardId, headerId, headerTxt);
             this.setState({ showProgressHeaderEdit: false });
         }
     }
     handleDeleteHeader = (headerId: any, headerColumnId: any) => {
         if (headerId && headerColumnId) {
-            console.log('headerId', headerId)
             const boardId = this.props.currentBoardId;
             this.props.deleteColumnSaga(boardId, headerId, headerColumnId);
             this.setState({ showProgressHeaderEdit: false });

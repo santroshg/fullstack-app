@@ -25,7 +25,6 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
             editLabelText: this.props.label.labelTxt,
             showEditLabel: false
         }
-        console.log('labelItem data ', this.props.label);
     }
     handelShowEditLabel = () => {
         this.setState({ showEditLabel: true });
@@ -41,7 +40,6 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
             const pulseId = this.props.selectedPulseId;
             const cellId = this.props.selectedCellId;
             const labelId = this.props.label.labelId;
-            console.log('LabelItemComponent', boardId, pulseId, cellId);
             const label = {
                 labelTxt: this.state.editLabelText,
                 color: 'green',
@@ -79,7 +77,6 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
             cellLabelTxt: label.labelTxt,
             color: label.color
         }
-        console.log('label', label);
         this.props.editCellSaga(boardId, pulseId, cellId, cellData);
     }
 

@@ -29,7 +29,6 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
             showAddLabel: false,
             selectedColor: '',
         }
-        console.log('labels data ', this.props.labels);
     }
     handelShowAddLabel = () => {
         this.setState({ showAddLabel: true });
@@ -44,12 +43,10 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
             const boardId = this.props.selectedBoardId;
             const pulseId = this.props.selectedPulseId;
             const cellId = this.props.selectedCellId;
-            console.log('LabelComponent', boardId, pulseId, cellId);
             const label = {
                 labelTxt: this.state.addLabelText,
                 color: this.state.selectedColor,
             }
-            console.log('label', label);
             this.props.addNewLabelSaga(boardId, pulseId, cellId, label);
             this.setState({ showAddLabel: false });
             this.setState({ addLabelText: '' });

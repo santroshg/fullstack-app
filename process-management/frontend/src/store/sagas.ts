@@ -2,12 +2,8 @@ import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
-import { setBoardsListAction, setBoardDetailsAction, addBoardAction, editBoardAction,
-    deleteBoardAction, addColumnAction, deleteColumnAction, addPulseAction,
-    deletePulseAction, editCellAction, addNewLabelAction, editLabelAction, 
-    deleteLabelAction, editPulseAction, addMemberToBoardAction, 
-    removeMemberToBoardAction, editColumnAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction } from './actions';
+import { setBoardsListAction, setBoardDetailsAction, setAddBoardAction, 
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI, action.payload);
@@ -37,23 +33,17 @@ export function* deleteBoard(action: AnyAction) {
 }
 
 export function* addColumn(action: AnyAction) {
-  console.log('addColumn saga action',action);
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
-  console.log('boardAfterAddedColumn', boardAfterAddedColumn);
   yield put(setAddColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader, boardAfterAddedColumn.pulse));
 }
 
 export function* editColumn(action: AnyAction) {
-  console.log('editColumn saga action',action);
   const boardAftereditColumn = yield call(editColumnAPI, action.payload);
-  console.log('boardAftereditColumn', boardAftereditColumn);
   yield put(setEditColumnAction(boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
 }
 
 export function* deleteColumn(action: AnyAction) {
-  console.log('deleteColumn', action);
   const boardAfterDeleteColumn = yield call(deleteColumnAPI, action.payload);
-  console.log('boardAfterDeleteColumn', boardAfterDeleteColumn);
   yield put(setDeleteColumnAction(boardAfterDeleteColumn.progressHeader, boardAfterDeleteColumn.pulse));
 }
 
@@ -63,29 +53,22 @@ export function* addPulse(action: AnyAction) {
 }
 
 export function* editPulse(action: AnyAction) {
-  console.log(' editPulse- AnyAction', action);
   const boardAftereditPulse = yield call(editPulseAPI, action.payload);
-  console.log('boardAftereditPulse', boardAftereditPulse);
   yield put(setEditPulseAction(boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
 }
 
 export function* deletePulse(action: AnyAction) {
-  console.log('deletePulse-saga ', action.payload);
   const boardAfterDeletePulse = yield call(deletePulseAPI, action.payload);
-  console.log('boardAfterDeletePulse', boardAfterDeletePulse);
   yield put(setDeletePulseAction(boardAfterDeletePulse.pulseId));
 }
 
 export function* editCell(action: AnyAction) {
-  console.log('editCell-saga ', action.payload);
   const boardAfterEditCell = yield call(editCellAPI, action.payload);
   yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulse));
 }
 
 export function* addNewLabel(action: AnyAction) {
-  console.log('addNewLabel-saga ', action.payload);
   const boardAfterAddNewLabel = yield call(addNewLabelAPI, action.payload);
-  console.log('boardAfterAddNewLabel', boardAfterAddNewLabel);
   // const pulse = boardAfterAddNewLabel.pulse.filter((p:any) => p.pulseId === action.payload.pulseId)[0];
   // console.log('boardAfterAddNewLabel', pulse);
  //yield put(setAddNewLabelAction(action.payload.boardId, action.payload.pulseId, action.payload.cellId, boardAfterAddNewLabel.label));
@@ -93,15 +76,12 @@ export function* addNewLabel(action: AnyAction) {
 }
 
 export function* editLabel(action: AnyAction) {
-  console.log('editLabel-saga ', action.payload);
   const boardAfterEditLabel = yield call(editLabelAPI, action.payload);
   yield put(setEditLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
 }
 
 export function* deleteLabel(action: AnyAction) {
-  console.log('deleteLabel-saga ', action.payload);
   const boardAfterDeleteLabel = yield call(deleteLabelAPI, action.payload);
-  console.log('boardAfterDeleteLabel', boardAfterDeleteLabel);
   yield put(setAddNewLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulse));
  // yield put(setDeleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
 }

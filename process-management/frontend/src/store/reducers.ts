@@ -39,7 +39,6 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
 
     case ProcessMgtActionType.SET_ADD_COLUMN:
       // this is incorrect, need handle row and column both
-      console.log('action.payload.progressHeader-----', action.payload.progressHeader);
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
 
     case ProcessMgtActionType.SET_EDIT_COLUMN:

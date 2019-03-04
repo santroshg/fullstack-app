@@ -25,7 +25,6 @@ export default class PulseCell extends React.Component<PulseCellProps, PulseCell
         this.state = {
             anchorEl: null,
         }
-        console.log('this.props.cellData.', this.props.cellData)
     }
     handlePopoverClick = (event: any) => {
         this.setState({

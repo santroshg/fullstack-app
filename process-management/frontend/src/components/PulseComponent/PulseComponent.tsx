@@ -57,7 +57,6 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
     handleDeletePulse = (pulseId: any) => {
         // alert(pulseId);
         if (pulseId) {
-            console.log('pulseId', pulseId)
             const boardId = this.props.selectedBoardId;
             this.props.deletePulseSaga(boardId, pulseId);
             this.setState({ showPulseCellEdit: false });
