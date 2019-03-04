@@ -126,7 +126,7 @@ export function editCellAPI(action: any) {
   return axios.put(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}`, action.cell, {withCredentials: true})
     .then((res: any) => {
       console.log('response---', res.data);
-      res.data.boardId = res.data._id;
+     // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }

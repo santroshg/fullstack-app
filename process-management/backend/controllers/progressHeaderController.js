@@ -45,8 +45,13 @@ const progressHeaderController = {
           if (err) {
             throw err;
           } else {
+            const progressHeader = updatedProgressHeader.progressHeader.filter(h => h.headerId.toString() === headerId)[0];
+            const progressHeaderData = {
+              headerId: progressHeader.headerId,
+              headerTxt: progressHeader.headerTxt,
+            };
             res.set('Content-Type', 'application/json');
-            res.status(200).send(updatedProgressHeader);
+            res.status(200).send(progressHeaderData);
           }
         });
       }

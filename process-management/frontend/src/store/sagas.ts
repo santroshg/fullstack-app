@@ -40,14 +40,14 @@ export function* addColumn(action: AnyAction) {
   console.log('addColumn saga action',action);
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
   console.log('boardAfterAddedColumn', boardAfterAddedColumn);
-  yield put(setAddColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader));
+  yield put(setAddColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader, boardAfterAddedColumn.pulse));
 }
 
 export function* editColumn(action: AnyAction) {
   console.log('editColumn saga action',action);
   const boardAftereditColumn = yield call(editColumnAPI, action.payload);
   console.log('boardAftereditColumn', boardAftereditColumn);
-  yield put(setEditColumnAction(boardAftereditColumn.boardId, boardAftereditColumn.progressHeader));
+  yield put(setEditColumnAction(boardAftereditColumn.headerId, boardAftereditColumn.headerTxt));
 }
 
 export function* deleteColumn(action: AnyAction) {

@@ -34,13 +34,13 @@ const pulseController = {
               BoardModel.find({ _id: boardId }, { progressHeader: 1 }, (headersErr, headersRes) => {
                 if (headersErr) {
                   throw headersErr;
-                } else if (headersRes[0].progressHeader.length > 1) {
+                } else if (headersRes[0].progressHeader.length >= 1) {
                   const cells = [];
                   headersRes[0].progressHeader.forEach((header) => {
                     if (header.headerType !== 'default') {
                       const cellData = {
                         headerId: header.headerId,
-                        cellLabelTxt: 'Edit cell',
+                        cellLabelTxt: '',
                         color: '',
                         createTime: new Date(),
                       };
@@ -85,12 +85,12 @@ const pulseController = {
           if (err) {
             throw err;
           } else {
-            res.set('Content-Type', 'application/json');
             const pulse = updatedPulse.pulse.filter(p => p.pulseId.toString() === pulseId)[0];
             const pulseData = {
               pulseId: pulse.pulseId,
               pulseTxt: pulse.pulseTxt,
             };
+            res.set('Content-Type', 'application/json');
             res.status(200).send(pulseData);
           }
         });

@@ -15,9 +15,9 @@ export const setEditBoardAction = (updatedBoard: BoardItem) => action(ProcessMgt
 export const deleteBoardAction = (boardId: String) => action(ProcessMgtActionType.DELETE_BOARD_SAGA, boardId);
 export const setDeleteBoardAction = (boardId: String) => action(ProcessMgtActionType.SET_DELETE_BOARD, boardId);
 export const addColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.ADD_COLUMN_SAGA, {boardId, progressHeader});
-export const setAddColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.SET_ADD_COLUMN, {boardId, progressHeader});
+export const setAddColumnAction = (boardId: String, progressHeader: ProgressHeader, pulse:Pulse) => action(ProcessMgtActionType.SET_ADD_COLUMN, {boardId, progressHeader, pulse});
 export const editColumnAction = (boardId: String, headerId: String, headerTxt: String) => action(ProcessMgtActionType.EDIT_COLUMN_SAGA, {boardId, headerId, headerTxt});
-export const setEditColumnAction = (boardId: String, progressHeader: ProgressHeader) => action(ProcessMgtActionType.SET_EDIT_COLUMN, {boardId, progressHeader});
+export const setEditColumnAction = (headerId: String, headerTxt: String) => action(ProcessMgtActionType.SET_EDIT_COLUMN, {headerId, headerTxt});
 export const deleteColumnAction = (boardId: String, headerId: String) => action(ProcessMgtActionType.DELETE_COLUMN_SAGA, {boardId, headerId});
 export const setDeleteColumnAction = (boardId: String, headerId: String) => action(ProcessMgtActionType.SET_DELETE_COLUMN, {boardId, headerId});
 export const addPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.ADD_PULSE_SAGA, {boardId, pulse});

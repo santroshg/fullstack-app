@@ -40,17 +40,17 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     case ProcessMgtActionType.SET_ADD_COLUMN:
       // this is incorrect, need handle row and column both
       console.log('action.payload.progressHeader-----', action.payload.progressHeader);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
 
     case ProcessMgtActionType.SET_EDIT_COLUMN:
-      // const updatedColumnHeader = currentState.currentBoard.progressHeader
-      //   .map(ph => ph.headerId === action.payload.headerId ? {
-      //     headerId: action.payload.headerId,
-      //     headerTxt: action.payload.headerTxt,
-      //     createTime: ph.createTime
-      //   } : ph);
-      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: updatedColumnHeader } } } };
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
+      const updatedColumnHeader = currentState.currentBoard.progressHeader
+        .map(ph => ph.headerId === action.payload.headerId ? {
+          headerId: action.payload.headerId,
+          headerTxt: action.payload.headerTxt,
+          createTime: ph.createTime
+        } : ph);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: updatedColumnHeader } } } };
+      //return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader } } } };
       
     case ProcessMgtActionType.SET_DELETE_COLUMN:
       // need to write correct reducers for delete column
