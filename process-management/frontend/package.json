@@ -6,12 +6,9 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@material-ui/styles": "^3.0.0-alpha.10",
-    "@types/chai": "^4.1.7",
-    "@types/jest": "24.0.6",
     "@types/node": "11.9.4",
     "@types/query-string": "^6.2.0",
     "@types/react": "16.8.3",
-    "@types/react-color": "^2.14.1",
     "@types/react-dom": "^16.8.2",
     "@types/react-redux": "^7.0.1",
     "@types/react-router": "^4.4.4",
@@ -19,26 +16,20 @@
     "@types/redux-saga": "^0.10.5",
     "@types/socket.io-client": "^1.4.32",
     "axios": "^0.18.0",
-    "chai": "^4.2.0",
-    "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
-    "query-string": "^6.2.0",
     "react": "^16.8.2",
-    "react-color": "^2.17.0",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.1",
     "serve": "^10.1.2",
     "socket.io-client": "^2.2.0",
-    "typesafe-actions": "^3.1.0",
-    "typescript": "3.3.3"
+    "typesafe-actions": "^3.1.0"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve -s build",
+    "start": "serve -p 3001 -s build",
     "build": "react-scripts build",
     "lint": "./node_modules/.bin/eslint *.js",
     "test": "react-scripts test",
@@ -53,5 +44,13 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^3.3.3333",
+    "@types/chai": "^4.1.7",
+    "@types/jest": "24.0.6",
+    "chai": "^4.2.0",
+    "node-sass": "^4.11.0",
+    "react-scripts": "2.1.5"
+  }
 }

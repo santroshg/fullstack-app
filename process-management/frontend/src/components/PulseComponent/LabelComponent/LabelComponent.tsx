@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Label } from '../../../store/types';
 import { TextField, Button, Radio } from '@material-ui/core';
 import LabelItemComponent from './LabelItemComponent';
-import { CirclePicker } from 'react-color';
 
 interface LabelComponentProps {
     labels: Label[],

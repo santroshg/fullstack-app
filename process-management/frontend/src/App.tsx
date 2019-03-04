@@ -4,13 +4,18 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import store from './store';
 import { Board, BoardItem, GoogleUser } from './store/types';
-import BoardListComponent from './components/BoardListComponent/BoardListComponent';
-import BoardComponent from './components/BoardComponent/BoardComponent';
-import AppHeader from './components/AppHeader/AppHeader';
+//import BoardListComponent from './components/BoardListComponent/BoardListComponent';
+//import BoardComponent from './components/BoardComponent/BoardComponent';
+//import AppHeader from './components/AppHeader/AppHeader';
 import GoogleLoginComponent from './components/AuthComponent/GoogleLoginComponent';
 
 import { getLoggedinUserAction, setEditBoardAction } from './store/actions';
 import { backtendHost } from './constants/constants';
+
+const AppHeaderComponent = React.lazy(() => import('./components/AppHeader/AppHeader'));
+const BoardListComponent = React.lazy(() => import('./components/BoardListComponent/BoardListComponent'));
+const BoardComponent = React.lazy(() => import('./components/BoardComponent/BoardComponent'));
+
 
 interface AppProps {}
 
@@ -60,9 +65,13 @@ export default class App extends React.PureComponent<AppProps, AppState> {
           <Provider store={store}>
             {this.state.isUserAuthenticated ? (
               <div>
-                <AppHeader authenticatedUser={this.state.authenticatedUser} />
-                <Route path="/home" component={BoardListComponent} />
-                <Route path="/boards/:boardId" component={BoardComponent} />
+                {/* <AppHeader authenticatedUser={this.state.authenticatedUser} /> */}
+                <React.Suspense fallback="Loading..">
+                   <AppHeaderComponent authenticatedUser={this.state.authenticatedUser} />
+              
+                  <Route path="/home" component={BoardListComponent} />
+                  <Route path="/boards/:boardId" component={BoardComponent} />
+                </React.Suspense>
               </div>
             ) : (
                 <GoogleLoginComponent />
