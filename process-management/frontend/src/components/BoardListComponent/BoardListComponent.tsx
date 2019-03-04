@@ -17,6 +17,9 @@ import { styles } from './BoardListComponentStyle';
 import BoardComponent from '../BoardComponent/BoardComponent';
 import { addColumn } from '../../store/sagas';
 import DeleteAlert from './DeleteAlert/DeleteAlert';
+import Assignment from '@material-ui/icons/Assignment';
+import AddIcon from '@material-ui/icons/Add';
+import { Tooltip, IconButton } from '@material-ui/core';
 
 export interface BoardListProps {
     boardList: BoardItem[],
@@ -51,7 +54,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
     }
 
     componentDidMount() {
-        if(!this.props.boardList) {
+        if (!this.props.boardList) {
             this.props.getBoardsListFromSaga(this.props.loggedinUser.userId);
         }
     }
@@ -61,7 +64,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
     }
 
     getBoardAsCurrentBoard = (board: BoardItem) => {
-        this.setState({currentBoatdId: board.boardId});
+        this.setState({ currentBoatdId: board.boardId });
         this.props.getBoardDetailsSaga(board.boardId);
     }
 
@@ -74,11 +77,11 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
     }
 
     handleChangeBoardName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({updateBoardName: e.target.value});
+        this.setState({ updateBoardName: e.target.value });
     }
 
     updateBoardName = (e: any, board: BoardItem) => {
-        if(e.key === 'Enter' && this.state.updateBoardName !== '') {
+        if (e.key === 'Enter' && this.state.updateBoardName !== '') {
             // saga call
             this.props.editBoardSaga({
                 boardId: board.boardId,
@@ -101,69 +104,83 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
 
     public render() {
         return (
-        <div style={styles.WrapSidebarAndBoady}>
-        <div style={styles.sideBar}>
-            <List>
-                <Typography variant="h5" color="inherit" noWrap style={styles.boardList}>
-                    <div>
-                    <strong>Your Boards</strong>
-                    </div>
-                    <div>
-                        <AddBoardDialog addBoardFromSaga={this.props.addBoardFromSaga}
-                            loggedinUser={this.props.loggedinUser} />
-                    </div>
-                </Typography>
-                <Divider />
-                {this.props.boardList ? 
-                this.props.boardList.map(board => (
-                    <ListItem button key={board.boardId as string} onClick={this.getBoardAsCurrentBoard.bind(null, board)}>
-                        <ListItemIcon><SettingsInputAntenna /></ListItemIcon>
-                        {this.state.showBoardEditbox && this.state.targetEditBoardid === board.boardId ? (
-                            <TextField
-                                placeholder="Board Name"
-                                fullWidth
-                                autoFocus
-                                margin="normal"
-                                value={this.state.updateBoardName}
-                                onChange={this.handleChangeBoardName.bind(this)}
-                                onKeyPress={e => this.updateBoardName(e, board)}
-                            />
-                        ) : (
-                            <React.Fragment>
-                            <ListItemText primary={board.boardName}  /> 
-                            <div className="board-action">
-                                <Edit onClick={e => this.handleEditBoardBox(board)} />
-                                
-                                <DeleteAlert board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
+            <div style={styles.WrapSidebarAndBoady}>
+                <div style={styles.sideBar}>
+
+                    <List>
+                        <ListItem className=''>
+                            <ListItemIcon>
+                                <Assignment />
+                            </ListItemIcon>
+                            <ListItemText>
+                                <h3>Boards</h3>
+                            </ListItemText>
+                            <AddBoardDialog addBoardFromSaga={this.props.addBoardFromSaga} loggedinUser={this.props.loggedinUser} />
+                        </ListItem>
+
+
+                        {/* <Typography variant="h5" color="inherit" noWrap style={styles.boardList}>
+                            <div>
+                                <strong>Your Boards</strong>
+                            </div>
+                            <div>
                                 
                             </div>
-                            </React.Fragment>
-                        )
+                        </Typography> */}
+
+
+                        <Divider />
+                        {this.props.boardList ?
+                            this.props.boardList.map(board => (
+                                <ListItem button key={board.boardId as string} onClick={this.getBoardAsCurrentBoard.bind(null, board)}>
+                                    {/* <ListItemIcon><SettingsInputAntenna /></ListItemIcon> */}
+                                    {this.state.showBoardEditbox && this.state.targetEditBoardid === board.boardId ? (
+                                        <TextField
+                                            placeholder="Board Name"
+                                            fullWidth
+                                            autoFocus
+                                            margin="normal"
+                                            value={this.state.updateBoardName}
+                                            onChange={this.handleChangeBoardName.bind(this)}
+                                            onKeyPress={e => this.updateBoardName(e, board)}
+                                        />
+                                    ) : (
+                                            <React.Fragment>
+                                                <ListItemText primary={board.boardName} />
+                                                <div className="board-action">
+                                                    <Edit onClick={e => this.handleEditBoardBox(board)} />
+
+                                                    <DeleteAlert board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
+
+                                                </div>
+                                            </React.Fragment>
+                                        )
+                                    }
+                                </ListItem>
+                            )) : <p>No Boards, Please create</p>
                         }
-                    </ListItem>
-                )) : <p>No Boards, Please create</p>
-                }
-            
-            </List>
-            <Divider />
-        </div>
-        <div className='board-component'>
-            <BoardComponent currentBoard={this.props.currentBoard}
-                addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
-                addPulseSaga={this.props.addPulseSaga} 
-                editPulseSaga={this.props.editPulseSaga}
-                deletePulseSaga={this.props.deletePulseSaga}
-                addColumnSaga={this.props.addColumnSaga}
-                editColumnSaga={this.props.editColumnSaga}
-                deleteColumnSaga={this.props.deleteColumnSaga}
-                editCellSaga={this.props.editCellSaga}
-                addNewLabelSaga={this.props.addNewLabelSaga}
-                editLabelSaga={this.props.editLabelSaga}
-                deleteLabelSaga={this.props.deleteLabelSaga}
-            />
-        </div>
-        </div>
+
+                    </List>
+                    <Divider />
+
+                </div>
+                <div className='board-component'>
+                    <BoardComponent currentBoard={this.props.currentBoard}
+                        addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                        removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
+                        addPulseSaga={this.props.addPulseSaga}
+                        editPulseSaga={this.props.editPulseSaga}
+                        deletePulseSaga={this.props.deletePulseSaga}
+                        addColumnSaga={this.props.addColumnSaga}
+                        editColumnSaga={this.props.editColumnSaga}
+                        deleteColumnSaga={this.props.deleteColumnSaga}
+                        editCellSaga={this.props.editCellSaga}
+                        addNewLabelSaga={this.props.addNewLabelSaga}
+                        editLabelSaga={this.props.editLabelSaga}
+                        deleteLabelSaga={this.props.deleteLabelSaga}
+                    />
+                </div>
+            </div>
         );
     }
 }
@@ -185,9 +202,9 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     addColumnSaga: (boardId: String, progressHeader: ProgressHeader) => dispatch(addColumnAction(boardId, progressHeader)),
     editColumnSaga: (boardId: String, headerId: String, headerTxt: String) => dispatch(editColumnAction(boardId, headerId, headerTxt)),
     deleteColumnSaga: (boardId: String, headerId: String, headerColumnId: String) => dispatch(deleteColumnAction(boardId, headerId, headerColumnId)),
-  //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
-    editPulseSaga : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
-    editCellSaga: (boardId: String, pulseId: String, cellId: String, cell:CellItem) => dispatch(editCellAction(boardId, pulseId, cellId, cell)),
+    //  editPulse : (boardId: String, pulseId: String, pulseTxt: String) => dispatch(setEditPulseAction(boardId, pulseId, pulseTxt)),
+    editPulseSaga: (boardId: String, pulseId: String, pulseTxt: String) => dispatch(editPulseAction(boardId, pulseId, pulseTxt)),
+    editCellSaga: (boardId: String, pulseId: String, cellId: String, cell: CellItem) => dispatch(editCellAction(boardId, pulseId, cellId, cell)),
     addNewLabelSaga: (boardId: String, pulseId: String, cellId: String, label: String) => dispatch(addNewLabelAction(boardId, pulseId, cellId, label)),
     editLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => dispatch(editLabelAction(boardId, pulseId, cellId, labelId, label)),
     deleteLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String) => dispatch(deleteLabelAction(boardId, pulseId, cellId, labelId)),

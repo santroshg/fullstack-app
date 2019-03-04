@@ -8,9 +8,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import { styles } from './AddBoardDialogStyle';
 import { GoogleUser } from '../../store/types';
+import AddIcon from '@material-ui/icons/Add';
+import { Tooltip, IconButton } from '@material-ui/core';
 
 interface AddBoardDialogProps {
   addBoardFromSaga?: any,
@@ -18,16 +19,16 @@ interface AddBoardDialogProps {
 }
 
 export default class AddBoardDialog extends React.Component<AddBoardDialogProps> {
-    constructor(props: AddBoardDialogProps) {
-      super(props);
-    }
+  constructor(props: AddBoardDialogProps) {
+    super(props);
+  }
 
-    state = {
-      openModal: false,
-      newBoardName: '',
-      newBoardDesc: '',
+  state = {
+    openModal: false,
+    newBoardName: '',
+    newBoardDesc: '',
   };
-  
+
 
   handleClickOpen = () => {
     this.setState({ openModal: true });
@@ -40,17 +41,17 @@ export default class AddBoardDialog extends React.Component<AddBoardDialogProps>
   };
 
   handleAddBoard = () => {
-      if (this.state.newBoardName !== '') {
-          this.props.addBoardFromSaga(
-                  {
-                    boardName: this.state.newBoardName, 
-                    boardDesc: this.state.newBoardDesc,
-                  },
-                  this.props.loggedinUser);
-          this.setState({ openModal: false });
-      }
-      this.setState({ newBoardName: '' });
-      this.setState({ newBoardDesc: '' });
+    if (this.state.newBoardName !== '') {
+      this.props.addBoardFromSaga(
+        {
+          boardName: this.state.newBoardName,
+          boardDesc: this.state.newBoardDesc,
+        },
+        this.props.loggedinUser);
+      this.setState({ openModal: false });
+    }
+    this.setState({ newBoardName: '' });
+    this.setState({ newBoardDesc: '' });
   };
 
   handleChangeBoardName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,9 +65,12 @@ export default class AddBoardDialog extends React.Component<AddBoardDialogProps>
   render() {
     return (
       <div>
-        <Fab variant="extended" aria-label="Add" style={styles.FabClass} onClick={this.handleClickOpen}>
-            <AddIcon />
-        </Fab>
+        <Tooltip title="Add Board">
+          <IconButton aria-label="Add Board" onClick={this.handleClickOpen}>
+            <AddIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+
         <Dialog
           open={this.state.openModal}
           onClose={this.handleClose}
@@ -80,13 +84,13 @@ export default class AddBoardDialog extends React.Component<AddBoardDialogProps>
               label="Board Name"
               required
               fullWidth
-              onChange={ this.handleChangeBoardName.bind(this) }
+              onChange={this.handleChangeBoardName.bind(this)}
             />
             <TextField
               margin="dense"
               label="Board Description"
               fullWidth
-              onChange={ this.handleChangeBoardDesc.bind(this) }
+              onChange={this.handleChangeBoardDesc.bind(this)}
             />
           </DialogContent>
           <DialogActions>
