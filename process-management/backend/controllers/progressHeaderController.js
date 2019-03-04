@@ -65,15 +65,16 @@ const progressHeaderController = {
     try {
       const { boardId } = req.params;
       const { headerId } = req.params;
-      if (boardId && headerId) {
-        BoardModel.update({ _id: boardId }, { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerId } } }, (err, newProgressHeader) => {
+      const { headerColumnId } = req.params;
+      if (boardId && headerId && headerColumnId) {
+        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerColumnId: req.params.headerColumnId } } }, {new: true}, (err, newProgressHeader) => {
           if (err) {
             res.set('Content-Type', 'application/json');
-            res.status(200).send({ message: 'borad not exist' });
+            res.status(200).send({ message: 'Error' });
           } else {
             res.set('Content-Type', 'application/json');
             res.status(200).send(newProgressHeader);
-          }
+          } 
         });
       }
     } catch (error) {

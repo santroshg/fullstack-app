@@ -51,13 +51,15 @@ export function* editColumn(action: AnyAction) {
 }
 
 export function* deleteColumn(action: AnyAction) {
+  console.log('deleteColumn', action);
   const boardAfterDeleteColumn = yield call(deleteColumnAPI, action.payload);
-  yield put(setDeleteColumnAction(boardAfterDeleteColumn.boardId, boardAfterDeleteColumn.headerId));
+  console.log('boardAfterDeleteColumn', boardAfterDeleteColumn);
+  yield put(setDeleteColumnAction(boardAfterDeleteColumn.progressHeader, boardAfterDeleteColumn.pulse));
 }
 
 export function* addPulse(action: AnyAction) {
   const boardAfterAddPulse = yield call(addPulseAPI, action.payload);
-  yield put(setAddPulseAction(boardAfterAddPulse.boardId, boardAfterAddPulse.pulse));
+  yield put(setAddPulseAction(boardAfterAddPulse.boardId, boardAfterAddPulse.pulse, boardAfterAddPulse.progressHeader));
 }
 
 export function* editPulse(action: AnyAction) {

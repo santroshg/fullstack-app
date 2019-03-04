@@ -22,6 +22,7 @@ export interface BoardProps {
     deletePulseSaga?: any,
     addColumnSaga?: any,
     editColumnSaga?: any,
+    deleteColumnSaga?: any,
     currentBoardId?: String,
     editCellSaga: any,
     addNewLabelSaga: any,
@@ -89,7 +90,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             <div className='progress-header-component'>
                                 <div className='progress-header-wrapper'>
                                     {this.props.currentBoard.progressHeader.map((header, i) =>
-                                        <ProgressHeaderComponent key={i} progressHeader={header} currentBoardId={this.props.currentBoard.boardId} editColumnSaga={this.props.editColumnSaga}/>
+                                        <ProgressHeaderComponent key={i} progressHeader={header} currentBoardId={this.props.currentBoard.boardId} editColumnSaga={this.props.editColumnSaga} deleteColumnSaga={this.props.deleteColumnSaga}/>
                                     )}
                                 </div>
                                 <div className='progress-header-add'>

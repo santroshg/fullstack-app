@@ -89,8 +89,13 @@ export function editColumnAPI(action: any) {
     });
 }
 
-export function deleteColumnAPI(dummy: String) {
-
+export function deleteColumnAPI(action: any) {
+  console.log('deleteColumnAPI=action', action)
+  return axios.delete(`${backtendHost}/api/headers/${action.boardId}/${action.headerId}/${action.headerColumnId}`, {withCredentials: true})
+    .then((res: any) => {
+      console.log('response---', res.data);
+      return Promise.resolve(res.data);
+    });
 }
 
 export function addPulseAPI(action: any) {

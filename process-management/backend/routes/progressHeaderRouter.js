@@ -7,7 +7,9 @@ progressHeaderRouter.route('/:boardId')
   .post(progressHeaderController.addProgressHeader);
 
 progressHeaderRouter.route('/:boardId/:headerId')
-  .put(progressHeaderController.editProgressHeader)
+  .put(progressHeaderController.editProgressHeader);
+
+progressHeaderRouter.route('/:boardId/:headerId/:headerColumnId')
   .delete(progressHeaderController.deleteProgressHeader);
 
 module.exports = progressHeaderRouter;

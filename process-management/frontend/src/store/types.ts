@@ -56,6 +56,7 @@ export interface ProgressHeader {
   headerTxt: String,
   createTime: Date,
   headerType: String,
+  headerColumnId: String,
 }
 
 export interface Label {

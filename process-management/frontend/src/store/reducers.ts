@@ -54,12 +54,13 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       
     case ProcessMgtActionType.SET_DELETE_COLUMN:
       // need to write correct reducers for delete column
-      return currentState;
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
+     // return currentState;
 
     // issue may occure in below reducers due to pulse structure 
     //=> right now PulseItem, it should Pulse
     case ProcessMgtActionType.SET_ADD_PULSE:
-    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
 
       // console.log('currentState---- old', currentState);
       // console.log('action.payload.pulse', action.payload.pulse);
