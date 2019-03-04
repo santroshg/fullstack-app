@@ -9,31 +9,33 @@ import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import { TextField } from '@material-ui/core';
+import { TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@material-ui/core';
 
 
 interface PulseComponentProps {
     pulse?: Pulse,
-    editPulseSaga? : any,
+    editPulseSaga?: any,
     deletePulseSaga?: any,
     selectedBoardId: String,
     editCellSaga: any,
     addNewLabelSaga?: any,
-    editLabelSaga?:any,
+    editLabelSaga?: any,
     deleteLabelSaga?: any,
 
 }
 interface PulseComponentState {
     showPulseCellEdit: boolean,
     pulseCellEditText: String,
+    deletePulseDialogOpen: boolean,
 }
 export default class PulseComponent extends React.Component<PulseComponentProps, PulseComponentState> {
     constructor(props: PulseComponentProps) {
         super(props);
-       // console.log('PulseComponentProps', this.props.pulse);
+        // console.log('PulseComponentProps', this.props.pulse);
         this.state = {
             showPulseCellEdit: false,
             pulseCellEditText: this.props.pulse.pulseTxt,
+            deletePulseDialogOpen: false,
         }
     }
     handleShowPulseCellEdit = (e: React.MouseEvent<HTMLElement>) => {
@@ -62,6 +64,13 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
         }
     }
 
+    handleDeletePulseDialogOpen = () => {
+        this.setState({ deletePulseDialogOpen: true });
+    }
+
+    handleDeletePulseDialogClose = () => {
+        this.setState({ deletePulseDialogOpen: false });
+    }
     render() {
         return (
             <Fragment>
@@ -76,19 +85,40 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
                                 fullWidth
                                 value={this.state.pulseCellEditText as string}
                                 onChange={this.handlePulseCellEditText}
-                                onKeyPress={this.handlePulseCellEdit} />) 
-                            : (
-                                <span onDoubleClick={this.handleShowPulseCellEdit} className='pulse-cell-edit'>{this.props.pulse.pulseTxt}</span>
-                            )}
+                                onKeyPress={this.handlePulseCellEdit} />)
+                                : (
+                                    <span onDoubleClick={this.handleShowPulseCellEdit} className='pulse-cell-edit'>{this.props.pulse.pulseTxt}</span>
+                                )}
                         </div>
                         {this.props.pulse.cells.map(cell => (
-                            <PulseCell key={cell.cellId as string} cellData={cell} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.pulse.pulseId} editCellSaga={this.props.editCellSaga} addNewLabelSaga={this.props.addNewLabelSaga}  editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
+                            <PulseCell key={cell.cellId as string} cellData={cell} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.pulse.pulseId} editCellSaga={this.props.editCellSaga} addNewLabelSaga={this.props.addNewLabelSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
                         ))}
                     </div>
                     <div className='pulse-delete'>
                         <Tooltip title="Delete pulse">
-                            <IconButton aria-label="Delete" onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)}>
-                                <DeleteIcon fontSize="small" />
+                            <IconButton aria-label="Delete">
+                                <DeleteIcon fontSize="small" onClick={this.handleDeletePulseDialogOpen} />
+                                <Dialog
+                                    open={this.state.deletePulseDialogOpen}
+                                    onClose={this.handleDeletePulseDialogClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">Confirm delete - {this.props.pulse.pulseTxt} pulse</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-description">
+                                        Are you sure to delete this pulse?
+                            </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={this.handleDeletePulseDialogClose} color="primary">
+                                            Cancel
+                                     </Button>
+                                        <Button onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)} color="primary" autoFocus>
+                                            Ok
+                                     </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </IconButton>
                         </Tooltip>
                     </div>

@@ -117,7 +117,6 @@ export function deletePulseAPI(action: any) {
   console.log('deletePulseAPI=action', action)
   return axios.delete(`${backtendHost}/api/pulse/${action.boardId}/${action.pulseId}`, {withCredentials: true})
     .then((res: any) => {
-      res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }

@@ -83,10 +83,10 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_DELETE_PULSE:
-      // const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
-      // return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
-      console.log('ProcessMgtActionType.SET_DELETE_PULSE = action.payload',  action.payload);
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
+      const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
+      return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
+      // console.log('ProcessMgtActionType.SET_DELETE_PULSE = action.payload',  action.payload);
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
