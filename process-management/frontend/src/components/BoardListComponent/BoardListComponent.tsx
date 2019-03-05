@@ -11,14 +11,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Edit from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
-import AddBoardDialog from '../BoardDialog/AddBoardDialog';
+import AddBoardDialog from '../BoardListComponent/AddBoardDialog';
 import BoardComponent from '../BoardComponent/BoardComponent';
 import { addColumn } from '../../store/sagas';
-import DeleteAlert from './DeleteAlert/DeleteAlert';
+import DeleteBoardDialog from '../BoardListComponent/DeleteBoardDialog';
 import Assignment from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import { Tooltip, IconButton } from '@material-ui/core';
-
+DeleteBoardDialog
 export interface BoardListProps {
     boardList: BoardItem[],
     currentBoard: Board,
@@ -139,7 +139,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                                                             <Edit fontSize="small" />
                                                         </IconButton>
                                                     </Tooltip>
-                                                    <DeleteAlert board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
+                                                    <DeleteBoardDialog board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
                                                 </div>
                                             </React.Fragment>
                                         )

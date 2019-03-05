@@ -8,7 +8,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Fab from '@material-ui/core/Fab';
-import { styles } from './AddBoardDialogStyle';
 import { GoogleUser } from '../../store/types';
 import AddIcon from '@material-ui/icons/Add';
 import { Tooltip, IconButton } from '@material-ui/core';

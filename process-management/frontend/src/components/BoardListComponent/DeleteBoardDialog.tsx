@@ -6,15 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Delete from '@material-ui/icons/Delete';
-import { BoardItem } from '../../../store/types';
+import { BoardItem } from '../../store/types';
 import { Tooltip, IconButton } from '@material-ui/core';
 
-interface DeleteAlertProps {
+interface DeleteBoardDialogProps {
   board: BoardItem,
   deleteBoardResponse?: any,
 }
 
-export default class DeleteAlert extends React.PureComponent<DeleteAlertProps> {
+export default class DeleteBoardDialog extends React.PureComponent<DeleteBoardDialogProps> {
   state = {
     open: false,
   };
