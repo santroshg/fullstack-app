@@ -9,11 +9,9 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SettingsInputAntenna from '@material-ui/icons/SettingsInputAntenna';
 import Edit from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import AddBoardDialog from '../BoardDialog/AddBoardDialog';
-import { styles } from './BoardListComponentStyle';
 import BoardComponent from '../BoardComponent/BoardComponent';
 import { addColumn } from '../../store/sagas';
 import DeleteAlert from './DeleteAlert/DeleteAlert';
@@ -104,8 +102,8 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
 
     public render() {
         return (
-            <div style={styles.WrapSidebarAndBoady}>
-                <div style={styles.sideBar}>
+            <div className='board-list-component'>
+                <div className='board-list-wrapper'>
 
                     <List>
                         <ListItem className=''>
@@ -117,22 +115,10 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                             </ListItemText>
                             <AddBoardDialog addBoardFromSaga={this.props.addBoardFromSaga} loggedinUser={this.props.loggedinUser} />
                         </ListItem>
-
-
-                        {/* <Typography variant="h5" color="inherit" noWrap style={styles.boardList}>
-                            <div>
-                                <strong>Your Boards</strong>
-                            </div>
-                            <div>
-                                
-                            </div>
-                        </Typography> */}
-
-
                         <Divider />
                         {this.props.boardList ?
                             this.props.boardList.map(board => (
-                                <ListItem button key={board.boardId as string} onClick={this.getBoardAsCurrentBoard.bind(null, board)}>
+                                <ListItem  className='board-list-item' button key={board.boardId as string} onClick={this.getBoardAsCurrentBoard.bind(null, board)}>
                                     {/* <ListItemIcon><SettingsInputAntenna /></ListItemIcon> */}
                                     {this.state.showBoardEditbox && this.state.targetEditBoardid === board.boardId ? (
                                         <TextField
@@ -146,12 +132,14 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                                         />
                                     ) : (
                                             <React.Fragment>
-                                                <ListItemText primary={board.boardName} />
+                                                <ListItemText className='board-list-item-text' primary={board.boardName} />
                                                 <div className="board-action">
-                                                    <Edit onClick={e => this.handleEditBoardBox(board)} />
-
+                                                    <Tooltip title="edit board">
+                                                        <IconButton aria-label="edit board" onClick={e => this.handleEditBoardBox(board)}>
+                                                            <Edit fontSize="small" />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                     <DeleteAlert board={board} deleteBoardResponse={this.deleteBoardResponse.bind(this)} />
-
                                                 </div>
                                             </React.Fragment>
                                         )
@@ -161,7 +149,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                         }
 
                     </List>
-                    <Divider />
+                    {/* <Divider /> */}
 
                 </div>
                 <div className='board-component'>

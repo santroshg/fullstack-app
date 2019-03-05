@@ -1,3 +1,16 @@
+.board-list-component {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+.board-list-wrapper {
+  width: 25%;
+  box-shadow: 0 -1px 0 #e0e0e0 inset;
+  // padding-top: 16px;
+  // padding-bottom: 16px;
+ // background-color: #232f3e;
+ border-right: 1px solid #e0e0e0;
+}
 .board-action {
   display: flex;
   flex-direction: row;
@@ -12,4 +25,13 @@
 .edit-pen:hover {
   opacity: 1;
   color: rgb(0, 0, 0);
+}
+
+.board-list-item{
+  border-bottom: 1px solid #e0e0e0;
+}
+
+
+.board-list-item-text {
+  color: white;
 }

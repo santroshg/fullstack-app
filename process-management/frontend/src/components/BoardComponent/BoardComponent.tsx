@@ -18,7 +18,7 @@ export interface BoardProps {
     addMemberToBoardSaga?: any,
     removeMemberToBoardSaga?: any,
     addPulseSaga?: any,
-    editPulseSaga? : any,
+    editPulseSaga?: any,
     deletePulseSaga?: any,
     addColumnSaga?: any,
     editColumnSaga?: any,
@@ -72,25 +72,26 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
 
             this.props.currentBoard ? (
                 <div className='borad-component-wrapper'>
-                    <Grid className='board-header-component'>
-                        <Paper style={styles.boardHeaderFlex}>
-                            <Typography variant="h5" gutterBottom style={styles.boardEmptyMsg}>
-                                {this.props.currentBoard.boardName}
-                            </Typography>
+                    <div className='board-header-component'>
+                        <div className='board-header-wrapper'>
+                            <div className='board-header-text'>
+                            <h3>{this.props.currentBoard.boardName}</h3>
+                            </div>
+                            <div className='board-header-members'>
 
-                            <MembersDialog currentBoard={this.props.currentBoard}
-                                addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                                removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
-
-                        </Paper>
-                    </Grid>
+                                <MembersDialog currentBoard={this.props.currentBoard}
+                                    addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                                    removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
+                            </div>
+                        </div>
+                    </div>
 
                     <div className="board-pulse-component">
                         {this.props.currentBoard.pulse.length > 0 ? (
                             <div className='progress-header-component'>
                                 <div className='progress-header-wrapper'>
                                     {this.props.currentBoard.progressHeader.map((header, i) =>
-                                        <ProgressHeaderComponent key={i} progressHeader={header} currentBoardId={this.props.currentBoard.boardId} editColumnSaga={this.props.editColumnSaga} deleteColumnSaga={this.props.deleteColumnSaga}/>
+                                        <ProgressHeaderComponent key={i} progressHeader={header} currentBoardId={this.props.currentBoard.boardId} editColumnSaga={this.props.editColumnSaga} deleteColumnSaga={this.props.deleteColumnSaga} />
                                     )}
                                 </div>
                                 <div className='progress-header-add'>

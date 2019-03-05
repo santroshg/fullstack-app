@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Delete from '@material-ui/icons/Delete';
 import { BoardItem } from '../../../store/types';
+import { Tooltip, IconButton } from '@material-ui/core';
 
 interface DeleteAlertProps {
   board: BoardItem,
@@ -35,7 +36,12 @@ export default class DeleteAlert extends React.PureComponent<DeleteAlertProps> {
   render() {
     return (
       <div>
-        <Delete onClick={this.handleClickOpen} />
+        
+        <Tooltip title="Delete board">
+          <IconButton aria-label="Delete board" onClick={this.handleClickOpen}>
+                <Delete fontSize="small" />
+          </IconButton>
+        </Tooltip>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
