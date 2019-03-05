@@ -77,7 +77,7 @@ export function* addNewLabel(action: AnyAction) {
 
 export function* editLabel(action: AnyAction) {
   const boardAfterEditLabel = yield call(editLabelAPI, action.payload);
-  yield put(setEditLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulseId, boardAfterEditLabel.cellId, boardAfterEditLabel.label));
+  yield put(setEditLabelAction(boardAfterEditLabel.boardId, boardAfterEditLabel.pulse));
 }
 
 export function* deleteLabel(action: AnyAction) {
