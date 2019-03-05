@@ -21,7 +21,7 @@ install-dependencies:
       - process-management/frontend/node_modules/
 cache:
   paths:
-    - process-management/frontend/0/
+    - process-management/frontend/node_modules/
     
 lint-checks:
   stage: test_frontend
