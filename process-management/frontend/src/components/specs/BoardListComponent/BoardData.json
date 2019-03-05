@@ -1,0 +1,17 @@
+{
+    "_id": "5c7e13e31aadf000172f12ba",
+    "boardName": "gexg",
+    "boardDesc": "",
+    "boardCreatedBy": "santroshg@gmail.com",
+    "members": [{
+        "_id": "5c7e13e31aadf000172f12bb",
+        "userId": "111335883681118814215",
+        "userDisplayName": "Santosh Kumar",
+        "userEmail": "santroshg@gmail.com",
+        "userActive": "true"
+    }],
+    "progressHeader": [],
+    "pulse": [],
+    "createTime": "2019-03-05T06:14:59.056Z",
+    "__v": 0
+}

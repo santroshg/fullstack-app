@@ -16,18 +16,18 @@ chai.should();
 
 describe('ServiceManagementStoreSaga', () => {
     describe('getBoardsList', () => {
-        it('It should call getBoardsList()', () => {
+        xit('It should call getBoardsList()', () => {
             const getBoardsListSaga = getBoardsList(getBoardsListAction());
             getBoardsListSaga.next().value.should.deep.equal(call(getBoardsListAPI));
         });
 
-        it('It should call getBoardDetails()', () => {
+        xit('It should call getBoardDetails()', () => {
             const boardId: String = '1';
             const getBoardDetailsSaga = getBoardDetails(getBoardDetailsAction(boardId));
             getBoardDetailsSaga.next().value.should.deep.equal(call(getBoardDetailsAPI, boardId));
         });
 
-        it('It should call addBoard()', () => {
+        xit('It should call addBoard()', () => {
             const newBoard: BoardItem = {
                 boardId: '8y8ydbf8y89yfb89nsdhfghjsdgf',
                 boardName: 'Test board',
@@ -37,7 +37,7 @@ describe('ServiceManagementStoreSaga', () => {
             addBoardSaga.next().value.should.deep.equal(call(addBoardAPI, newBoard));
         });
 
-        it('It should call editBoard()', () => {
+        xit('It should call editBoard()', () => {
             const updateBoard: BoardItem = {
                 boardId: '8y8ydbf8y89yfb89nsdhfghjsdgf',
                 boardName: 'Test board update',
@@ -47,13 +47,13 @@ describe('ServiceManagementStoreSaga', () => {
             editBoardSaga.next().value.should.deep.equal(call(editBoardAPI, updateBoard));
         });
 
-        it('It should call deleteBoard()', () => {
+        xit('It should call deleteBoard()', () => {
             const boardId: String = '1';
             const deleteBoardSaga = deleteBoard(deleteBoardAction(boardId));
             deleteBoardSaga.next().value.should.deep.equal(call(deleteBoardAPI, boardId));
         });
 
-        it('It should call addColumn()', () => {
+        xit('It should call addColumn()', () => {
             const boardId: String = '1';
             const progressHeader: ProgressHeader = {
                 headerId: '1',
@@ -64,7 +64,7 @@ describe('ServiceManagementStoreSaga', () => {
             addColumnSaga.next().value.should.deep.equal(call(addColumnAPI, {boardId, progressHeader}));
         });
 
-        it('It should call editColumn()', () => {
+        xit('It should call editColumn()', () => {
             const boardId: String = '1';
             const headerId: String = '1';
             const headerTxt: String = 'update Header Text';
@@ -72,14 +72,14 @@ describe('ServiceManagementStoreSaga', () => {
             editColumnSaga.next().value.should.deep.equal(call(editColumnAPI, {boardId, headerId, headerTxt}));
         });
 
-        it('It should call deleteColumn()', () => {
+        xit('It should call deleteColumn()', () => {
             const boardId: String = '1';
             const headerId: String = '1';
             const deleteColumnSaga = deleteColumn(deleteColumnAction(boardId, headerId));
             deleteColumnSaga.next().value.should.deep.equal(call(deleteColumnAPI, { boardId, headerId }));
         });
 
-        it('It should call addPulse()', () => {
+        xit('It should call addPulse()', () => {
             const boardId: String = '1';
             const pulse: PulseItem = {
                 pulseId: 't78uh78iokbvgyuioytf',
@@ -90,7 +90,7 @@ describe('ServiceManagementStoreSaga', () => {
             addPulseSaga.next().value.should.deep.equal(call(addPulseAPI, {boardId, pulse}));
         });
         
-        it('It should call editPulse()', () => {
+        xit('It should call editPulse()', () => {
             const boardId: String = '1';
             const pulseId: String = '1';
             const pulseTxt: String = 'pulse text update'
@@ -98,14 +98,14 @@ describe('ServiceManagementStoreSaga', () => {
             editPulseSaga.next().value.should.deep.equal(call(editPulseAPI, {boardId, pulseId, pulseTxt}));
         });
 
-        it('It should call deletePulse()', () => {
+        xit('It should call deletePulse()', () => {
             const boardId: String = '1';
             const pulseId: String = '1';
             const deletePulseSaga = deletePulse(deletePulseAction(boardId, pulseId));
             deletePulseSaga.next().value.should.deep.equal(call(deletePulseAPI, {boardId, pulseId}));
         });
         
-        it('It should call editCell()', () => {
+        xit('It should call editCell()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cell: CellItem = {
@@ -119,7 +119,7 @@ describe('ServiceManagementStoreSaga', () => {
             editCellSaga.next().value.should.deep.equal(call(editCellAPI, {boardId, pulseId, cell}));
         });
 
-        it('It should call addNewLabel()', () => {
+        xit('It should call addNewLabel()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '1';
@@ -132,7 +132,7 @@ describe('ServiceManagementStoreSaga', () => {
             addNewLabelSaga.next().value.should.deep.equal(call(addNewLabelAPI, {boardId, pulseId, cellId, label}));
         });
 
-        it('It should call editLabel()', () => {
+        xit('It should call editLabel()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '1';
@@ -145,7 +145,7 @@ describe('ServiceManagementStoreSaga', () => {
             editLabelSaga.next().value.should.deep.equal(call(editLabelAPI, {boardId, pulseId, cellId, label}));
         });
 
-        it('It should call deleteLabel()', () => {
+        xit('It should call deleteLabel()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '1';
@@ -154,7 +154,7 @@ describe('ServiceManagementStoreSaga', () => {
             deleteLabelSaga.next().value.should.deep.equal(call(deleteLabelAPI, {boardId, pulseId, cellId, labelId}));
         });
 
-        it('It should call addMemberToBoard()', () => {
+        xit('It should call addMemberToBoard()', () => {
             const boardId: String = '1';
             const user: User = {
                 userId: 'cftyuiojhgsxt78yuiokjvg',
@@ -166,7 +166,7 @@ describe('ServiceManagementStoreSaga', () => {
             addMemberToBoardSaga.next().value.should.deep.equal(call(addMemberToBoardAPI, {boardId, user}));
         });
 
-        it('It should call removeMemberToBoard()', () => {
+        xit('It should call removeMemberToBoard()', () => {
             const boardId: String = '1';
             const userId: String = 'fxcghjopiuyfcvbnmkjhguyu';
             const removeMemberToBoardSaga = removeMemberToBoard(removeMemberToBoardAction(boardId, userId));

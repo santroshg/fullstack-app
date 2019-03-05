@@ -6,7 +6,7 @@ chai.should();
 
 describe('ProcessManagementReducers', () => {
     describe('start reducers testing...', () => {
-        it('It should call setBoardsListAction()', () => {
+        xit('It should call setBoardsListAction()', () => {
             // below boardList will come from axios call in saga generator.
             const boardList: BoardItem[]= [
                 {
@@ -25,7 +25,7 @@ describe('ProcessManagementReducers', () => {
             store.getState().boardList.should.have.length(beforeLength + 2);
         });
 
-        it('It should call setBoardDetailsAction()', () => {
+        xit('It should call setBoardDetailsAction()', () => {
             const currentBoardFromAxios:Board = {
                 boardId: "1",
                 boardName: "Board from test",
@@ -88,7 +88,7 @@ describe('ProcessManagementReducers', () => {
             store.getState().currentBoard.boardName.should.be.equal('Board from test');
         });
 
-        it('It should call setAddBoardAction()', () => {
+        xit('It should call setAddBoardAction()', () => {
             const newBoardFromAxios: BoardItem = {
                 boardId: 't7890uygvu98ytf8u9',
                 boardName: 'New board from test',
@@ -100,7 +100,7 @@ describe('ProcessManagementReducers', () => {
 
         });
 
-        it('It should call setEditBoardAction()', () => {
+        xit('It should call setEditBoardAction()', () => {
             const updatedBoardFromAxios: BoardItem = {
                 boardId: '1',
                 boardName: 'New board from test- update',
@@ -111,14 +111,14 @@ describe('ProcessManagementReducers', () => {
                 .boardName.should.be.equal('New board from test- update');
         });
 
-        it('It should call setDeleteBoardAction()', () => {
+        xit('It should call setDeleteBoardAction()', () => {
             const beforeLength: number = store.getState().boardList.length;
             const boardId: String = '2';
             store.dispatch(setDeleteBoardAction(boardId));
             store.getState().boardList.length.should.be.equal(beforeLength - 1);
         });
 
-        it('It should call setAddColumnAction()', () => {
+        xit('It should call setAddColumnAction()', () => {
             const beforeColLen = store.getState().currentBoard.progressHeader.length;
             const boardId: String = '1';
             const progressHeader: ProgressHeader = {
@@ -132,7 +132,7 @@ describe('ProcessManagementReducers', () => {
             store.getState().currentBoard.progressHeader.length.should.be.equal(beforeColLen + 1);
         });
 
-        it('It should call setEditColumnAction()', () => {
+        xit('It should call setEditColumnAction()', () => {
             const boardId: String = '1';
             const headerId: String = '0';
             const headerTxt: String = 'Update testing';
@@ -140,13 +140,13 @@ describe('ProcessManagementReducers', () => {
             store.getState().currentBoard.progressHeader.filter(ph => ph.headerId === headerId)[0].headerTxt.should.be.equal('Update testing');
         });
 
-        it('It should call setDeleteColumnAction()', () =>{
+        xit('It should call setDeleteColumnAction()', () =>{
             const boardId: String = '1';
             const headerId: String = '0'
             store.dispatch(setDeleteColumnAction(boardId, headerId));
         });
         // setAddPulseAction()
-        it('It should call setAddPulseAction()', () => {
+        xit('It should call setAddPulseAction()', () => {
             const beforePulseAdd: number = store.getState().currentBoard.pulse.length;
             const boardId: String = '1';
             const pulse: PulseItem = {
@@ -160,7 +160,7 @@ describe('ProcessManagementReducers', () => {
         });
 
 
-        it('It should call setEditPulseAction()', () => {
+        xit('It should call setEditPulseAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const pulseTxt: String = 'update pulse text';
@@ -171,7 +171,7 @@ describe('ProcessManagementReducers', () => {
         });
         // below is correct test case, simply commenting below test case
 
-        // it('It should call setDeletePulseAction()', () => {
+        // xit('It should call setDeletePulseAction()', () => {
         //     const beforePulseLen = store.getState().currentBoard.pulse.length;
         //     const boardId: String = '1';
         //     const pulseId: String = '0';
@@ -179,7 +179,7 @@ describe('ProcessManagementReducers', () => {
         //     store.getState().currentBoard.pulse.length.should.be.equal(beforePulseLen - 1);
         // });
 
-        it('It should call setEditCellAction()', () => {
+        xit('It should call setEditCellAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cell: CellItem = {
@@ -194,7 +194,7 @@ describe('ProcessManagementReducers', () => {
                 .cells.filter(c => c.cellId === cell.cellId)[0].cellLabelTxt.should.be.equal('changed txt testing');
         });
 
-        it('It should call setAddNewLabelAction()', () => {
+        xit('It should call setAddNewLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
@@ -211,7 +211,7 @@ describe('ProcessManagementReducers', () => {
                         .should.be.equal('New label');
         });
 
-        it('It should call setEditLabelAction()', () => {
+        xit('It should call setEditLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
@@ -228,7 +228,7 @@ describe('ProcessManagementReducers', () => {
                             .should.be.equal('updated label');
         });
 
-        it('It should call setDeleteLabelAction()', () => {
+        xit('It should call setDeleteLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
@@ -244,7 +244,7 @@ describe('ProcessManagementReducers', () => {
                     .labels.length.should.be.equal(beforeLen -1);
         });
 
-        it('It should call setAddMemberToBoardAction()', () => {
+        xit('It should call setAddMemberToBoardAction()', () => {
             const boardId: String = '1';
             const user: User = {
                 userId: 'Google id 78yw8y87y8dsrgfd',
@@ -257,7 +257,7 @@ describe('ProcessManagementReducers', () => {
                 .userId.should.be.equal('Google id 78yw8y87y8dsrgfd');
         });
 
-        it('It should call setRemoveMemberToBoardAction()', () => {
+        xit('It should call setRemoveMemberToBoardAction()', () => {
             const beforeUserLength = store.getState().currentBoard.members.length;
             const boardId: String = '1';
             const userId: String = 'Google id 78yw8y87y8dsrgfd';

@@ -7,20 +7,14 @@ import { should } from 'chai';
 import sinon from 'sinon';
 should();
 
-import BoardListComponent from '../BoardListComponent/BoardListComponent';
+import BoardListComponent from '../../BoardListComponent/BoardListComponent';
 import BoardListData from './BoardListData.json';
-import { GoogleUser } from '../../store/types';
+import { GoogleUser } from '../../../store/types';
 configure({ adapter: new Adapter() });
 
 describe('<BoardListComponent/>', function () {
-    // it('calls componentDidMount', () => {
-    //     sinon.spy(BoardListComponent.prototype, 'componentDidMount');
-    //     const wrapper = mount(<BoardListComponent />);
-    //     expect(BoardListComponent.prototype.componentDidMount).should.have.property('callCount', 1);
-    //   });
 
-
-    it('should render BoardListComponent', function (done) {
+    xit('should render BoardListComponent', function (done) {
         const reducer = sinon.fake((currentState: any, action: any) => {
             reducer.calledOnce.should.be.true;
             done();
@@ -34,7 +28,7 @@ describe('<BoardListComponent/>', function () {
         }
         const store = createStore(reducer, { BoardListData});
         console.log('store', store);
-        const wrapper = mount(<Provider store={store}><BoardListComponent /></Provider>);
+        const wrapper = mount(<Provider store={store}> <BoardListComponent /></Provider>);
         
     });
 });
