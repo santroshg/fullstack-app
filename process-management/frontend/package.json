@@ -29,13 +29,14 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "serve -p 3001 -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "./node_modules/.bin/eslint *.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
+
   "eslintConfig": {
     "extends": "react-app"
   },
