@@ -1,11 +1,6 @@
 import React, { Fragment } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import { Pulse } from '../../store/types';
-import { styles } from './PulseComponentStyle';
 import PulseCell from './PulseCell/PulseCell';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';

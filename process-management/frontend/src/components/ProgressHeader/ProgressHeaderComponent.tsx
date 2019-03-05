@@ -1,11 +1,6 @@
 import * as React from 'react';
-
 import Typography from '@material-ui/core/Typography';
 import { ProgressHeader } from '../../store/types';
-
-
-
-import { styles } from './ProgressHeaderStyle';
 import { Fragment } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TextField, Tooltip, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, Button, DialogActions } from '@material-ui/core';

@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { styles } from './PulseCellStyle';
 import { Cells } from '../../../store/types';
 import { Popover, Button } from '@material-ui/core';
 import LabelComponent from '../LabelComponent/LabelComponent';
