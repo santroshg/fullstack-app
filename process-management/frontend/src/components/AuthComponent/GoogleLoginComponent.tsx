@@ -28,7 +28,7 @@ export default class GoogleLoginComponent extends Component<GoogleLoginComponent
                 </div>
                 <div className="login-component">
                     <div className="login-wrapper">
-                        <div className='login-text'><h3>Welcome to Process Management</h3><h4>Please Singin</h4></div>
+                        <div className='login-text'><h3>Welcome to Process Management</h3><h4>Please Sign in</h4></div>
                         <div className="google-login-button">
                             <a href={`${backtendHost}/users/auth/google`} className="button">
                                 <button className="loginBtn loginBtn--google">
