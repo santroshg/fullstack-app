@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
 import { Board } from '../../store/types';
-import { styles } from './BoardComponentStyle';
 import ProgressHeaderComponent from '../ProgressHeader/ProgressHeaderComponent';
 import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
