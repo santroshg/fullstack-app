@@ -1,8 +1,6 @@
+import React from 'react';
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import React from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import { should } from 'chai';
 import sinon from 'sinon';
 import AddBoardDialog from '../../BoardListComponent/AddBoardDialog';

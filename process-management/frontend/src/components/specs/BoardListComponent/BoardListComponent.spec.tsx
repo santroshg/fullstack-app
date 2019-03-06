@@ -29,6 +29,6 @@ describe('<BoardListComponent/>', function () {
         const store = createStore(reducer, { BoardListData});
         console.log('store', store);
         const wrapper = mount(<Provider store={store}> <BoardListComponent /></Provider>);
-        
+        done();
     });
 });
