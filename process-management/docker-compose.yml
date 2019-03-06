@@ -1,0 +1,39 @@
+version: '3'
+services:
+  backend:
+    # container_name: process-management-backend
+    restart: always
+    image: process-mgt-backend-app-0.0.1
+    build: backend
+    ports:
+      - 3000
+    labels:
+      - "traefik.frontend.rule=Host:localhost"
+    depends_on:
+      - dockermongodb
+    links:
+      - dockermongodb
+  dockermongodb:
+    container_name: dockermongodb
+    image: mongo
+    ports:
+      - '27017:27017'
+  frontend:
+    container_name: process-management-frontend
+    restart: always
+    image: process-mgt-frontend-app-0.0.1
+    build: frontend
+    ports:
+      - 5000
+    labels:
+      - "traefik.frontend.rule=Host:localhost"
+  reverse-proxy:
+    image: traefik
+    command: --api --docker
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # docker-compose up -d --scale frontend=10
