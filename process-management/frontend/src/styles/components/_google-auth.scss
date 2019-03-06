@@ -1,12 +1,50 @@
 /* Google */
+.login-component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-wrapper {
+  display: flex;
+  width: 400px;
+  height: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background: #eaeff1;
+  border-radius: 0.2em;
+}
+
+.app-header-user__avatar {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.app-header-user__title {
+  padding-top: 1px;
+  justify-items: center;
+  font-size: 18px !important;
+  padding-left: 4px;
+}
+
+.login-text {
+  align-items: center;
+  justify-content: center;
+}
+
 .loginBtn--google {
   /*font-family: "Roboto", Roboto, arial, sans-serif;*/
   background: #DD4B39;
+  cursor: pointer;
 }
+
 .loginBtn--google:before {
   border-right: #BB3F30 1px solid;
   background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
 }
+
 .loginBtn--google:hover,
 .loginBtn--google:focus {
   background: #E74B37;

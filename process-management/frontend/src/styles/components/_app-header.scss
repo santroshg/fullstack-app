@@ -10,9 +10,17 @@
     justify-content: space-between;
 }
 
-.userSpace {
+.app-header-text {
+    flex-grow: 1;
+}
+
+.app-header-user {
     display: flex;
     flex-direction: row;
+}
+
+.app-header-logout {
+    padding-left: 20px;
 }
 
 .avatar {
