@@ -18,7 +18,7 @@ export const Email = {
 };
 
 export const sendMail = (to, boardId, userId) => {
-  // const hrefUrl = `${backtendHost}/api/accept/update-active-user?boardId=${boardId}&userId=${userId}`;
+  // // const hrefUrl = `${backtendHost}/api/accept/update-active-user?boardId=${boardId}&userId=${userId}`;
   const hrefUrl = `${backtendHost}/users/auth/google/?boardId=${boardId}&userId=${userId}`;
   Email.send('slackmailing@gmail.com',
     to,
