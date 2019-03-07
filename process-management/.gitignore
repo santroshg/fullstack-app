@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+backend/config/config.js
+frontend/src/constants/constants.ts

@@ -4,26 +4,28 @@
 }
 
 
-.borad-component-wrapper{
+.borad-component-wrapper {
     width: 100%;
 }
 
-.board-header-component{
+.board-header-component {
     padding: 10px;
-    //color: #fff;
     background: #eaeff1;
+    height: 80px;
 }
-.board-header-wrapper{
+
+.board-header-wrapper {
     display: flex;
-    height: 50px;
     flex-direction: row;
     text-align: left;
-
+    align-items: center;
 }
+
 .board-header-text {
     flex-grow: 1;
 }
-.board-pulse-component{
+
+.board-pulse-component {
     padding: 10px;
     width: 98.5%;
 }

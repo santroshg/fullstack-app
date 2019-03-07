@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import { Board } from '../../../store/types';
-import { styles } from './MembersDialogStyle';
 import { sendMail } from '../../../service/mail-service.js';
 
 interface MembersDialogProps {
@@ -22,16 +21,16 @@ interface MembersDialogProps {
 }
 
 export default class MembersDialog extends React.PureComponent<MembersDialogProps> {
-    constructor(props: MembersDialogProps) {
-      super(props);
-    }
+  constructor(props: MembersDialogProps) {
+    super(props);
+  }
 
-    state = {
-      openModal: false,
-      newUser: '',
-      isNewuserTxtbox: false,
+  state = {
+    openModal: false,
+    newUser: '',
+    isNewuserTxtbox: false,
   };
-  
+
 
   handleClickOpen = () => {
     this.setState({ openModal: true });
@@ -42,24 +41,24 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
   };
 
   handleAddUserTxtBox = () => {
-    this.setState({isNewuserTxtbox: true});
+    this.setState({ isNewuserTxtbox: true });
   }
 
   handleAddUser = (boardId: String, e: any) => {
-      if (this.state.newUser !== '' && e.key === 'Enter') {
-        const tempUserId: String = Math.random() * 34567 + ''; // once user accept request, this id will be updated with googleid.
-        this.props.addMemberToBoardSaga(
-          boardId, {
-            userId: tempUserId,
-            userDisplayName: this.state.newUser,
-            userEmail: this.state.newUser,
-            userActive: false,
-          }
-        );
-        sendMail(this.state.newUser, boardId, tempUserId);
-        this.setState({ openModal: false, isNewuserTxtbox: false });
-      }
-      this.setState({ newUser: '' });
+    if (this.state.newUser !== '' && e.key === 'Enter') {
+      const tempUserId: String = Math.random() * 34567 + ''; // once user accept request, this id will be updated with googleid.
+      this.props.addMemberToBoardSaga(
+        boardId, {
+          userId: tempUserId,
+          userDisplayName: this.state.newUser,
+          userEmail: this.state.newUser,
+          userActive: false,
+        }
+      );
+      sendMail(this.state.newUser, boardId, tempUserId);
+      this.setState({ openModal: false, isNewuserTxtbox: false });
+    }
+    this.setState({ newUser: '' });
   };
 
   handleNewUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +68,15 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
   handleDeleteUser = (userId: String, boardId: String) => {
     this.props.removeMemberToBoardSaga(boardId, userId);
   }
+
+  setColor = (userActive: Boolean) => {
+    if (!userActive) {
+      return 'disable-member';
+    } else {
+     return null;
+    }
+  }
+
 
   render() {
     return (
@@ -84,47 +92,47 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
           <DialogTitle id="draggable-dialog-title">Add/Remove members from board</DialogTitle>
           <DialogContent>
             {this.props.currentBoard.members ? (
-            this.props.currentBoard.members.map(m => (
-              <List key={m.userId as string} >
-                <ListItem style={m.userActive ? {} : styles.disabledUser}>
+              this.props.currentBoard.members.map(m => (
+                <List key={m.userId as string} >
+                  <ListItem className={this.setColor(m.userActive)} >
                     <ListItemText
                       primary={m.userDisplayName}
                     />
                     <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete"
-                      onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
+                      <IconButton aria-label="Delete"
+                        onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
                         <DeleteIcon />
-                    </IconButton>
+                      </IconButton>
                     </ListItemSecondaryAction>
-                </ListItem>
-              </List>
-            ))) : (<div>anok</div>)}
-            
+                  </ListItem>
+                </List>
+              ))) : (<div>anok</div>)}
+
           </DialogContent>
           <DialogActions>
             {this.state.isNewuserTxtbox ? (
-                <TextField
-                  required
-                  fullWidth
-                  autoFocus
-                  type="email"
-                  id="standard-required"
-                  label="User E-mail Id"
-                  margin="normal"
-                  onChange={this.handleNewUserName.bind(this)}
-                  onKeyPress={e => this.handleAddUser(this.props.currentBoard.boardId, e)}
-                />
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                type="email"
+                id="standard-required"
+                label="User E-mail Id"
+                margin="normal"
+                onChange={this.handleNewUserName.bind(this)}
+                onKeyPress={e => this.handleAddUser(this.props.currentBoard.boardId, e)}
+              />
             ) : (
-              <div>
-                <Button onClick={this.handleClose} color="primary">
-                  Cancel
+                <div>
+                  <Button onClick={this.handleClose} color="primary">
+                    Cancel
                 </Button>
-                <Button onClick={this.handleAddUserTxtBox.bind(this)} color="primary">
-                  Add User
+                  <Button onClick={this.handleAddUserTxtBox.bind(this)} color="primary">
+                    Add User
                 </Button>
-              </div>
-            )}
-            
+                </div>
+              )}
+
           </DialogActions>
         </Dialog>
       </div>

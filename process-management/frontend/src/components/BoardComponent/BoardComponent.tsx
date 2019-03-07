@@ -75,9 +75,9 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                         <div className='board-header-wrapper'>
                             <div className='board-header-text'>
                             <h3>{this.props.currentBoard.boardName}</h3>
+                            <p className='board-header-desc'>{this.props.currentBoard.boardDesc}</p>
                             </div>
                             <div className='board-header-members'>
-
                                 <MembersDialog currentBoard={this.props.currentBoard}
                                     addMemberToBoardSaga={this.props.addMemberToBoardSaga}
                                     removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
@@ -123,54 +123,6 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             </div>
                         </div>
                     </div>
-
-                    {/* <div style={styles.progressHeaderLine}>
-                        <ul style={styles.progressHraderTxtUL}>
-                            <li style={styles.FirstCol}>
-
-                                <Typography variant="title" noWrap>
-                                    Items
-                            </Typography>
-                            </li>
-                            {this.props.currentBoard.progressHeader
-                                .map(ph =>
-                                    <li style={styles.progressHraderTxtLI} key={ph.headerId as string}>
-                                        <ProgressHeaderComponent progressHeader={ph} />
-                                    </li>
-                                )}
-                        </ul>
-                        <Fab variant="extended" size="small" color="secondary" aria-label="Add">
-                            <AddIcon />
-                        </Fab>
-                    </div> */}
-                    {/* <div>
-                        <ul style={styles.pulseUL}>
-                            {this.props.currentBoard.pulse.map(pl => (
-                                <li key={pl.pulseId as string} style={styles.pulseLI}>
-                                    <PulseComponent currentBoardPulse={pl} />
-                                </li>
-                            ))}
-                        </ul>
-
-                        {this.state.needPulseCreateTxtBox ? (
-                            <TextField
-                                required
-                                autoFocus
-                                id="standard-required"
-                                label="Required"
-                                placeholder="New Item/Pulse name"
-                                margin="normal"
-                                value={this.state.newPulseTxt}
-                                onChange={this.handlePulseTxtEntered.bind(this)}
-                                onKeyPress={this.handleAddNewPulse.bind(this)}
-                            />
-                        ) : (
-                                <Button onClick={this.handlePulseAddTextBox.bind(this)}>Add New Pulse</Button>
-                            )}
-
-
-
-                    </div> */}
                 </div>
             ) : (null)
 

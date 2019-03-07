@@ -1,0 +1,17 @@
+{
+    "_id": "5c7f6d56498e0295af2b500b",
+    "boardName": "test board",
+    "boardDesc": "test board desc",
+    "boardCreatedBy": "santroshg@gmail.com",
+    "members": [{
+        "_id": "5c7f6d56498e0295af2b500c",
+        "userId": "111335883681118814215",
+        "userDisplayName": "Santosh Kumar",
+        "userEmail": "santroshg@gmail.com",
+        "userActive": "true"
+    }],
+    "progressHeader": [],
+    "pulse": [],
+    "createTime": "2019-03-06T06:48:54.445Z",
+    "__v": 0
+}

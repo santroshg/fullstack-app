@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   userActive: {
-    type: String,
+    type: Boolean,
   },
 });
 
