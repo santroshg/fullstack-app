@@ -6,7 +6,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
-    "test": "echo \" No test specified\" && exit 1",
+    "test": "mocha --exit",
     "build": "webpack",
     "serve": "webpack-dev-server --host 0.0.0.0 --watch-poll"
   },
@@ -28,8 +28,11 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.14.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.0.2"
   }
 }
