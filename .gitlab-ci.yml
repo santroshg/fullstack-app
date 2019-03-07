@@ -1,11 +1,11 @@
 image: node:11.9.0
 
-stages:
+stages: 
   - build_frontend
   - test_frontend
   - production_frontend
   - build_backend
-  - test_backend
+  - test_backend 
   - production_backend
 
 install-dependencies:
@@ -17,9 +17,12 @@ install-dependencies:
     - cd frontend
     - npm install
   artifacts:
-    paths:
+    paths: 
       - process-management/frontend/node_modules/
-
+cache:
+  paths:
+    - process-management/frontend/node_modules/
+    
 lint-checks:
   stage: test_frontend
   only:
@@ -27,7 +30,8 @@ lint-checks:
   script: 
     - cd process-management
     - cd frontend
-    - npm run lint
+    - npm install
+    # - npm run lint
     - npm run test
 
 production-frontend:
@@ -45,6 +49,10 @@ production-frontend:
     - dpl --provider=heroku --app=frontend-xt-fsd --api-key=$HEROKU_API_KEY
   only:
     - dev
+
+cache:
+  paths:
+    - process-management/backend/node_modules/
 
 install-dependencies:
   stage: build_backend
