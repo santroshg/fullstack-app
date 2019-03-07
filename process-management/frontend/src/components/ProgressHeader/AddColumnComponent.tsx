@@ -8,7 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 interface AddColumnComponentProps {
@@ -31,7 +30,6 @@ export default class AddColumnComponent extends Component <AddColumnComponentPro
     };
 
     handleAddColumn = (e: any) => {
-        e.preventDefault();
         const headerData = {
             "headerTxt": this.state.addColumnText
         }
