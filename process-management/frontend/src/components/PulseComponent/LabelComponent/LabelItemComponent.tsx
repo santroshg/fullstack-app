@@ -58,7 +58,6 @@ export default class LabelItemComponent extends Component<LabelItemComponentProp
     }
 
     handleDeleteLabel = (labelId: any) => {
-        // alert(labelId);
         if (labelId) {
             const boardId = this.props.selectedBoardId;
             const pulseId = this.props.selectedPulseId;
