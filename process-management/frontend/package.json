@@ -32,7 +32,7 @@
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
-    "lint": "./node_modules/.bin/eslint *.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
@@ -52,6 +52,9 @@
     "chai": "^4.2.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
     "node-sass": "^4.11.0",
     "react-scripts": "2.1.5",
     "sinon": "^7.2.7",
