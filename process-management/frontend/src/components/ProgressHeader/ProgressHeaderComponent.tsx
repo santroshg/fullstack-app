@@ -33,7 +33,6 @@ export default class ProgressHeaderComponent extends React.Component<ProgressHea
         return names.join(' ');
     }
     handleshowProgressHeaderEdit = (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
         this.setState({ showProgressHeaderEdit: true });
     }
     handleProgressHeaderEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
