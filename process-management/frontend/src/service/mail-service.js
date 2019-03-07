@@ -1,8 +1,4 @@
 import { backtendHost } from '../constants/constants';
-
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-sequences */
-/* eslint-disable no-undef */
 export const Email = {
     send(e, o, t, n, a, s, r, c) {
       const d = Math.floor(1e6 * Math.random() + 1);
