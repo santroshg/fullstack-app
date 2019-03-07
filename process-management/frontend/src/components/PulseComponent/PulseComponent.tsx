@@ -26,7 +26,6 @@ interface PulseComponentState {
 export default class PulseComponent extends React.Component<PulseComponentProps, PulseComponentState> {
     constructor(props: PulseComponentProps) {
         super(props);
-        // console.log('PulseComponentProps', this.props.pulse);
         this.state = {
             showPulseCellEdit: false,
             pulseCellEditText: this.props.pulse.pulseTxt,
@@ -34,7 +33,6 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
         }
     }
     handleShowPulseCellEdit = (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
         this.setState({ showPulseCellEdit: true });
     }
     handlePulseCellEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +48,6 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
         }
     }
     handleDeletePulse = (pulseId: any) => {
-        // alert(pulseId);
         if (pulseId) {
             const boardId = this.props.selectedBoardId;
             this.props.deletePulseSaga(boardId, pulseId);
@@ -101,7 +98,7 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
                                     <DialogTitle id="alert-dialog-title">Confirm delete - {this.props.pulse.pulseTxt} pulse</DialogTitle>
                                     <DialogContent>
                                         <DialogContentText id="alert-dialog-description">
-                                        Are you sure to delete this pulse?
+                                            Are you sure to delete this pulse?
                             </DialogContentText>
                                     </DialogContent>
                                     <DialogActions>
