@@ -17,12 +17,9 @@ install-dependencies:
     - cd frontend
     - npm install
   artifacts:
-    paths: 
+    paths:
       - process-management/frontend/node_modules/
-cache:
-  paths:
-    - process-management/frontend/node_modules/
-    
+
 lint-checks:
   stage: test_frontend
   only:
@@ -30,8 +27,7 @@ lint-checks:
   script: 
     - cd process-management
     - cd frontend
-    - npm install
-    # - npm run lint
+    - npm run lint
     - npm run test
 
 production-frontend:
@@ -49,10 +45,6 @@ production-frontend:
     - dpl --provider=heroku --app=frontend-xt-fsd --api-key=$HEROKU_API_KEY
   only:
     - dev
-
-cache:
-  paths:
-    - process-management/backend/node_modules/
 
 install-dependencies:
   stage: build_backend
