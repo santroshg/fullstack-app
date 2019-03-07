@@ -36,6 +36,7 @@ passport.use(new GoogleStrategy({
           googleId: profile.id,
           userDisplayName: profile.displayName,
           userEmail: profile.emails[0].value,
+          // eslint-disable-next-line no-underscore-dangle
           profileImgUrl: profile._json.image.url,
         }).save().then((user) => {
           done(null, user);

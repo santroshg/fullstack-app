@@ -73,7 +73,7 @@ lint-checks:
   script: 
     - cd process-management
     - cd backend
-    # - npm run lint
+    - npm run lint
     - npm run test
 
 production-backend:

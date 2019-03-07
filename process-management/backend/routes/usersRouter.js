@@ -1,12 +1,9 @@
 /* eslint-disable prefer-destructuring */
 const express = require('express');
+
 const usersRouter = express.Router();
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-const GoogleUser = require('../models/googleUser');
 const url = require('../config/config');
-const goolgeAuthCredentials = require('../config/googleAuthCredentials');
 const membersController = require('../controllers/membersController');
 
 /* GET users listing. */

@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../app');

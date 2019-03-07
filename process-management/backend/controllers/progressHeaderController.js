@@ -66,15 +66,17 @@ const progressHeaderController = {
       const { headerId } = req.params;
       const { headerColumnId } = req.params;
       if (boardId && headerId && headerColumnId) {
-        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerColumnId: req.params.headerColumnId } } }, {new: true}, (err, newProgressHeader) => {
-          if (err) {
-            res.set('Content-Type', 'application/json');
-            res.status(200).send({ message: 'Error' });
-          } else {
-            res.set('Content-Type', 'application/json');
-            res.status(200).send(newProgressHeader);
-          } 
-        });
+        BoardModel.findOneAndUpdate({ _id: boardId },
+          { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerColumnId: req.params.headerColumnId } } },
+          { new: true }, (err, newProgressHeader) => {
+            if (err) {
+              res.set('Content-Type', 'application/json');
+              res.status(200).send({ message: 'Error' });
+            } else {
+              res.set('Content-Type', 'application/json');
+              res.status(200).send(newProgressHeader);
+            }
+          });
       }
     } catch (error) {
       next(error);

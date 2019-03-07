@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const BoardModel = require('../models/boardModel');
 
 const labelsController = {
@@ -70,7 +71,8 @@ const labelsController = {
   //     const labelData = req.body;
   //     if (boardId && pulseId && cellId && labelData) {
   //       // eslint-disable-next-line max-len
-  //       BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { $push: { 'pulse.$.cells.0.labels': labelData } }, { new: true }, (error, response) => {
+  //       BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId },
+  // { $push: { 'pulse.$.cells.0.labels': labelData } }, { new: true }, (error, response) => {
   //         if (error) {
   //           throw error;
   //         } else {

@@ -62,6 +62,7 @@ const membersController = {
               'members.$.userId': req.user.googleId,
               'members.$.userDisplayName': req.user.userDisplayName,
             },
+          // eslint-disable-next-line no-unused-vars
           }, { new: true }, (err, data) => {
             if (err) {
               res.status(404).send(`${userId} not exist in database.`);
