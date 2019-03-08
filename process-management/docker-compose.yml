@@ -24,9 +24,9 @@ services:
     image: process-mgt-frontend-app-0.0.1
     build: frontend
     ports:
-      - 5000
-    labels:
-      - "traefik.frontend.rule=Host:localhost"
+      - '5000:5000'
+    # labels:
+    #   - "traefik.frontend.rule=Host:localhost"
   reverse-proxy:
     image: traefik
     command: --api --docker
