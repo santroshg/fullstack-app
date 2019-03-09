@@ -24,7 +24,7 @@ const boardsController = {
     try {
       const { boardId } = req.params;
       if (boardId) {
-        BoardModel.findOne({ _id: boardId }, (err, boardDetails) => {
+        BoardModel.findOne({ boardId }, (err, boardDetails) => {
           if (err) {
             res.status(400).send(`Board data does not found with ${boardId}`);
           } else {
@@ -50,6 +50,7 @@ const boardsController = {
         };
 
         const boardModel = new BoardModel({
+          boardId: req.body.notNeededBoardObject.boardId,
           boardName: req.body.notNeededBoardObject.boardName,
           boardDesc: req.body.notNeededBoardObject.boardDesc,
           boardCreatedBy: req.body.loggedinUser.userEmail,
@@ -77,7 +78,7 @@ const boardsController = {
     try {
       const { boardId } = req.params;
       if (boardId) {
-        BoardModel.findOneAndUpdate({ _id: boardId },
+        BoardModel.findOneAndUpdate({ boardId },
           {
             $set: {
               boardName: req.body.board.boardName,
@@ -89,7 +90,7 @@ const boardsController = {
             } else {
               res.set('Content-Type', 'application/json');
               res.status(200).send({
-                _id: updatedBoard._id,
+                boardId: updatedBoard.boardId,
                 boardName: updatedBoard.boardName,
                 boardDesc: updatedBoard.boardDesc,
               });
@@ -107,11 +108,11 @@ const boardsController = {
     try {
       const { boardId } = req.params;
       if (boardId) {
-        BoardModel.findOneAndDelete({ _id: boardId }, (err, deletedBoardData) => {
+        BoardModel.findOneAndDelete({ boardId }, (err, deletedBoardData) => {
           if (err) {
             res.status(404).send(`${boardId} not exist in database.`);
           } else {
-            res.status(200).send({ deletedBoardId: deletedBoardData._id });
+            res.status(200).send({ deletedBoardId: deletedBoardData.boardId });
           }
         });
       }

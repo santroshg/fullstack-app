@@ -1,4 +1,5 @@
 // const mongoose = require('mongoose');
+const { ObjectID } = require('bson');
 
 const BoardModel = require('../models/boardModel');
 // const ProgressHeaderModel = require('../models/progressHeaderModel');
@@ -9,20 +10,22 @@ const pulseController = {
     try {
       const { boardId } = req.params;
       const pulseData = req.body;
-      const newHeaderId = Math.random() * 123456789;
+      // const newHeaderId = new ObjectID().toString();
+      // const newHeaderId = Math.random() * 12345678909899;
       pulseData.createTime = new Date();
-      pulseData.headerColumnId = newHeaderId;
+      // pulseData.headerColumnId = newHeaderId;
       if (boardId) {
-        BoardModel.find({ _id: boardId }, { pulse: 1 }, (error, response) => {
+        BoardModel.find({ boardId }, { pulse: 1 }, (error, response) => {
           if (response.length > 0) {
             if (response[0].pulse.length === 0) {
               const headerData = {
                 headerTxt: 'Task Header',
                 createTime: new Date(),
-                headerColumnId: newHeaderId,
+                headerId: pulseData.headerId,
+                headerColumnId: pulseData.headerColumnId,
                 headerType: 'default',
               };
-              BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData, progressHeader: headerData } }, { new: true }, (err, newPulse) => {
+              BoardModel.findOneAndUpdate({ boardId }, { $push: { pulse: pulseData, progressHeader: headerData } }, { new: true }, (err, newPulse) => {
                 if (err) {
                   throw err;
                 } else {
@@ -31,7 +34,8 @@ const pulseController = {
                 }
               });
             } else {
-              BoardModel.find({ _id: boardId }, { progressHeader: 1 }, (headersErr, headersRes) => {
+              BoardModel.find({ boardId }, { progressHeader: 1 }, (headersErr, headersRes) => {
+                // console.log('--------headersRes----------------', headersRes[0].progressHeader);
                 if (headersErr) {
                   throw headersErr;
                 } else if (headersRes[0].progressHeader.length >= 1) {
@@ -39,7 +43,8 @@ const pulseController = {
                   headersRes[0].progressHeader.forEach((header) => {
                     if (header.headerType !== 'default') {
                       const cellData = {
-                        headerId: header.headerId,
+                        cellId: (new ObjectID()).toString(),
+                        headerColumnId: header.headerColumnId,
                         cellLabelTxt: '',
                         color: '',
                         createTime: new Date(),
@@ -49,9 +54,10 @@ const pulseController = {
                   });
                   pulseData.cells = cells;
                   // pulseData.pulseId = new mongoose.Schema.Types.ObjectId();
-                  BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { pulse: pulseData } }, { new: true }, (err, newPulse) => {
+                  BoardModel.findOneAndUpdate({ boardId }, { $push: { pulse: pulseData } }, { new: true }, (err, newPulse) => {
                     if (newPulse) {
                       // res.set('Content-Type', 'application/json');
+                      // console.log('newPulse------------------', newPulse);
                       res.status(200).send(newPulse);
                     } else {
                       res.set('Content-Type', 'application/json');
@@ -80,7 +86,7 @@ const pulseController = {
       const { boardId } = req.params;
       const { pulseId } = req.params;
       if (boardId) {
-        BoardModel.findOneAndUpdate({ _id: boardId, 'pulse.pulseId': pulseId }, { $set: { 'pulse.$.pulseTxt': updatePulseData.pulseTxt } }, { new: true }, (err, updatedPulse) => {
+        BoardModel.findOneAndUpdate({ boardId, 'pulse.pulseId': pulseId }, { $set: { 'pulse.$.pulseTxt': updatePulseData.pulseTxt } }, { new: true }, (err, updatedPulse) => {
           if (err) {
             throw err;
           } else {
@@ -102,17 +108,17 @@ const pulseController = {
   // deletePulse
   deletePulse: (req, res, next) => {
     try {
-      const { pulseId } = req.params;
-      const { boardId } = req.params;
+      const { pulseId, boardId } = req.params;
+      // const { boardId } = req.params;
       if (boardId && pulseId) {
-        BoardModel.find({ _id: boardId }, { pulse: 1 }, (error, response) => {
-          if (response.length === 1) {
-            BoardModel.updateOne({ _id: boardId }, { $set: { progressHeader: [] } }, (err) => {
+        BoardModel.find({ boardId }, { pulse: 1 }, (error, response) => {
+          if (response[0].pulse.length === 1) {
+            BoardModel.updateOne({ boardId }, { $set: { progressHeader: [] } }, (err) => {
               next(err);
             });
           }
         });
-        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { pulse: { pulseId: req.params.pulseId } } }, { new: true }, (err) => {
+        BoardModel.findOneAndUpdate({ boardId }, { $pull: { pulse: { pulseId: req.params.pulseId } } }, { new: true }, (err) => {
           if (err) {
             res.status(404).send(`${pulseId} not exist in database.`);
           } else {

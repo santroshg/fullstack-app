@@ -1,5 +1,7 @@
 import axios from 'axios';
 import socketIOClient from 'socket.io-client';
+import { ObjectID } from 'bson';
+
 import { BoardItem, User, PulseItem } from './types';
 import { backtendHost } from '../constants/constants'
 import { setEditBoardAction } from './actions';
@@ -8,27 +10,27 @@ import { setEditBoardAction } from './actions';
 export function getBoardsListAPI(userId: String) {
   return axios.get(`${backtendHost}/api/boards/?userId=${userId}`, {withCredentials: true})
     .then((res: any) => {
-      // console.log('res------------------', res.data);
-      return res.data.map((d: any) => {
-        return {
-          boardId: d._id,
-          boardName: d.boardName,
-          boardDesc: d.boardDesc,
-        };
-      });
-      // return Promise.resolve(res.data)
+      // return res.data.map((d: any) => {
+      //   return {
+      //     boardId: d._id,
+      //     boardName: d.boardName,
+      //     boardDesc: d.boardDesc,
+      //   };
+      // });
+      return Promise.resolve(res.data)
     });
 }
 
 export function getBoardDetailsAPI(boardId: String) {
   return axios.get(`${backtendHost}/api/boards/${boardId}`, {withCredentials: true})
     .then((res: any) => {
-      res.data.boardId = res.data._id;
+      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
 export function addBoardAPI(action: any) {
+  const boardId  = new ObjectID();
   const loggedinUser: User = {
     userId: action.loggedinUser.userId,
     userDisplayName: action.loggedinUser.userDisplayName,
@@ -36,30 +38,32 @@ export function addBoardAPI(action: any) {
     userActive: true,
   }
   const notNeededBoardObject: BoardItem = {
-    boardId: Math.random() * 23456 + '',
+    boardId: boardId.toString(),
     boardName: action.newBoard.boardName,
     boardDesc: action.newBoard.boardDesc
   }
   return axios.post(`${backtendHost}/api/boards`, {notNeededBoardObject, loggedinUser}, {withCredentials: true})
     .then((res: any) => {
-      res.data.boardId = res.data._id;
+      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
-// export function editBoardAPI(action: any) {
-//   return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
-//     .then((res: any) => {
-//       res.data.boardId = res.data._id;
-//       return Promise.resolve(res.data);
-//     });
-// }
-
-const socket = socketIOClient(backtendHost);
+// const socket = socketIOClient(backtendHost);
 export function editBoardAPI(action: any) {
-  // console.log('action.payload-------------', action);
-  socket.emit('updateBoard', action);
+  // socket.emit('updateBoard', action);
+  return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
+    .then((res: any) => {
+      // res.data.boardId = res.data._id;
+      return Promise.resolve(res.data);
+    });
 }
+
+// const socket = socketIOClient(backtendHost);
+// export function editBoardAPI(action: any) {
+//   // console.log('action.payload-------------', action);
+//   socket.emit('updateBoard', action);
+// }
 
 
 
@@ -71,9 +75,12 @@ export function deleteBoardAPI(boardId: String) {
 }
 
 export function addColumnAPI(action: any) {
+  // const headerId  = (new ObjectID()).toString();
+  action.progressHeader.headerId = (new ObjectID()).toString();
+  action.progressHeader.headerColumnId = (new ObjectID()).toString();
   return axios.post(`${backtendHost}/api/headers/${action.boardId}`, action.progressHeader, {withCredentials: true})
   .then((res: any) => {
-    res.data.boardId = res.data._id;
+    // res.data.boardId = res.data._id;
     return Promise.resolve(res.data);
   });
 }
@@ -81,7 +88,7 @@ export function addColumnAPI(action: any) {
 export function editColumnAPI(action: any) {
   return axios.put(`${backtendHost}/api/headers/${action.boardId}/${action.headerId}`, {headerTxt: action.headerTxt})
     .then((res: any) => {
-      res.data.boardId = res.data._id;
+      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
@@ -94,9 +101,13 @@ export function deleteColumnAPI(action: any) {
 }
 
 export function addPulseAPI(action: any) {
+  const pulseId  = (new ObjectID()).toString();
+  action.pulse.pulseId = pulseId;
+  action.pulse.headerColumnId = (new ObjectID()).toString();
+  action.pulse.headerId = (new ObjectID()).toString();
   return axios.post(`${backtendHost}/api/pulse/${action.boardId}`, action.pulse, {withCredentials: true})
-    .then((res: any) => {
-      res.data.boardId = res.data._id;
+  .then((res: any) => {
+      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
@@ -104,7 +115,7 @@ export function addPulseAPI(action: any) {
 export function editPulseAPI(action: any) {
   return axios.put(`${backtendHost}/api/pulse/${action.boardId}/${action.pulseId}`, {pulseTxt: action.pulseTxt})
     .then((res: any) => {
-      res.data.boardId = res.data._id;
+      // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
@@ -125,6 +136,7 @@ export function editCellAPI(action: any) {
 }
 
 export function addNewLabelAPI(action: any) {
+  action.label.labelId = (new ObjectID()).toString();
   return axios.post(`${backtendHost}/api/labels/${action.boardId}/${action.pulseId}/${action.cellId}`, action.label, {withCredentials: true})
     .then((res: any) => {
       res.data.boardId = res.data._id;

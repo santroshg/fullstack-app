@@ -1,3 +1,4 @@
+const { ObjectID } = require('bson');
 const BoardModel = require('../models/boardModel');
 
 const progressHeaderController = {
@@ -7,17 +8,20 @@ const progressHeaderController = {
       const { boardId } = req.params;
       if (boardId) {
         const progressHeaderData = req.body;
-        const newHeaderId = Math.random() * 1234;
+        // const newHeaderId = Math.random() * 1234;
+        // const newHeaderId = new ObjectID().toString();
         const cellData = {
-          headerColumnId: newHeaderId,
+          cellId: (new ObjectID()).toString(),
+          headerColumnId: progressHeaderData.headerColumnId,
+          headerId: progressHeaderData.headerId,
           cellLabelTxt: '',
           color: '',
           createTime: new Date(),
         };
-        progressHeaderData.headerColumnId = newHeaderId;
+        // progressHeaderData.headerColumnId = newHeaderId;
         // progressHeaderData.headerTxt = 'Status';
         progressHeaderData.createTime = new Date();
-        BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { progressHeader: progressHeaderData, 'pulse.$[].cells': cellData } }, { new: true }, (err, newProgressHeader) => {
+        BoardModel.findOneAndUpdate({ boardId }, { $push: { progressHeader: progressHeaderData, 'pulse.$[].cells': cellData } }, { new: true }, (err, newProgressHeader) => {
           if (err) {
             res.set('Content-Type', 'application/json');
             res.status(200).send({ message: 'borad not exist' });
@@ -34,13 +38,15 @@ const progressHeaderController = {
 
   // editProgressHeader
   editProgressHeader: (req, res, next) => {
+    // console.log('req-------------------------------------', req.params);
+    // console.log('req-body------------------------------------', req.body);
     try {
       const updateProgressHeaderData = req.body;
       const { boardId } = req.params;
       const { headerId } = req.params;
       if (boardId) {
         // eslint-disable-next-line max-len
-        BoardModel.findOneAndUpdate({ _id: boardId, 'progressHeader.headerId': headerId }, { $set: { 'progressHeader.$.headerTxt': updateProgressHeaderData.headerTxt } }, { new: true }, (err, updatedProgressHeader) => {
+        BoardModel.findOneAndUpdate({ boardId, 'progressHeader.headerId': headerId }, { $set: { 'progressHeader.$.headerTxt': updateProgressHeaderData.headerTxt } }, { new: true }, (err, updatedProgressHeader) => {
           if (err) {
             throw err;
           } else {
@@ -62,11 +68,11 @@ const progressHeaderController = {
   // deleteProgressHeader
   deleteProgressHeader: (req, res, next) => {
     try {
-      const { boardId } = req.params;
-      const { headerId } = req.params;
-      const { headerColumnId } = req.params;
+      const { boardId, headerId, headerColumnId } = req.params;
+      // const { headerId } = req.params;
+      // const { headerColumnId } = req.params;
       if (boardId && headerId && headerColumnId) {
-        BoardModel.findOneAndUpdate({ _id: boardId },
+        BoardModel.findOneAndUpdate({ boardId },
           { $pull: { progressHeader: { headerId }, 'pulse.$[].cells': { headerColumnId: req.params.headerColumnId } } },
           { new: true }, (err, newProgressHeader) => {
             if (err) {

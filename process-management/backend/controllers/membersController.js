@@ -11,7 +11,7 @@ const membersController = {
       const memberData = req.body;
       // TODO find userID before Updating
       if (boardId) {
-        BoardModel.findOneAndUpdate({ _id: boardId }, { $push: { members: memberData } }, { new: true }, (err, boardsWithUpdatedMember) => {
+        BoardModel.findOneAndUpdate({ boardId }, { $push: { members: memberData } }, { new: true }, (err, boardsWithUpdatedMember) => {
           if (err) {
             throw err;
           } else {
@@ -31,7 +31,7 @@ const membersController = {
       const { memberId } = req.params;
       const { boardId } = req.params;
       if (boardId && memberId) {
-        BoardModel.findOneAndUpdate({ _id: boardId }, { $pull: { members: { userId: memberId } } }, { new: true }, (err, data) => {
+        BoardModel.findOneAndUpdate({ boardId }, { $pull: { members: { userId: memberId } } }, { new: true }, (err, data) => {
           if (err) {
             res.status(404).send(`${memberId} not exist in database.`);
           } else {
@@ -55,7 +55,7 @@ const membersController = {
       const userId = req.userId;
 
       if (boardId && userId) {
-        BoardModel.findOneAndUpdate({ _id: boardId, 'members.userId': userId },
+        BoardModel.findOneAndUpdate({ boardId, 'members.userId': userId },
           {
             $set: {
               'members.$.userActive': true,

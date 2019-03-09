@@ -8,7 +8,7 @@ const labelsController = {
       const { pulseId } = req.params;
       const { cellId } = req.params;
       if (boardId && pulseId && cellId) {
-        BoardModel.find({ _id: boardId, 'pulse._id': pulseId, 'pulse.cells._id': cellId }, { 'pulse.$.cells.0.labels': 1 }, (err, response) => {
+        BoardModel.find({ pulseId: boardId, 'pulse.pulseId': pulseId, 'pulse.cells.cellId': cellId }, { 'pulse.$.cells.0.labels': 1 }, (err, response) => {
           if (err) {
             throw err;
           } else {
@@ -33,7 +33,7 @@ const labelsController = {
 
       if (boardId && pulseId && cellId && cellData) {
         // eslint-disable-next-line max-len
-        BoardModel.findOne({ _id: boardId }, (error, targetBoard) => {
+        BoardModel.findOne({ boardId }, (error, targetBoard) => {
           if (error) {
             throw error;
           } else {
@@ -93,9 +93,10 @@ const labelsController = {
       const { pulseId } = req.params;
       const { cellId } = req.params;
       const labelData = req.body;
+
       if (boardId && pulseId && cellId && labelData) {
         // eslint-disable-next-line max-len
-        BoardModel.findOne({ _id: boardId }, (error, targetBoard) => {
+        BoardModel.findOne({ boardId }, (error, targetBoard) => {
           if (error) {
             throw error;
           } else {
@@ -131,7 +132,7 @@ const labelsController = {
       const updatedLabelData = req.body;
 
       if (boardId && pulseId && cellId && labelId) {
-        BoardModel.findOne({ _id: boardId }, (err, targetBoard) => {
+        BoardModel.findOne({ boardId }, (err, targetBoard) => {
           if (err) {
             throw err;
           } else {
@@ -171,7 +172,7 @@ const labelsController = {
       const { labelId } = req.params;
       if (boardId && pulseId && cellId && labelId) {
         // eslint-disable-next-line max-len
-        BoardModel.findOne({ _id: boardId }, (err, targetBoard) => {
+        BoardModel.findOne({ boardId }, (err, targetBoard) => {
           if (err) {
             throw err;
           } else {

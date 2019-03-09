@@ -46,6 +46,7 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
                 labelTxt: this.state.addLabelText,
                 color: this.state.selectedColor,
             }
+            console.log('addNewLabelSaga====================', boardId, pulseId, cellId, label);
             this.props.addNewLabelSaga(boardId, pulseId, cellId, label);
             this.setState({ showAddLabel: false });
             this.setState({ addLabelText: '' });

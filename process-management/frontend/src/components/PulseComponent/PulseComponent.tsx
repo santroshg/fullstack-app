@@ -51,7 +51,10 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
         if (pulseId) {
             const boardId = this.props.selectedBoardId;
             this.props.deletePulseSaga(boardId, pulseId);
-            this.setState({ showPulseCellEdit: false });
+            this.setState({ 
+                showPulseCellEdit: false,
+                deletePulseDialogOpen: false
+            });
         }
     }
 
@@ -105,7 +108,7 @@ export default class PulseComponent extends React.Component<PulseComponentProps,
                                         <Button onClick={this.handleDeletePulseDialogClose} color="primary">
                                             Cancel
                                      </Button>
-                                        <Button onClick={() => this.handleDeletePulse(this.props.pulse.pulseId)} color="primary" autoFocus>
+                                        <Button onClick={(e) => this.handleDeletePulse(this.props.pulse.pulseId)} color="primary" autoFocus>
                                             Ok
                                      </Button>
                                     </DialogActions>

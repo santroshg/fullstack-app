@@ -5,7 +5,8 @@ const pulseModel = require('./pulseModel');
 
 const boardSchema = mongoose.Schema({
   boardId: {
-
+    type: String,
+    required: true,
   },
   boardName: {
     type: String,

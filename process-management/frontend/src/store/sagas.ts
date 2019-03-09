@@ -3,7 +3,7 @@ import { AnyAction } from 'redux';
 import { ProcessMgtActionType, BoardItem, Board } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
 import { setBoardsListAction, setBoardDetailsAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI, action.payload);
@@ -24,7 +24,7 @@ export function* addBoard(action: AnyAction) {
 
 export function* editBoard(action: AnyAction) {
   const updatedBoard: BoardItem = yield call(editBoardAPI, action.payload);
-  // yield put(setEditBoardAction(updatedBoard));
+  yield put(setEditBoardAction(updatedBoard));
 }
 
 export function* deleteBoard(action: AnyAction) {

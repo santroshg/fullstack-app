@@ -4,10 +4,11 @@ const cellModel = require('./cellModel');
 
 const pulseSchema = mongoose.Schema({
   pulseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
+    // type: mongoose.Schema.Types.ObjectId,
+    // index: true,
+    type: String,
     required: true,
-    auto: true,
+    // auto: true,
   },
   pulseCreatedBy: {
     type: String,
@@ -22,6 +23,9 @@ const pulseSchema = mongoose.Schema({
     type: String,
   },
   cells: [cellModel],
-}, { _id: false });
+},
+// { _id: false }
+// eslint-disable-next-line function-paren-newline
+);
 
 module.exports = pulseSchema;

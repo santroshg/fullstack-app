@@ -105,7 +105,7 @@ export default class ProgressHeaderComponent extends React.Component<ProgressHea
                                             <Button onClick={this.handleDeleteHeaderDialogClose} color="primary">
                                                 Cancel
                                      </Button>
-                                            <Button onClick={() => this.handleDeleteHeader(this.props.progressHeader.headerId, this.props.progressHeader.headerColumnId)} color="primary" autoFocus>
+                                            <Button onClick={(e) => this.handleDeleteHeader(this.props.progressHeader.headerId, this.props.progressHeader.headerColumnId)} color="primary" autoFocus>
                                                 Ok
                                      </Button>
                                         </DialogActions>

@@ -3,11 +3,11 @@ const BoardModel = require('../models/boardModel');
 
 exports.socketIo = (io) => {
   io.sockets.on('connection', (socket) => {
-    socket.on('updateBoard', (data) => {
+    socket.on('updateBoard-not-used', (data) => {
       try {
         const { boardId } = data;
         if (boardId) {
-          BoardModel.findOneAndUpdate({ _id: boardId },
+          BoardModel.findOneAndUpdate({ boardId },
             {
               $set: {
                 boardName: data.boardName,
@@ -18,7 +18,7 @@ exports.socketIo = (io) => {
                 throw err;
               } else {
                 io.emit('updatedSuccess', {
-                  boardId: updatedBoard._id,
+                  boardId: updatedBoard.boardId,
                   boardName: updatedBoard.boardName,
                   boardDesc: updatedBoard.boardDesc,
                 });

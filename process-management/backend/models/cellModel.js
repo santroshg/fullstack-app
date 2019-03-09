@@ -3,10 +3,11 @@ const labelModel = require('./labelModel');
 
 const cellSchema = mongoose.Schema({
   cellId: {
-    type: mongoose.Schema.Types.ObjectId,
-    index: true,
+    // type: mongoose.Schema.Types.ObjectId,
+    // index: true,
+    type: String,
     required: true,
-    auto: true,
+    // auto: true,
   },
   headerColumnId: {
     type: String,
@@ -22,6 +23,9 @@ const cellSchema = mongoose.Schema({
     default: Date.now,
   },
   labels: [labelModel],
-}, { _id: false });
+},
+// { _id: false }
+// eslint-disable-next-line function-paren-newline
+);
 
 module.exports = cellSchema;
