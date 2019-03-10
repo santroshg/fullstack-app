@@ -43,3 +43,6 @@ export const setRemoveMemberToBoardAction = (boardId: String, members: User[]) =
 
 export const getLoggedinUserAction = () => action(ProcessMgtActionType.GET_LOGGEDIN_USER_SAGA);
 export const setLoggedinUserAction = (loggedinUser: User) => action(ProcessMgtActionType.SET_LOGGEDIN_USER, loggedinUser);
+
+export const undoAddBoardAction = (boardId: String) => action(ProcessMgtActionType.ADD_BOARD_ERROR, boardId);
+export const resetErrorMessageAction = () => action(ProcessMgtActionType.RESET_ERROR_MESSAGE);

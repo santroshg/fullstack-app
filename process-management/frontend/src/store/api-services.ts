@@ -3,7 +3,7 @@ import socketIOClient from 'socket.io-client';
 import { ObjectID } from 'bson';
 
 import { BoardItem, User, PulseItem } from './types';
-import { backtendHost } from '../constants/constants'
+import { backtendHost, frontendHost } from '../constants/constants'
 import { setEditBoardAction } from './actions';
 
 
@@ -30,40 +30,37 @@ export function getBoardDetailsAPI(boardId: String) {
 }
 
 export function addBoardAPI(action: any) {
-  const boardId  = new ObjectID();
-  const loggedinUser: User = {
-    userId: action.loggedinUser.userId,
-    userDisplayName: action.loggedinUser.userDisplayName,
-    userEmail: action.loggedinUser.userEmail,
-    userActive: true,
-  }
-  const notNeededBoardObject: BoardItem = {
-    boardId: boardId.toString(),
-    boardName: action.newBoard.boardName,
-    boardDesc: action.newBoard.boardDesc
-  }
-  return axios.post(`${backtendHost}/api/boards`, {notNeededBoardObject, loggedinUser}, {withCredentials: true})
+  // const loggedinUser: User = {
+  //   userId: action.loggedinUser.userId,
+  //   userDisplayName: action.loggedinUser.userDisplayName,
+  //   userEmail: action.loggedinUser.userEmail,
+  //   userActive: true,
+  // }
+  // const notNeededBoardObject: BoardItem = {
+  //   boardId: (new ObjectID()).toString(),
+  //   boardName: action.newBoard.boardName,
+  //   boardDesc: action.newBoard.boardDesc
+  // }
+  return axios.post(`${backtendHost}/api/boards`, action, {withCredentials: true})
     .then((res: any) => {
       // res.data.boardId = res.data._id;
       return Promise.resolve(res.data);
     });
 }
 
-// const socket = socketIOClient(backtendHost);
-export function editBoardAPI(action: any) {
-  // socket.emit('updateBoard', action);
-  return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
-    .then((res: any) => {
-      // res.data.boardId = res.data._id;
-      return Promise.resolve(res.data);
-    });
-}
-
-// const socket = socketIOClient(backtendHost);
 // export function editBoardAPI(action: any) {
-//   // console.log('action.payload-------------', action);
-//   socket.emit('updateBoard', action);
+//   return axios.put(`${backtendHost}/api/boards/${action.boardId}`, {board: action}, {withCredentials: true})
+//     .then((res: any) => {
+//       // res.data.boardId = res.data._id;
+//       return Promise.resolve(res.data);
+//     });
 // }
+
+const socket = socketIOClient(backtendHost);
+export function editBoardAPI(action: any) {
+  // console.log('action.payload-------------', action);
+  socket.emit('updateBoard', action);
+}
 
 
 

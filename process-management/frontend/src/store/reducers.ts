@@ -5,9 +5,11 @@ const initialState: ProcessManagementState = {
   loggedinUser: undefined,
   boardList: undefined,
   currentBoard: undefined,
+  errorMessage: '',
 };
 
 const ProcessManagementReducer = (currentState: ProcessManagementState = initialState, action: AnyAction) => {
+
   switch (action.type) {
     case ProcessMgtActionType.SET_BOARDS_LIST:
       if (currentState.boardList !== undefined) {
@@ -20,7 +22,24 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, currentBoard: action.payload };
 
     case ProcessMgtActionType.SET_ADD_BOARD:
-      return { ...currentState, boardList: [...currentState.boardList, action.payload] };
+      return { ...currentState, boardList: [...currentState.boardList, action.payload], errorMessage: '' };
+
+    case ProcessMgtActionType.ADD_BOARD_ERROR:
+      // console.log('historyState after error----', action);
+      // console.log('currentState after erro-----------', currentState);
+      const oldBoardList = [...currentState.boardList];
+      // console.log('oldBoardList-------------------------------', oldBoardList);
+      const errorBoardName = oldBoardList.filter(ol => ol.boardId === action.payload)[0].boardName;
+      if(oldBoardList.length > 1) {
+        const newBoardList = oldBoardList.filter(ol => ol.boardId !== action.payload);
+        return { ...currentState, boardList: newBoardList, errorMessage: `Previous board- "${errorBoardName}" not added successfully due to technical issue, please try again.`};
+      } else {
+        return { ...currentState, boardList: [], errorMessage: `Previous board- "${errorBoardName}" not added successfully due to technical issue, please try again.` };
+      }
+      
+    
+    case ProcessMgtActionType.RESET_ERROR_MESSAGE:
+      return { ...currentState, errorMessage: '' }
 
     case ProcessMgtActionType.SET_EDIT_BOARD:
     // console.log('in reducers================================',action.payload);

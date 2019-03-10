@@ -1,9 +1,10 @@
 import { takeLatest, takeEvery, call, put } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
-import { ProcessMgtActionType, BoardItem, Board } from './types';
+import { ObjectID } from 'bson';
+import { ProcessMgtActionType, BoardItem, Board, User } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
 import { setBoardsListAction, setBoardDetailsAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction, undoAddBoardAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI, action.payload);
@@ -18,13 +19,28 @@ export function* getBoardDetails(action: AnyAction) {
 }
 
 export function* addBoard(action: AnyAction) {
-  const addedBoard: BoardItem = yield call(addBoardAPI, action.payload);
-  yield put(setAddBoardAction(addedBoard));
+  const loggedinUser: User = {
+    userId: action.payload.loggedinUser.userId,
+    userDisplayName: action.payload.loggedinUser.userDisplayName,
+    userEmail: action.payload.loggedinUser.userEmail,
+    userActive: true,
+  }
+  const notNeededBoardObject: BoardItem = {
+    boardId: (new ObjectID()).toString(),
+    boardName: action.payload.newBoard.boardName,
+    boardDesc: action.payload.newBoard.boardDesc
+  }
+  yield put(setAddBoardAction(notNeededBoardObject));
+  const addedBoard: any = yield call(addBoardAPI, {loggedinUser, notNeededBoardObject});
+  if(addedBoard.error === 'ADD_BOARD_ERROR') {
+    yield put(undoAddBoardAction(addedBoard.boardId));
+  } 
+  // yield put(setAddBoardAction(addedBoard));
 }
 
 export function* editBoard(action: AnyAction) {
   const updatedBoard: BoardItem = yield call(editBoardAPI, action.payload);
-  yield put(setEditBoardAction(updatedBoard));
+  // yield put(setEditBoardAction(updatedBoard));
 }
 
 export function* deleteBoard(action: AnyAction) {

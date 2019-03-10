@@ -3,7 +3,7 @@ const BoardModel = require('../models/boardModel');
 
 exports.socketIo = (io) => {
   io.sockets.on('connection', (socket) => {
-    socket.on('updateBoard-not-used', (data) => {
+    socket.on('updateBoard', (data) => {
       try {
         const { boardId } = data;
         if (boardId) {

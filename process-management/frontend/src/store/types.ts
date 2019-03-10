@@ -34,7 +34,9 @@ export enum ProcessMgtActionType {
   REMOVE_MEMBER_FROM_BOARD_SAGA = '@@types/REMOVE_MEMBER_FROM_BOARD_SAGA',
   SET_REMOVE_MEMBER_FROM_BOARD = '@@types/SET_REMOVE_MEMBER_FROM_BOARD',
   GET_LOGGEDIN_USER_SAGA = '@@types/GET_LOGGEDIN_USER_SAGA',
-  SET_LOGGEDIN_USER = '@@types/SET_LOGGEDIN_USER'
+  SET_LOGGEDIN_USER = '@@types/SET_LOGGEDIN_USER',
+  ADD_BOARD_ERROR = '@@types/ADD_BOARD_ERROR',
+  RESET_ERROR_MESSAGE = '@@types/RESET_ERROR_MESSAGE',
 }
 
 export interface User {
@@ -118,4 +120,5 @@ export interface ProcessManagementState {
   loggedinUser?: GoogleUser,
   boardList?: BoardItem[],
   currentBoard?: Board,
+  errorMessage?: String,
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BoardItem, ProcessManagementState, Board, User, PulseItem, ProgressHeader, Label, GoogleUser, CellItem } from '../../store/types';
 import { Dispatch } from 'redux';
-import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, deleteBoardAction, editBoardAction, editCellAction, deleteColumnAction } from '../../store/actions';
+import { getBoardsListAction, addBoardAction, getBoardDetailsAction, addMemberToBoardAction, removeMemberToBoardAction, addPulseAction, deletePulseAction, addColumnAction, editPulseAction, setEditPulseAction, editColumnAction, addNewLabelAction, editLabelAction, deleteLabelAction, deleteBoardAction, editBoardAction, editCellAction, deleteColumnAction, resetErrorMessageAction } from '../../store/actions';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -10,15 +10,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Edit from '@material-ui/icons/Edit';
-import TextField from '@material-ui/core/TextField';
 import AddBoardDialog from '../BoardListComponent/AddBoardDialog';
 import BoardComponent from '../BoardComponent/BoardComponent';
 import { addColumn } from '../../store/sagas';
 import DeleteBoardDialog from '../BoardListComponent/DeleteBoardDialog';
 import Assignment from '@material-ui/icons/Assignment';
-import AddIcon from '@material-ui/icons/Add';
-import { Tooltip, IconButton } from '@material-ui/core';
-DeleteBoardDialog
+import { TextField, Tooltip, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, Button, DialogActions } from '@material-ui/core';
+
 export interface BoardListProps {
     boardList: BoardItem[],
     currentBoard: Board,
@@ -40,6 +38,8 @@ export interface BoardListProps {
     loggedinUser: GoogleUser,
     deleteBoardSaga: any,
     editBoardSaga: any,
+    errorMessage: String,
+    resetErrorMessage: any,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
@@ -49,6 +49,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
         showBoardEditbox: false,
         targetEditBoardid: '',
         updateBoardName: '',
+        open: true,
     }
 
     componentDidMount() {
@@ -98,6 +99,11 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
         if (response) {
             this.props.deleteBoardSaga(boardId);
         }
+    }
+
+    handleOk = () => {
+        this.props.resetErrorMessage();
+        this.setState({ open: true });
     }
 
     public render() {
@@ -168,6 +174,29 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                         deleteLabelSaga={this.props.deleteLabelSaga}
                     />
                 </div>
+                {this.props.errorMessage !== '' ? (
+                    <Dialog
+                        disableBackdropClick
+                        disableEscapeKeyDown
+                        open={this.state.open}
+                        onClose={this.handleOk}
+                        aria-labelledby="form-dialog-title"
+                    >
+                        <DialogTitle id="form-dialog-title">Add board error</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.props.errorMessage}
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={this.handleOk} color="primary">
+                            Ok
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+                ) : (
+                    <React.Fragment />
+                ) }
             </div>
         );
     }
@@ -177,6 +206,7 @@ const connectStateToProps = (state: ProcessManagementState) => ({
     boardList: state.boardList,
     currentBoard: state.currentBoard,
     loggedinUser: state.loggedinUser,
+    errorMessage: state.errorMessage,
 });
 
 const connectDispatchToProps = (dispatch: Dispatch) => ({
@@ -198,6 +228,7 @@ const connectDispatchToProps = (dispatch: Dispatch) => ({
     deleteLabelSaga: (boardId: String, pulseId: String, cellId: String, labelId: String) => dispatch(deleteLabelAction(boardId, pulseId, cellId, labelId)),
     deleteBoardSaga: (boardId: String) => dispatch(deleteBoardAction(boardId)),
     editBoardSaga: (updatedBoard: BoardItem) => dispatch(editBoardAction(updatedBoard)),
+    resetErrorMessage: () => dispatch(resetErrorMessageAction()),
 });
 
 export default connect(connectStateToProps, connectDispatchToProps)(BoardListComponent);
