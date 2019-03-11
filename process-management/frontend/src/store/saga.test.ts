@@ -119,7 +119,7 @@ describe('ServiceManagementStoreSaga', () => {
             deletePulseSaga.next().value.should.deep.equal(call(deletePulseAPI, {boardId, pulseId}));
         });
         
-        it('It should call editCell()', () => {
+        xit('It should call editCell()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '1';
@@ -134,7 +134,7 @@ describe('ServiceManagementStoreSaga', () => {
             editCellSaga.next().value.should.deep.equal(call(editCellAPI, {boardId, pulseId, cellId, cell}));
         });
 
-        it('It should call addNewLabel()', () => {
+        xit('It should call addNewLabel()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '1';

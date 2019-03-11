@@ -28,10 +28,12 @@ export const setEditPulseAction = (pulseId: String, pulseTxt: Pulse) => action(P
 export const deletePulseAction = (boardId: String, pulseId: String) => action(ProcessMgtActionType.DELETE_PULSE_SAGA, {boardId, pulseId});
 export const setDeletePulseAction = (pulseId: String) => action(ProcessMgtActionType.SET_DELETE_PULSE, {pulseId});
 export const editCellAction = (boardId: String, pulseId: String, cellId: String, cell:CellItem) => action(ProcessMgtActionType.EDIT_CELL_SAGA, {boardId, pulseId, cellId, cell});
-export const setEditCellAction = (boardId: String, pulse:Pulse ) => action(ProcessMgtActionType.SET_EDIT_CELL, { boardId, pulse });
+export const setEditCellAction = (pulseId: String, cellId: String, cell: CellItem ) => action(ProcessMgtActionType.SET_EDIT_CELL, { pulseId, cellId, cell });
+// export const setEditCellAction = (boardId: String, pulse:Pulse ) => action(ProcessMgtActionType.SET_EDIT_CELL, { boardId, pulse });
 // create new label in selected cell lebel list 
 export const addNewLabelAction = (boardId: String, pulseId: String, cellId: String, label: String) => action(ProcessMgtActionType.ADD_NEW_LABEL_SAGA, {boardId, pulseId, cellId, label});
-export const setAddNewLabelAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, pulse});
+export const setAddNewLabelAction = (pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {pulseId, cellId, label});
+// export const setAddNewLabelAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, pulse});
 export const editLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => action(ProcessMgtActionType.EDIT_LABEL_SAGA, {boardId, pulseId, cellId, labelId, label});
 export const setEditLabelAction = (boardId: String, pulse: Pulse[]) => action(ProcessMgtActionType.SET_EDIT_LABEL, {boardId, pulse});
 export const deleteLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.DELETE_LABEL_SAGA, {boardId, pulseId, cellId, labelId});

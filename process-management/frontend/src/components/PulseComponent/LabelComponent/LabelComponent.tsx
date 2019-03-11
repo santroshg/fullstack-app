@@ -62,7 +62,16 @@ export default class LabelComponent extends Component<LabelComponentProps, Label
                     <div className='label-component-wrapper'>
                         <div className='label-item-component'>
                             {this.props.labels.map((label) => (
-                                <LabelItemComponent key={label.labelId as string} label={label} handlePopoverClose={this.props.handlePopoverClose} selectedBoardId={this.props.selectedBoardId} selectedPulseId={this.props.selectedPulseId} selectedCellId={this.props.selectedCellId} editCellSaga={this.props.editCellSaga} editLabelSaga={this.props.editLabelSaga} deleteLabelSaga={this.props.deleteLabelSaga} />
+                                <LabelItemComponent key={label.labelId as string}
+                                    label={label} 
+                                    handlePopoverClose={this.props.handlePopoverClose}
+                                    selectedBoardId={this.props.selectedBoardId}
+                                    selectedPulseId={this.props.selectedPulseId}
+                                    selectedCellId={this.props.selectedCellId}
+                                    editCellSaga={this.props.editCellSaga}
+                                    editLabelSaga={this.props.editLabelSaga}
+                                    deleteLabelSaga={this.props.deleteLabelSaga}
+                                />
                             ))}
                         </div>
                         <div className='add-label-wrapper'>

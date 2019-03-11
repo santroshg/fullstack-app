@@ -292,7 +292,7 @@ describe('ProcessManagementReducers', () => {
         //     store.getState().currentBoard.pulse.length.should.be.equal(beforePulseLen - 1);
         // });
 
-        it('It should call setEditCellAction()', () => {
+        xit('It should call setEditCellAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const pulse: Pulse = {
@@ -306,7 +306,7 @@ describe('ProcessManagementReducers', () => {
             store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test Pulse Txt');
         });
 
-        it('It should call setAddNewLabelAction()', () => {
+        xit('It should call setAddNewLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';

@@ -87,16 +87,17 @@ export function* deletePulse(action: AnyAction) {
 }
 
 export function* editCell(action: AnyAction) {
+  yield put(setEditCellAction(action.payload.pulseId, action.payload.cellId, action.payload.cell));
   const boardAfterEditCell = yield call(editCellAPI, action.payload);
-  yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulse));
+  // yield put(setEditCellAction(boardAfterEditCell.boardId, boardAfterEditCell.pulse));
 }
 
 export function* addNewLabel(action: AnyAction) {
+  console.log('addNewLabel--------------------------------', action.payload);
+  yield put(setAddNewLabelAction(action.payload.pulseId, action.payload.cellId, action.payload.label));
   const boardAfterAddNewLabel = yield call(addNewLabelAPI, action.payload);
   // const pulse = boardAfterAddNewLabel.pulse.filter((p:any) => p.pulseId === action.payload.pulseId)[0];
-  // console.log('boardAfterAddNewLabel', pulse);
- //yield put(setAddNewLabelAction(action.payload.boardId, action.payload.pulseId, action.payload.cellId, boardAfterAddNewLabel.label));
- yield put(setAddNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulse));
+  // yield put(setAddNewLabelAction(boardAfterAddNewLabel.boardId, boardAfterAddNewLabel.pulse));
 }
 
 export function* editLabel(action: AnyAction) {
@@ -106,7 +107,7 @@ export function* editLabel(action: AnyAction) {
 
 export function* deleteLabel(action: AnyAction) {
   const boardAfterDeleteLabel = yield call(deleteLabelAPI, action.payload);
-  yield put(setAddNewLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulse));
+  // yield put(setAddNewLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulse));
  // yield put(setDeleteLabelAction(boardAfterDeleteLabel.boardId, boardAfterDeleteLabel.pulseId, boardAfterDeleteLabel.cellId, boardAfterDeleteLabel.labelId));
 }
 

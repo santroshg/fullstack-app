@@ -121,7 +121,18 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
+      const tempPulse = [...currentState.currentBoard.pulse];
+      const oldCell = tempPulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const newCell = { ...oldCell, cellLabelTxt: action.payload.cell.cellLabelTxt, color: action.payload.cell.color };
+      const newPulse_cells_SET_EDIT_CELL = tempPulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
+      const oldPulse_one = tempPulse.filter(op => op.pulseId === action.payload.pulseId)[0];
+      const newPulse_one = { ...oldPulse_one, cells: newPulse_cells_SET_EDIT_CELL };
+      const newpulseList = tempPulse
+        .map(p => p.pulseId === action.payload.pulseId ? newPulse_one : p);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newpulseList }} } };
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
       // const targetCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
       //   .cells.filter(c => c.cellId === action.payload.cell.cellId)[0];
       // const updatedCell = Object.assign(targetCell, {
@@ -140,7 +151,16 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList1 } } } };
 
     case ProcessMgtActionType.SET_ADD_NEW_LABEL:
-    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+      const oldPulseList_label = [...currentState.currentBoard.pulse];
+      const oldPulse_One_label = oldPulseList_label.filter(opl => opl.pulseId === action.payload.pulseId)[0];
+      const oldCellOne_label = oldPulse_One_label.cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const newCellOne_label = { ...oldCellOne_label, labels: [...oldCellOne_label.labels, action.payload.label] };
+      const newCellList_One_label = oldPulse_One_label.cells.map(c => c.cellId === action.payload.cellId ? newCellOne_label : c);
+      const newPulse_One_label = { ...oldPulse_One_label, cells: newCellList_One_label };
+      const newPulseList_label = oldPulseList_label.map(o => o.pulseId === action.payload.pulseId ? newPulse_One_label : o);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_label } } } };
+
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
       // const targetCell_ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
       //   .cells.filter(c => c.cellId === action.payload.cellId)[0];
       // const targetCell_With_newLables = { ...targetCell_, labels: [...targetCell_.labels, action.payload.label] };
