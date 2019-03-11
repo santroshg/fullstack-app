@@ -8,7 +8,8 @@
     "lint": "./node_modules/.bin/eslint . --ext .js",
     "test": "mocha --exit",
     "build": "webpack",
-    "serve": "webpack-dev-server --host 0.0.0.0 --watch-poll"
+    "serve": "webpack-dev-server --host 0.0.0.0 --watch-poll",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "dependencies": {
     "bson": "^4.0.1",
@@ -37,5 +38,6 @@
     "eslint-plugin-import": "^2.16.0",
     "mocha": "^6.0.2",
     "webpack-cli": "^3.2.3"
-  }
+  },
+  "heroku-run-build-script": true
 }
