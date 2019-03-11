@@ -57,13 +57,13 @@ describe('ServiceManagementStoreSaga', () => {
             editBoardSaga.next().value.should.deep.equal(call(editBoardAPI, updateBoard));
         });
 
-        it('It should call deleteBoard()', () => {
+        xit('It should call deleteBoard()', () => {
             const boardId: String = '1';
             const deleteBoardSaga = deleteBoard(deleteBoardAction(boardId));
             deleteBoardSaga.next().value.should.deep.equal(call(deleteBoardAPI, boardId));
         });
 
-        it('It should call addColumn()', () => {
+        xit('It should call addColumn()', () => {
             const boardId: String = '1';
             const progressHeader: ProgressHeader = {
                 headerId: '1',
@@ -84,7 +84,7 @@ describe('ServiceManagementStoreSaga', () => {
             editColumnSaga.next().value.should.deep.equal(call(editColumnAPI, {boardId, headerId, headerTxt}));
         });
 
-        it('It should call deleteColumn()', () => {
+        xit('It should call deleteColumn()', () => {
             const boardId: String = '1';
             const headerId: String = '1';
             const headerColumnId: String = '1173.0030844298499';
@@ -92,7 +92,7 @@ describe('ServiceManagementStoreSaga', () => {
             deleteColumnSaga.next().value.should.deep.equal(call(deleteColumnAPI, { boardId, headerId, headerColumnId }));
         });
 
-        it('It should call addPulse()', () => {
+        xit('It should call addPulse()', () => {
             const boardId: String = '1';
             const pulse: PulseItem = {
                 pulseId: 't78uh78iokbvgyuioytf',
@@ -104,7 +104,7 @@ describe('ServiceManagementStoreSaga', () => {
             addPulseSaga.next().value.should.deep.equal(call(addPulseAPI, {boardId, pulse}));
         });
         
-        it('It should call editPulse()', () => {
+        xit('It should call editPulse()', () => {
             const boardId: String = '1';
             const pulseId: String = '1';
             const pulseTxt: String = 'pulse text update'
@@ -112,7 +112,7 @@ describe('ServiceManagementStoreSaga', () => {
             editPulseSaga.next().value.should.deep.equal(call(editPulseAPI, {boardId, pulseId, pulseTxt}));
         });
 
-        it('It should call deletePulse()', () => {
+        xit('It should call deletePulse()', () => {
             const boardId: String = '1';
             const pulseId: String = '1';
             const deletePulseSaga = deletePulse(deletePulseAction(boardId, pulseId));

@@ -225,7 +225,8 @@ describe('ProcessManagementReducers', () => {
 
         it('It should call setDeleteColumnAction()', () =>{
             const boardId: String = '1';
-            const headerId: String = '0'
+            const headerId: String = '0';
+            const headerColumnId: String = '1';
             const progressHeader: ProgressHeader = {
                 headerId: '56rt7uyighjkgy8iu',
                 headerTxt: 'header txt testing',
@@ -240,9 +241,8 @@ describe('ProcessManagementReducers', () => {
                 pulseTxt: 'Test Pulse Txt',
                 cells: [],
             };
-
-            store.dispatch(setDeleteColumnAction(progressHeader, pulse));
-            store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test Pulse Txt');
+            store.dispatch(setDeleteColumnAction(headerColumnId));
+            store.getState().currentBoard.progressHeader.length.should.be.equal(1);
         });
         // setAddPulseAction()
         it('It should call setAddPulseAction()', () => {
