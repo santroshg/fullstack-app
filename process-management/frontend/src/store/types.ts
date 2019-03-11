@@ -37,6 +37,8 @@ export enum ProcessMgtActionType {
   SET_LOGGEDIN_USER = '@@types/SET_LOGGEDIN_USER',
   ADD_BOARD_ERROR = '@@types/ADD_BOARD_ERROR',
   RESET_ERROR_MESSAGE = '@@types/RESET_ERROR_MESSAGE',
+  SHOW_LOADING_ACTION = '@@types/SHOW_LOADING_ACTION',
+  REMOVE_LOADING_ACTION = '@@types/REMOVE_LOADING_ACTION'
 }
 
 export interface User {
@@ -70,6 +72,7 @@ export interface Label {
 export interface Cells {
   cellId: String,
   headerId: String,
+  headerColumnId: String,
   cellLabelTxt: String,
   color: String,
   createTime: Date,
@@ -121,4 +124,5 @@ export interface ProcessManagementState {
   boardList?: BoardItem[],
   currentBoard?: Board,
   errorMessage?: String,
+  showLoader?: Boolean,
 }

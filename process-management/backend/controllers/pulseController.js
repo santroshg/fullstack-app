@@ -58,6 +58,7 @@ const pulseController = {
                     if (newPulse) {
                       // res.set('Content-Type', 'application/json');
                       // console.log('newPulse------------------', newPulse);
+                      // setTimeout(() => res.status(200).send(newPulse), 5000);
                       res.status(200).send(newPulse);
                     } else {
                       res.set('Content-Type', 'application/json');
@@ -96,6 +97,7 @@ const pulseController = {
               pulseTxt: pulse.pulseTxt,
             };
             res.set('Content-Type', 'application/json');
+            // setTimeout(() => res.status(200).send(pulseData), 5000);
             res.status(200).send(pulseData);
           }
         });
@@ -125,7 +127,9 @@ const pulseController = {
             const pulseData = {
               pulseId,
             };
+            // console.log('pulseData------------------------------------', pulseData);
             res.set('Content-Type', 'application/json');
+            // setTimeout(() => res.status(200).send(pulseData), 5000);
             res.status(200).send(pulseData);
           }
         });

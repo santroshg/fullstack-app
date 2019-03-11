@@ -27,6 +27,7 @@ const progressHeaderController = {
             res.status(200).send({ message: 'borad not exist' });
           } else {
             res.set('Content-Type', 'application/json');
+            // setTimeout(() => res.status(200).send(newProgressHeader), 5000);
             res.status(200).send(newProgressHeader);
           }
         });

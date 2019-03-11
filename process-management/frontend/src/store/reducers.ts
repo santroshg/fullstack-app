@@ -6,6 +6,7 @@ const initialState: ProcessManagementState = {
   boardList: undefined,
   currentBoard: undefined,
   errorMessage: '',
+  showLoader: false,
 };
 
 const ProcessManagementReducer = (currentState: ProcessManagementState = initialState, action: AnyAction) => {
@@ -53,8 +54,7 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     }
       
     case ProcessMgtActionType.SET_DELETE_BOARD:
-      
-      return { ...currentState, boardList: currentState.boardList.filter(b => b.boardId !== action.payload), currentBoard: null };
+      return { ...currentState, currentBoard: undefined, boardList: currentState.boardList.filter(b => b.boardId !== action.payload) };
 
     case ProcessMgtActionType.SET_ADD_COLUMN:
       // this is incorrect, need handle row and column both
@@ -72,8 +72,21 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       
     case ProcessMgtActionType.SET_DELETE_COLUMN:
       // need to write correct reducers for delete column
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
-     // return currentState;
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
+     const newProgressHeader = currentState.currentBoard.progressHeader.filter(p => p.headerColumnId !== action.payload.headerColumnId);
+     const oldPulseAfterDelete = [...currentState.currentBoard.pulse];
+    //  const newPulseAfterDelete = oldPulseAfterDelete.map((pl) => {
+    //    return pl.cells.filter(c => c.headerColumnId !== action.payload.headerColumnId );
+    //  })
+    for(let i = 0; i < oldPulseAfterDelete.length; i++) {
+      for(let j = 0; j < oldPulseAfterDelete[i].cells.length; j++) {
+        // oldPulseAfterDelete[i].cells.
+          if (oldPulseAfterDelete[i].cells[j].headerColumnId === action.payload.headerColumnId) {
+            oldPulseAfterDelete[i].cells.splice(j,1);
+        }
+      }
+    }
+    return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: newProgressHeader }, ...{ pulse: oldPulseAfterDelete } } } };
 
     // issue may occure in below reducers due to pulse structure 
     //=> right now PulseItem, it should Pulse
@@ -178,6 +191,11 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
         profileImgUrl: action.payload.profileImgUrl,
       }
       return {...currentState, ...{loggedinUser: currentUser}};
+    
+    case ProcessMgtActionType.SHOW_LOADING_ACTION:
+      return { ...currentState, showLoader: true };
+    case ProcessMgtActionType.REMOVE_LOADING_ACTION:
+      return { ...currentState, showLoader: false };
 
     default:
       return currentState;

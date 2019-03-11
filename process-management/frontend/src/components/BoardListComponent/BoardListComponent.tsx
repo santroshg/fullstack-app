@@ -40,6 +40,7 @@ export interface BoardListProps {
     editBoardSaga: any,
     errorMessage: String,
     resetErrorMessage: any,
+    showLoader: Boolean,
 }
 
 export class BoardListComponent extends React.PureComponent<BoardListProps, any> {
@@ -107,6 +108,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
     }
 
     public render() {
+        // console.log('this.props.currentBoard--------------', this.props.currentBoard);
         return (
             <div className='board-list-component'>
                 <div className='board-list-wrapper'>
@@ -159,20 +161,27 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
 
                 </div>
                 <div className='board-component'>
+                {this.props.showLoader ? (
+                    // <div className="loader"></div>
+                    <div className="lds-hourglass"></div>
+                ) : (
+                    <div className="main-board">
                     <BoardComponent currentBoard={this.props.currentBoard}
-                        addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                        removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
-                        addPulseSaga={this.props.addPulseSaga}
-                        editPulseSaga={this.props.editPulseSaga}
-                        deletePulseSaga={this.props.deletePulseSaga}
-                        addColumnSaga={this.props.addColumnSaga}
-                        editColumnSaga={this.props.editColumnSaga}
-                        deleteColumnSaga={this.props.deleteColumnSaga}
-                        editCellSaga={this.props.editCellSaga}
-                        addNewLabelSaga={this.props.addNewLabelSaga}
-                        editLabelSaga={this.props.editLabelSaga}
-                        deleteLabelSaga={this.props.deleteLabelSaga}
-                    />
+                    addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                    removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
+                    addPulseSaga={this.props.addPulseSaga}
+                    editPulseSaga={this.props.editPulseSaga}
+                    deletePulseSaga={this.props.deletePulseSaga}
+                    addColumnSaga={this.props.addColumnSaga}
+                    editColumnSaga={this.props.editColumnSaga}
+                    deleteColumnSaga={this.props.deleteColumnSaga}
+                    editCellSaga={this.props.editCellSaga}
+                    addNewLabelSaga={this.props.addNewLabelSaga}
+                    editLabelSaga={this.props.editLabelSaga}
+                    deleteLabelSaga={this.props.deleteLabelSaga}
+                />
+                </div>
+                )}
                 </div>
                 {this.props.errorMessage !== '' ? (
                     <Dialog
@@ -207,6 +216,7 @@ const connectStateToProps = (state: ProcessManagementState) => ({
     currentBoard: state.currentBoard,
     loggedinUser: state.loggedinUser,
     errorMessage: state.errorMessage,
+    showLoader: state.showLoader,
 });
 
 const connectDispatchToProps = (dispatch: Dispatch) => ({

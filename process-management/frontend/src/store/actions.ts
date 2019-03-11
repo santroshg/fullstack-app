@@ -19,7 +19,8 @@ export const setAddColumnAction = (boardId: String, progressHeader: ProgressHead
 export const editColumnAction = (boardId: String, headerId: String, headerTxt: String) => action(ProcessMgtActionType.EDIT_COLUMN_SAGA, {boardId, headerId, headerTxt});
 export const setEditColumnAction = (headerId: String, headerTxt: String) => action(ProcessMgtActionType.SET_EDIT_COLUMN, {headerId, headerTxt});
 export const deleteColumnAction = (boardId: String, headerId: String, headerColumnId: String) => action(ProcessMgtActionType.DELETE_COLUMN_SAGA, {boardId, headerId, headerColumnId});
-export const setDeleteColumnAction = (progressHeader: ProgressHeader, pulse:Pulse) => action(ProcessMgtActionType.SET_DELETE_COLUMN, { progressHeader, pulse});
+export const setDeleteColumnAction = (headerColumnId: String) => action(ProcessMgtActionType.SET_DELETE_COLUMN, { headerColumnId });
+// export const setDeleteColumnAction = (progressHeader: ProgressHeader, pulse:Pulse) => action(ProcessMgtActionType.SET_DELETE_COLUMN, { progressHeader, pulse});
 export const addPulseAction = (boardId: String, pulse: PulseItem) => action(ProcessMgtActionType.ADD_PULSE_SAGA, {boardId, pulse});
 export const setAddPulseAction = (boardId: String, pulse: PulseItem, progressHeader: ProgressHeader) => action(ProcessMgtActionType.SET_ADD_PULSE, {boardId, pulse, progressHeader});
 export const editPulseAction = (boardId: String, pulseId: String, pulseTxt: String) => action(ProcessMgtActionType.EDIT_PULSE_SAGA, {boardId, pulseId, pulseTxt});
@@ -46,3 +47,5 @@ export const setLoggedinUserAction = (loggedinUser: User) => action(ProcessMgtAc
 
 export const undoAddBoardAction = (boardId: String) => action(ProcessMgtActionType.ADD_BOARD_ERROR, boardId);
 export const resetErrorMessageAction = () => action(ProcessMgtActionType.RESET_ERROR_MESSAGE);
+export const showLoadingAction = () => action(ProcessMgtActionType.SHOW_LOADING_ACTION);
+export const removeLoadingAction = () => action(ProcessMgtActionType.REMOVE_LOADING_ACTION);

@@ -4,7 +4,7 @@ import { ObjectID } from 'bson';
 import { ProcessMgtActionType, BoardItem, Board, User } from './types';
 import { getBoardsListAPI, getBoardDetailsAPI, addBoardAPI, editBoardAPI, deleteBoardAPI, addColumnAPI, deleteColumnAPI, addPulseAPI, editPulseAPI, deletePulseAPI, editCellAPI, addNewLabelAPI, editLabelAPI, deleteLabelAPI, addMemberToBoardAPI, removeMemberToBoardAPI, editColumnAPI, getLoggedinUserAPI } from './api-services';
 import { setBoardsListAction, setBoardDetailsAction, setAddBoardAction, 
-    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction, undoAddBoardAction } from './actions';
+    setAddMemberToBoardAction, setRemoveMemberToBoardAction, setAddPulseAction, setLoggedinUserAction, setDeletePulseAction, setEditPulseAction, setEditCellAction, setAddNewLabelAction, setEditLabelAction, setDeleteColumnAction, setEditColumnAction, setAddColumnAction, setDeleteBoardAction, setEditBoardAction, undoAddBoardAction, showLoadingAction, removeLoadingAction } from './actions';
 
 export function* getBoardsList(action: AnyAction) {
   const boardList: BoardItem[] = yield call(getBoardsListAPI, action.payload);
@@ -44,13 +44,16 @@ export function* editBoard(action: AnyAction) {
 }
 
 export function* deleteBoard(action: AnyAction) {
+  yield put(setDeleteBoardAction(action.payload));
   const deletedBoardId: String = yield call(deleteBoardAPI, action.payload);
-  yield put(setDeleteBoardAction(deletedBoardId));
+  // yield put(setDeleteBoardAction(deletedBoardId));
 }
 
 export function* addColumn(action: AnyAction) {
+  yield put(showLoadingAction());
   const boardAfterAddedColumn = yield call(addColumnAPI, action.payload);
   yield put(setAddColumnAction(boardAfterAddedColumn.boardId, boardAfterAddedColumn.progressHeader, boardAfterAddedColumn.pulse));
+  yield put(removeLoadingAction());
 }
 
 export function* editColumn(action: AnyAction) {
@@ -59,23 +62,28 @@ export function* editColumn(action: AnyAction) {
 }
 
 export function* deleteColumn(action: AnyAction) {
+  // console.log('action.payload ----- deleteColumn---------------', action.payload);
+  yield put(setDeleteColumnAction(action.payload.headerColumnId));
   const boardAfterDeleteColumn = yield call(deleteColumnAPI, action.payload);
-  yield put(setDeleteColumnAction(boardAfterDeleteColumn.progressHeader, boardAfterDeleteColumn.pulse));
+  // console.log('boardAfterDeleteColumn-------------------', boardAfterDeleteColumn);
+  // yield put(setDeleteColumnAction(boardAfterDeleteColumn.progressHeader, boardAfterDeleteColumn.pulse));
 }
 
 export function* addPulse(action: AnyAction) {
+  yield put(showLoadingAction());
   const boardAfterAddPulse = yield call(addPulseAPI, action.payload);
   yield put(setAddPulseAction(boardAfterAddPulse.boardId, boardAfterAddPulse.pulse, boardAfterAddPulse.progressHeader));
+  yield put(removeLoadingAction());
 }
 
 export function* editPulse(action: AnyAction) {
+  yield put(setEditPulseAction(action.payload.pulseId, action.payload.pulseTxt));
   const boardAftereditPulse = yield call(editPulseAPI, action.payload);
-  yield put(setEditPulseAction(boardAftereditPulse.pulseId, boardAftereditPulse.pulseTxt));
 }
 
 export function* deletePulse(action: AnyAction) {
+  yield put(setDeletePulseAction(action.payload.pulseId));
   const boardAfterDeletePulse = yield call(deletePulseAPI, action.payload);
-  yield put(setDeletePulseAction(boardAfterDeletePulse.pulseId));
 }
 
 export function* editCell(action: AnyAction) {
