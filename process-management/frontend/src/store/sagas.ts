@@ -42,9 +42,9 @@ export function* editBoard(action: AnyAction) {
 }
 
 export function* deleteBoard(action: AnyAction) {
-  yield put(setDeleteBoardAction(action.payload));
+  // yield put(setDeleteBoardAction(action.payload));
   const deletedBoardId: String = yield call(deleteBoardAPI, action.payload);
-  // yield put(setDeleteBoardAction(deletedBoardId));
+  yield put(setDeleteBoardAction(deletedBoardId));
 }
 
 export function* addColumn(action: AnyAction) {
