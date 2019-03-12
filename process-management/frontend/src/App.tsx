@@ -70,7 +70,7 @@ export default class App extends React.PureComponent<AppProps, AppState> {
                    <AppHeaderComponent authenticatedUser={this.state.authenticatedUser} />
               
                   <Route path="/home" component={BoardListComponent} />
-                  <Route path="/boards/:boardId" component={BoardComponent} />
+                  {/* <Route path="/boards/:boardId" component={BoardComponent} /> */}
                 </React.Suspense>
               </div>
             ) : (

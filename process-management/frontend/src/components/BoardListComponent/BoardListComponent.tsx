@@ -16,6 +16,7 @@ import { addColumn } from '../../store/sagas';
 import DeleteBoardDialog from '../BoardListComponent/DeleteBoardDialog';
 import Assignment from '@material-ui/icons/Assignment';
 import { TextField, Tooltip, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, Button, DialogActions } from '@material-ui/core';
+import NoboardSelectedMsg from './NoboardSelectedMsg';
 
 export interface BoardListProps {
     boardList: BoardItem[],
@@ -166,20 +167,24 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                     <div className="lds-hourglass"></div>
                 ) : (
                     <div className="main-board">
-                    <BoardComponent currentBoard={this.props.currentBoard}
-                    addMemberToBoardSaga={this.props.addMemberToBoardSaga}
-                    removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
-                    addPulseSaga={this.props.addPulseSaga}
-                    editPulseSaga={this.props.editPulseSaga}
-                    deletePulseSaga={this.props.deletePulseSaga}
-                    addColumnSaga={this.props.addColumnSaga}
-                    editColumnSaga={this.props.editColumnSaga}
-                    deleteColumnSaga={this.props.deleteColumnSaga}
-                    editCellSaga={this.props.editCellSaga}
-                    addNewLabelSaga={this.props.addNewLabelSaga}
-                    editLabelSaga={this.props.editLabelSaga}
-                    deleteLabelSaga={this.props.deleteLabelSaga}
-                />
+                        {this.props.currentBoard ? (
+                            <BoardComponent currentBoard={this.props.currentBoard}
+                            addMemberToBoardSaga={this.props.addMemberToBoardSaga}
+                            removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
+                            addPulseSaga={this.props.addPulseSaga}
+                            editPulseSaga={this.props.editPulseSaga}
+                            deletePulseSaga={this.props.deletePulseSaga}
+                            addColumnSaga={this.props.addColumnSaga}
+                            editColumnSaga={this.props.editColumnSaga}
+                            deleteColumnSaga={this.props.deleteColumnSaga}
+                            editCellSaga={this.props.editCellSaga}
+                            addNewLabelSaga={this.props.addNewLabelSaga}
+                            editLabelSaga={this.props.editLabelSaga}
+                            deleteLabelSaga={this.props.deleteLabelSaga}
+                            />
+                        ) : (
+                            <NoboardSelectedMsg />
+                        )}
                 </div>
                 )}
                 </div>
