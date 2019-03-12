@@ -35,7 +35,8 @@ export const addNewLabelAction = (boardId: String, pulseId: String, cellId: Stri
 export const setAddNewLabelAction = (pulseId: String, cellId: String, label: Label) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {pulseId, cellId, label});
 // export const setAddNewLabelAction = (boardId: String, pulse: Pulse) => action(ProcessMgtActionType.SET_ADD_NEW_LABEL, {boardId, pulse});
 export const editLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String, label: Label) => action(ProcessMgtActionType.EDIT_LABEL_SAGA, {boardId, pulseId, cellId, labelId, label});
-export const setEditLabelAction = (boardId: String, pulse: Pulse[]) => action(ProcessMgtActionType.SET_EDIT_LABEL, {boardId, pulse});
+export const setEditLabelAction = (pulseId: String, cellId: String, labelId: String, label: Label) => action(ProcessMgtActionType.SET_EDIT_LABEL, {pulseId, cellId, labelId, label});
+// export const setEditLabelAction = (boardId: String, pulse: Pulse[]) => action(ProcessMgtActionType.SET_EDIT_LABEL, {boardId, pulse});
 export const deleteLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.DELETE_LABEL_SAGA, {boardId, pulseId, cellId, labelId});
 export const setDeleteLabelAction = (boardId: String, pulseId: String, cellId: String, labelId: String) => action(ProcessMgtActionType.SET_DELETE_LABEL, {boardId, pulseId, cellId, labelId});
 

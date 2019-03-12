@@ -26,10 +26,7 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, boardList: [...currentState.boardList, action.payload], errorMessage: '' };
 
     case ProcessMgtActionType.ADD_BOARD_ERROR:
-      // console.log('historyState after error----', action);
-      // console.log('currentState after erro-----------', currentState);
       const oldBoardList = [...currentState.boardList];
-      // console.log('oldBoardList-------------------------------', oldBoardList);
       const errorBoardName = oldBoardList.filter(ol => ol.boardId === action.payload)[0].boardName;
       if(oldBoardList.length > 1) {
         const newBoardList = oldBoardList.filter(ol => ol.boardId !== action.payload);
@@ -43,7 +40,6 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       return { ...currentState, errorMessage: '' }
 
     case ProcessMgtActionType.SET_EDIT_BOARD:
-    // console.log('in reducers================================',action.payload);
     if(currentState.currentBoard && currentState.currentBoard.boardId === action.payload.boardId ) {
       return { ...currentState,
         boardList: currentState.boardList.map(b => b.boardId !== action.payload.boardId ? b : action.payload),
@@ -93,12 +89,8 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     case ProcessMgtActionType.SET_ADD_PULSE:
     return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ progressHeader: action.payload.progressHeader }, ...{ pulse: action.payload.pulse } } } };
 
-      // console.log('currentState---- old', currentState);
-      // console.log('action.payload.pulse', action.payload.pulse);
-      // console.log('currentState---- new', { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: [...currentState.currentBoard.pulse, action.payload.pulse] } } } });
       // if(action.payload.pulse.length === 1 ) {
       //   return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse} } } };
-      //   // console.log('oldPulse---------', oldPulse);
       // //  return { ...oldPulse, ...{ currentBoard: { ...oldPulse.currentBoard, ...{ progressHeader: action.payload.progressHeader} } } };
       // } else {
       //   return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
@@ -117,7 +109,6 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
     case ProcessMgtActionType.SET_DELETE_PULSE:
       const afterDeleteNewPulseList = currentState.currentBoard.pulse.filter(p => p.pulseId !== action.payload.pulseId);
       return {...currentState, ...{currentBoard: {...currentState.currentBoard, ...{pulse: afterDeleteNewPulseList}}}}
-      // console.log('ProcessMgtActionType.SET_DELETE_PULSE = action.payload',  action.payload);
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } }
 
     case ProcessMgtActionType.SET_EDIT_CELL:
@@ -171,6 +162,19 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_ } } } };
 
     case ProcessMgtActionType.SET_EDIT_LABEL:
+      const tempPulsesList = [...currentState.currentBoard.pulse];
+      const oldSinglePulse = tempPulsesList.filter(tp => tp.pulseId === action.payload.pulseId)[0];
+      const oldSingleCell = oldSinglePulse.cells.filter(oc => oc.cellId === action.payload.cellId)[0];
+      const oldSingleLabel = oldSingleCell.labels.filter(ol => ol.labelId === action.payload.labelId)[0];
+      const newSingleLabel = {...oldSingleLabel, labelTxt: action.payload.label.labelTxt };
+      const newSingleCell_withOnlyLabels = oldSingleCell.labels.map(l => l.labelId === action.payload.labelId ? newSingleLabel : l);
+      const newSingleCell = {...oldSingleCell, labels: newSingleCell_withOnlyLabels};
+
+      const newSinglePulse_WithOnlyCells = oldSinglePulse.cells.map(c => c.cellId === action.payload.cellId ? newSingleCell : c);
+      const newSinglePulse = {...oldSinglePulse, cells: newSinglePulse_WithOnlyCells };     
+
+      const newPulseList_AtEnd = tempPulsesList.map(p => p.pulseId === action.payload.pulseId ? newSinglePulse : p);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_AtEnd } } } };
       // const targetCell__ = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
       //   .cells.filter(c => c.cellId === action.payload.cellId)[0];
       // const updatedLables = targetCell__.labels.map(l => l.labelId === action.payload.label.labelId ? action.payload.label : l);
@@ -180,22 +184,23 @@ const ProcessManagementReducer = (currentState: ProcessManagementState = initial
       // const newPulse__ = { ...oldPulse__, cells: updatedTargetCellWithPulse };
       // const newPulseList__ = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse__ : p);
       // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList__ } } } };
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
 
     case ProcessMgtActionType.SET_DELETE_LABEL:
-      // const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-      //   .cells.filter(c => c.cellId === action.payload.cellId)[0]
-      //   .labels.filter(l => l.labelId !== action.payload.labelId);
-      // const oldCell = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-      //   .cells.filter(c => c.cellId === action.payload.cellId)[0];
-      // const newCell = { ...oldCell, labels: newLabelList };
-      // const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
-      //   .cells.map(c => c.cellId === action.payload.cellId ? newCell : c);
-      // const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
-      // const newPulse_after_delete_label = { ...oldPulse_before_delete_label, cells: newCellsList };
-      // const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
-      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
-      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
+      const newLabelList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0]
+        .labels.filter(l => l.labelId !== action.payload.labelId);
+      const oldCell1 = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.filter(c => c.cellId === action.payload.cellId)[0];
+      const newCell1 = { ...oldCell1, labels: newLabelList };
+      const newCellsList = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0]
+        .cells.map(c => c.cellId === action.payload.cellId ? newCell1 : c);
+      const oldPulse_before_delete_label = currentState.currentBoard.pulse.filter(p => p.pulseId === action.payload.pulseId)[0];
+      const newPulse_after_delete_label = { ...oldPulse_before_delete_label, cells: newCellsList };
+      const newPulseList_after_delete_label = currentState.currentBoard.pulse.map(p => p.pulseId === action.payload.pulseId ? newPulse_after_delete_label : p);
+      return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: newPulseList_after_delete_label } } } };
+      // return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ pulse: action.payload.pulse } } } };
 
     case ProcessMgtActionType.SET_ADD_MEMBER_TO_BOARD:
       return { ...currentState, ...{ currentBoard: { ...currentState.currentBoard, ...{ members: action.payload.user } } } };

@@ -145,7 +145,7 @@ const labelsController = {
 
             if (pulseIndex >= 0 && cellIndex >= 0 && labelIndex >= 0) {
               targetBoard.pulse[pulseIndex].cells[cellIndex].labels[labelIndex].labelTxt = updatedLabelData.labelTxt;
-              targetBoard.pulse[pulseIndex].cells[cellIndex].labels[labelIndex].color = updatedLabelData.color;
+              // targetBoard.pulse[pulseIndex].cells[cellIndex].labels[labelIndex].color = updatedLabelData.color;
               targetBoard.save((error1, newBoard) => {
                 if (error1) {
                   // throw error1;

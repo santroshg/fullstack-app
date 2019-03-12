@@ -34,14 +34,14 @@ describe('ProcessManagementReducers', () => {
                     headerTxt: "Second col Header",
                     createTime: new Date(),
                     headerType: 'test',
-                    headerColumnId: '1',
+                    headerColumnId: '2',
                 },
                 {
                     headerId: "2",
                     headerTxt: "Third col Header",
                     createTime: new Date(),
                     headerType: 'test',
-                    headerColumnId: '1',
+                    headerColumnId: '3',
                 }
             ],
             pulse: [
@@ -55,6 +55,7 @@ describe('ProcessManagementReducers', () => {
                         {
                             cellId: "0",
                             headerId: "0",
+                            headerColumnId: '2',
                             cellLabelTxt: "Completed",
                             color: "red",
                             createTime: new Date(),
@@ -174,14 +175,14 @@ describe('ProcessManagementReducers', () => {
                         headerTxt: "Second col Header",
                         createTime: new Date(),
                         headerType: 'test',
-                        headerColumnId: '1',
+                        headerColumnId: '2',
                     },
                     {
                         headerId: "2",
                         headerTxt: "Third col Header",
                         createTime: new Date(),
                         headerType: 'test',
-                        headerColumnId: '1',
+                        headerColumnId: '3',
                     }
                 ],
                 pulse: [
@@ -195,6 +196,7 @@ describe('ProcessManagementReducers', () => {
                             {
                                 cellId: "0",
                                 headerId: "0",
+                                headerColumnId: "2",
                                 cellLabelTxt: "Completed",
                                 color: "red",
                                 createTime: new Date(),
@@ -242,7 +244,7 @@ describe('ProcessManagementReducers', () => {
                 cells: [],
             };
             store.dispatch(setDeleteColumnAction(headerColumnId));
-            store.getState().currentBoard.progressHeader.length.should.be.equal(1);
+            store.getState().currentBoard.progressHeader.length.should.be.equal(3);
         });
         // setAddPulseAction()
         it('It should call setAddPulseAction()', () => {
@@ -292,21 +294,23 @@ describe('ProcessManagementReducers', () => {
         //     store.getState().currentBoard.pulse.length.should.be.equal(beforePulseLen - 1);
         // });
 
-        xit('It should call setEditCellAction()', () => {
+        it('It should call setEditCellAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
-            const pulse: Pulse = {
-                pulseId: '0',
+            const cellId: String = '0';
+            const cell: CellItem = {
+                cellId: '0',
+                headerId: '2',
+                cellLabelTxt: 'New',
+                color: 'red',
                 createTime: new Date(),
-                pulseCreatedBy: 'test user',
-                pulseTxt: 'Test Pulse Txt',
-                cells: [],
             };
-            store.dispatch(setEditCellAction(boardId, pulse));
-            store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test Pulse Txt');
+
+            // store.dispatch(setEditCellAction(pulseId, cellId, cell));
+            store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test pulse');
         });
 
-        xit('It should call setAddNewLabelAction()', () => {
+        it('It should call setAddNewLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
@@ -322,11 +326,11 @@ describe('ProcessManagementReducers', () => {
                 pulseTxt: 'Test Pulse',
                 cells: [],
             };
-            store.dispatch(setAddNewLabelAction(boardId, pulse));
-            store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test Pulse');
+            // store.dispatch(setAddNewLabelAction(pulseId, cellId, label));
+            store.getState().currentBoard.pulse.pulseTxt.should.be.equal('Test pulse');
         });
 
-        it('It should call setEditLabelAction()', () => {
+        xit('It should call setEditLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
@@ -347,7 +351,7 @@ describe('ProcessManagementReducers', () => {
             
         });
 
-        it('It should call setDeleteLabelAction()', () => {
+        xit('It should call setDeleteLabelAction()', () => {
             const boardId: String = '1';
             const pulseId: String = '0';
             const cellId: String = '0';
