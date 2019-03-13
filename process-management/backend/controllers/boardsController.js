@@ -66,12 +66,12 @@ const boardsController = {
               error: 'ADD_BOARD_ERROR',
             });
 
-            // setTimeout(() => {
-            //   res.status(200).send({
-            //     boardId: req.body.notNeededBoardObject.boardId,
-            //     error: 'ADD_BOARD_ERROR',
-            //   });
-            // }, 5000);
+            setTimeout(() => {
+              res.status(200).send({
+                boardId: req.body.notNeededBoardObject.boardId,
+                error: 'ADD_BOARD_ERROR',
+              });
+            }, 5000);
           } else {
             res.set('Content-Type', 'application/json');
             res.status(201).send(response);

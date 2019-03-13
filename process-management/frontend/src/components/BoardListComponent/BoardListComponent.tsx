@@ -169,6 +169,7 @@ export class BoardListComponent extends React.PureComponent<BoardListProps, any>
                     <div className="main-board">
                         {this.props.currentBoard ? (
                             <BoardComponent currentBoard={this.props.currentBoard}
+                            loggedinUser={this.props.loggedinUser}
                             addMemberToBoardSaga={this.props.addMemberToBoardSaga}
                             removeMemberToBoardSaga={this.props.removeMemberToBoardSaga}
                             addPulseSaga={this.props.addPulseSaga}

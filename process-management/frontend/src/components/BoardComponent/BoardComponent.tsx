@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-import { Board } from '../../store/types';
+import { Board, GoogleUser } from '../../store/types';
 import ProgressHeaderComponent from '../ProgressHeader/ProgressHeaderComponent';
 import PulseComponent from '../PulseComponent/PulseComponent';
 import MembersDialog from './Members/MembersDialog';
@@ -14,6 +14,7 @@ import AddColumnComponent from '../ProgressHeader/AddColumnComponent';
 
 export interface BoardProps {
     currentBoard?: Board,
+    loggedinUser?: GoogleUser,
     addMemberToBoardSaga?: any,
     removeMemberToBoardSaga?: any,
     addPulseSaga?: any,
@@ -79,6 +80,7 @@ export default class BoardComponent extends React.Component<BoardProps, any> {
                             </div>
                             <div className='board-header-members'>
                                 <MembersDialog currentBoard={this.props.currentBoard}
+                                    loggedinUser={this.props.loggedinUser}
                                     addMemberToBoardSaga={this.props.addMemberToBoardSaga}
                                     removeMemberToBoardSaga={this.props.removeMemberToBoardSaga} />
                             </div>

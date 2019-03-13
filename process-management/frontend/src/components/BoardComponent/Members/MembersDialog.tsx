@@ -9,13 +9,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import ExitToAppRounded from '@material-ui/icons/ExitToAppRounded';
+
+import ExitToAppOutlined from '@material-ui/icons/ExitToAppOutlined';
 import TextField from '@material-ui/core/TextField';
-import { Board } from '../../../store/types';
+import { Board, GoogleUser } from '../../../store/types';
 import { sendMail } from '../../../service/mail-service.js';
 
 interface MembersDialogProps {
   currentBoard?: Board,
+  loggedinUser?: GoogleUser,
   addMemberToBoardSaga?: any,
   removeMemberToBoardSaga?: any,
 }
@@ -79,6 +82,7 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
 
 
   render() {
+
     return (
       <div>
         <Button color="primary" onClick={this.handleClickOpen}>
@@ -99,14 +103,19 @@ export default class MembersDialog extends React.PureComponent<MembersDialogProp
                       primary={m.userDisplayName}
                     />
                     <ListItemSecondaryAction>
-                      <IconButton aria-label="Delete"
-                        onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
-                        <DeleteIcon />
-                      </IconButton>
+                      {this.props.loggedinUser.userEmail === m.userEmail ? (
+                        <IconButton aria-label="Delete"
+                          onClick={e => this.handleDeleteUser(m.userId, this.props.currentBoard.boardId)}>
+                          <ExitToAppRounded />
+                        </IconButton>
+                        ) : (
+                          <React.Fragment></React.Fragment>
+                        )
+                      }
                     </ListItemSecondaryAction>
                   </ListItem>
                 </List>
-              ))) : (<div>anok</div>)}
+              ))) : (<React.Fragment>No Members</React.Fragment>)}
 
           </DialogContent>
           <DialogActions>
